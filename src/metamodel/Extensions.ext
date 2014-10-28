@@ -1,5 +1,5 @@
 //import similuml;
-//bbnn
+
 //DiagramaClases modeloNuestro(Clase this) : eContainer;
-	
+
 //List[Clase] entidadesNuestras(DiagramaClases this) :  refTipos.typeSelect(Clase);

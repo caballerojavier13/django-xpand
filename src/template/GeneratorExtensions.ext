@@ -4,10 +4,6 @@ import similuml;
 
 //getter(Feature this) :
 	//"get"+name.toFirstUpper();
-	
+
 //setter(Feature this) :
 //	"set"+name.toFirstUpper();
-	
-	
-
-	
