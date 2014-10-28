@@ -1,0 +1,64 @@
+«IMPORT similuml»
+«EXTENSION template::GeneratorExtensions»
+
+«REM»
+Creación de modelos de la aplicación Django
+Archivo generado: models.py
+«ENDREM»
+
+«REM»Creación del archivo de modelos«ENDREM»
+«DEFINE main FOR DiagramaClases»
+    «FILE 'models.py'-»
+from django.db import models
+        
+«EXPAND claseDjango FOREACH clases_del_Diagrama-»
+    «ENDFILE»
+«ENDDEFINE»
+
+«REM»Declaración de clases«ENDREM»
+«DEFINE claseDjango FOR Clase»
+class «this.nombre»(«EXPAND herenciaClase FOR this»):
+    # Atributos
+    «EXPAND atributoClase FOREACH this.atributos_clases-»
+    # Relaciones
+    «EXPAND asociacionClase FOREACH this.asociaciones_contenidas-»
+«ENDDEFINE»
+
+«REM»Atributos de clase«ENDREM»
+«DEFINE atributoClase FOR Atributo-»
+    «this.nombre» = Model.«EXPAND campoTipoDato FOR this.tipo»(«EXPAND opcionesCampo FOR this.tipo»)
+«ENDDEFINE»
+
+«REM»Asociaciones de clase«ENDREM»
+«DEFINE asociacionClase FOR Asociacion-»
+    «this.nombre» = Model.ForeignKey('«this.destino.nombre»')
+«ENDDEFINE»
+
+«REM»Herencia de clase«ENDREM»
+«DEFINE herenciaClase FOR Clase-»
+«IF this.herenciasClases_contenidas.isEmpty-»
+models.Model«ELSE-»
+«this.herenciasClases_contenidas.first()»«ENDIF-»
+«ENDDEFINE»
+
+«REM»Campo asociado al tipo de dato del atributo de clase«ENDREM»
+«DEFINE campoTipoDato FOR Tipo_Predefinido-»
+«IF this.toString()=='int'-»
+IntegerField«ELSEIF this.toString()=='float'-»
+FloatField«ELSEIF this.toString()=='char'-»
+CharField«ELSEIF this.toString()=='boolean'-»
+BooleanField«ELSEIF this.toString()=='String'-»
+CharField«ELSEIF this.toString()=='double'-»
+DecimalField«ENDIF-»
+«ENDDEFINE»
+
+«REM»Opciones específicas de campo del atributo de clase«ENDREM»
+«DEFINE opcionesCampo FOR Tipo_Predefinido-»
+«IF this.toString()=='int'-»
+«ELSEIF this.toString()=='float'-»
+«ELSEIF this.toString()=='char'-»
+max_length=1«ELSEIF this.toString()=='boolean'-»
+«ELSEIF this.toString()=='String'-»
+max_length=50«ELSEIF this.toString()=='double'-»
+max_digits=12, decimal_places=3«ENDIF-»
+«ENDDEFINE»
