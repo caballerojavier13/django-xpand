@@ -110,7 +110,7 @@ def «this.nombre.toFirstLower()»_eliminar_json(request, id):
 «REM»Vista Detallar de la clase, en JSON«ENDREM»
 «DEFINE vistaDetallarJson FOR Clase»
 def «this.nombre.toFirstLower()»_detallar_json(request, id):
-    object = get_object_or_404(Persona, pk=id)
+    object = get_object_or_404(«this.nombre», pk=id)
     data = serializers.serialize('json', [object])
     return HttpResponse(data, content_type='application/json; charset=utf-8')
 «ENDDEFINE»
