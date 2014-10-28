@@ -1,0 +1,413 @@
+«IMPORT similuml»
+«EXTENSION template::GeneratorExtensions»
+
+«REM» Accedo al nodo raiz «ENDREM»
+«DEFINE main FOR DiagramaClases»
+    «EXPAND phpClass FOREACH clases_del_Diagrama»
+    «EXPAND phpInterfaz FOREACH interfaces_del_Diagrama»
+«ENDDEFINE»
+
+«REM»
+Defino el archivo de salida y hago las llamadas para construir
+los elementos internos de una clase
+«ENDREM»
+«DEFINE phpClass FOR Clase»
+    «FILE "modelo/"+this.nombre+".php"»
+<?php
+
+«IF this.esAbstracta==true»abstract«ENDIF» class «this.nombre»
+	«REM» Pregunto si hay herencias «ENDREM»
+    «IF !this.herenciasClases_contenidas.isEmpty»
+        extends «EXPAND herencia_entre_Clases_Implementa FOREACH herenciasClases_contenidas»
+    «ENDIF»
+
+	«REM»
+	Posicionado en la metaclase Clase, navego a través de realizacion_contenida
+	para averiguar si hay implementaciones de interfaces
+	«ENDREM»
+    «IF !this.realizacion_contenida.isEmpty»
+        implements «EXPAND realizacion_Implementa FOREACH realizacion_contenida SEPARATOR ","»
+    «ENDIF»
+{
+
+«REM»
+Posicionado en la metaclase Clase, navego a través de atributos_clases
+para crear los atributos propios de cada clase
+«ENDREM»
+// Crear los atributos de la clase
+«EXPAND atributosClase FOREACH atributos_clases»
+
+«REM»
+Posicionado en la metaclase Clase, navego a través de asociaciones_contenidas
+para crear las referencias salientes de las clases. Debo considerar en la función el caso 
+específico de que la asociacion sea hacia una interface o una clase
+«ENDREM»
+// Crear las asociaciones a otras clases e interfaces
+«EXPAND asociaciones FOREACH asociaciones_contenidas»
+
+«REM»
+Posicionado en la metaclase Clase, navego a través de composiciones_contenidas
+para crear las referencias salientes de las clases.
+«ENDREM»
+// Crear los punteros a otras clases por composicion
+ «EXPAND composiciones FOREACH composiciones_contenidas»
+
+«REM»
+Posicionado en la metaclase Clase, navego a través de agregaciones_contenidas
+para crear las referencias salientes de las clases. No creamos un método alternativo,
+lo tomamos como una asociación
+«ENDREM»
+// Crear los punteros a otras clases por agregacion
+«EXPAND agregaciones FOREACH agregaciones_contenidas»
+         
+
+«REM» Constructor vacío «ENDREM»
+public function __construct() {}
+
+«REM» Constructor sobrecargado
+Posicionado en la metaclase Clase, navego a través de atributos_clases
+para saber si hay elementos de atributos
+«ENDREM»
+«IF !this.atributos_clases.isEmpty»
+    public function __construct(«EXPAND nombreAtributos FOREACH atributos_clases SEPARATOR ","»
+    «IF !this.herenciasClases_contenidas.isEmpty && !this.herenciasClases_contenidas.hereda_Clase_Destino.atributos_clases.isEmpty»
+        , «EXPAND nombreAtributos FOREACH this.herenciasClases_contenidas.hereda_Clase_Destino.atributos_clases SEPARATOR ","»
+    «ENDIF») {
+        «IF !this.herenciasClases_contenidas.isEmpty && !this.herenciasClases_contenidas.hereda_Clase_Destino.atributos_clases.isEmpty»
+            parent::__construct(«EXPAND nombreAtributos FOREACH this.herenciasClases_contenidas.hereda_Clase_Destino.atributos_clases SEPARATOR ","»);
+        «ENDIF»
+        «EXPAND asignoAtributos FOREACH this.atributos_clases»
+    }
+«ENDIF»
+
+
+«REM» Generar getter y setter de todos los atributos «ENDREM»
+// Crear getter y setter de atributos
+«EXPAND getter_setter_Atributo FOREACH atributos_clases»
+«REM» Generar getter y setter de todas las asociaciones «ENDREM»
+// Crear getter y setter de referencias de asociacion
+«EXPAND getter_setter_Asociaciones FOREACH asociaciones_contenidas»
+«REM» Generar getter y setter de todas las composiciones «ENDREM»
+// Crear getter y setter de referencias de composicion
+«EXPAND getter_setter_Composiciones FOREACH composiciones_contenidas»
+«REM» Generar getter y setter de todas las agregaciones «ENDREM»
+// Crear getter y setter de referencias de agregacion
+«EXPAND getter_setter_Agregaciones FOREACH agregaciones_contenidas»
+
+«REM» Generar operaciones de las clases «ENDREM»
+// Metodos de la clase
+«EXPAND metodos_de_clase FOREACH operaciones_clases»
+
+«REM» Generar operaciones de la herencia y las realizaciones «ENDREM»
+«IF this.esAbstracta==false»
+    // Metodos redefinidos de una herencia de clases
+    «EXPAND clase_metodos_implementados_herencia FOR this»
+«ENDIF»
+
+}
+
+?>
+	«ENDFILE»
+«ENDDEFINE»
+
+
+«REM» Métodos que se deben implementar de las interfaces «ENDREM»
+«DEFINE implementa_metodos_de_las_Interfaces FOR Operacion»
+    «this.visibilidad» function «this.nombre»(«EXPAND parametros_de_operacion FOREACH parametros_contenidos SEPARATOR ","») {
+    «IF this.tipo_retorno.toString()=="void"»
+        // Redefina el codigo;
+        }
+    «ELSE»
+        // Implemente el codigo;
+ 	    «IF this.tipo_retorno.toString()=="int" || this.tipo_retorno.toString()=="double" || this.tipo_retorno.toString()=="float"»
+            return  0;
+        «ELSEIF this.tipo_retorno.toString()=="boolean"»
+            return false;
+        «ELSEIF this.tipo_retorno.toString()=="String"»
+            return null;
+        «ENDIF»
+        }
+    «ENDIF»
+«ENDDEFINE»
+
+
+«REM» Implementación de métodos heredados, tanto abstractos como realizados «ENDREM»
+«DEFINE clase_metodos_implementados_herencia FOR Clase»
+    // Metodos heredados de «this.nombre»
+    «EXPAND implementa_metodos_Heredados_de_Clase FOREACH this.operaciones_clases»
+    
+    «REM» Métodos de interfaz realizados «ENDREM»
+    «IF !this.realizacion_contenida.isEmpty»
+        «EXPAND clase_metodos_interfaz_realizados FOREACH this.realizacion_contenida.destinoRealizacion»
+    «ENDIF»
+    
+    «REM» Llamada recursiva a la clase padre«ENDREM»
+    «IF !this.herenciasClases_contenidas.isEmpty»
+        «EXPAND clase_metodos_implementados_herencia FOREACH this.herenciasClases_contenidas.hereda_Clase_Destino»
+    «ENDIF»
+«ENDDEFINE»
+
+
+«REM» Implementación de métodos de interfaz realizados «ENDREM»
+«DEFINE clase_metodos_interfaz_realizados FOR Interface»
+    // Metodos realizados de la interfaz «this.nombre»
+    «EXPAND implementa_metodos_de_las_Interfaces FOREACH this.operaciones_iterfaces»
+    «IF !this.herenciasInterfaz_contenidas.isEmpty»
+        «EXPAND clase_metodos_interfaz_realizados FOREACH this.herenciasInterfaz_contenidas.hereda_Interfaz_destino»
+    «ENDIF»
+«ENDDEFINE»
+
+
+«REM» Asigno atributos «ENDREM»
+«REM»
+Posicionado en la metaclase Atributo, obtengo su tipo y su nombre a través de this
+«ENDREM»
+«DEFINE asignoAtributos FOR Atributo»
+    $this->«this.nombre» = $«this.nombre»;
+«ENDDEFINE»
+
+
+«REM» Nombre de atributos «ENDREM»
+«REM»
+Posicionado en la metaclase Atributo, obtengo su nombre a través de this
+«ENDREM»
+«DEFINE nombreAtributos FOR Atributo»
+    $«this.nombre»
+«ENDDEFINE»
+
+
+«REM» Herencia entre clases «ENDREM»
+«DEFINE herencia_entre_Clases_Implementa FOR Herencia»
+    «this.hereda_Clase_Destino.nombre»
+«ENDDEFINE»
+
+
+«REM» Métodos que se heredan abstractos para redefinir «ENDREM»
+«DEFINE implementa_metodos_Heredados_de_Clase FOR Operacion»
+    «IF this.esAbstracto==true»
+        «this.visibilidad» function «this.nombre»(«EXPAND parametros_de_operacion FOREACH parametros_contenidos SEPARATOR ","») {
+        «IF this.tipo_retorno.toString()=="void"»
+            // Redefina el codigo;
+            }
+        «ELSE»
+            // Implemente el codigo;
+            «IF this.tipo_retorno.toString()=="int" || this.tipo_retorno.toString()=="double" || this.tipo_retorno.toString()=="float"»
+                return  0;
+            «ELSEIF this.tipo_retorno.toString()=="boolean"»
+                return false;
+            «ELSEIF this.tipo_retorno.toString()=="String"»
+                return null;
+            «ENDIF»
+            }
+        «ENDIF»
+    «ENDIF»
+«ENDDEFINE»
+  
+
+«REM» Métodos «ENDREM»
+«DEFINE metodos_de_clase FOR Operacion»
+    «IF this.esAbstracto==true»
+        «this.visibilidad» abstract function «this.nombre»(«EXPAND parametros_de_operacion FOREACH parametros_contenidos SEPARATOR ","»);
+    «ELSE»
+        «this.visibilidad» function «this.nombre»(«EXPAND parametros_de_operacion FOREACH parametros_contenidos SEPARATOR ","»){
+        «IF this.tipo_retorno.toString()=="void"»
+            // Redefina el codigo;
+            }
+        «ELSE»
+            // Implemente el codigo;
+            «IF this.tipo_retorno.toString()=="int" || this.tipo_retorno.toString()=="double" || this.tipo_retorno.toString()=="float"»
+                return  0;
+            «ELSEIF this.tipo_retorno.toString()=="boolean"»
+                return false;
+            «ELSEIF this.tipo_retorno.toString()=="String"»
+                return null;
+ 	        «ENDIF»
+ 	        }
+        «ENDIF»
+    «ENDIF»
+«ENDDEFINE»
+
+
+«REM» Parámetros de los métodos «ENDREM»
+«DEFINE parametros_de_operacion FOR Parametro»
+    $«this.nombre»
+«ENDDEFINE»
+
+
+«REM» Qué interfaces implemento «ENDREM»
+«REM»
+Posicionado en la metaclase Realizacion, navego a través de destinoRealizacion
+para averiguar el nombre de la interfaz
+«ENDREM»
+«DEFINE realizacion_Implementa FOR Realizacion»
+    «this.destinoRealizacion.nombre»
+«ENDDEFINE»
+
+
+«REM» Atributos de la clase «ENDREM»
+«REM»
+Posicionados en la metaclase Atributo, aramamos su tipo y su nombre
+«ENDREM»
+«DEFINE atributosClase FOR Atributo»
+    «this.visibilidad» $«this.nombre»;
+«ENDDEFINE»
+
+
+«REM» Asociaciones de la clase «ENDREM»
+«REM»
+Posicionados en la metaclase Asociacion, averiguo navegando si es una clase
+«ENDREM»
+«DEFINE asociaciones FOR Asociacion»
+    «IF this.haciaInterfazdesdeClase.metaType==similuml::Interface»
+        private $«this.haciaInterfazdesdeClase.nombre.toFirstLower()»;
+    «ELSE»
+        private $«this.nombre.toFirstLower()»;
+    «ENDIF»
+«ENDDEFINE»
+
+
+«REM» Composiciones de la clase «ENDREM»
+«DEFINE composiciones FOR Composicion»
+    private $«this.nombre.toFirstLower()»;
+«ENDDEFINE»
+
+
+«REM» Agregaciones de la clase «ENDREM»
+«DEFINE agregaciones FOR Agregacion»
+    private $«this.nombre.toFirstLower()»;
+«ENDDEFINE»
+
+
+«REM» Getter y setter de los atributos «ENDREM»
+«REM»
+Posicionado en la metaclase Atributo, obtengo su nombre y su tipo a través de this
+«ENDREM»
+«DEFINE getter_setter_Atributo FOR Atributo»
+    public function set«this.nombre.toFirstUpper()»($«this.nombre») {
+        $this->«this.nombre» = $«this.nombre»;
+    }
+    
+    public function get«this.nombre.toFirstUpper()»() {
+        return $this->«this.nombre»;
+    }
+«ENDDEFINE»
+
+
+«REM» Getter y setter de las asociaciones «ENDREM»
+«REM»
+Posicionado en la metaclase Asociocion, navego a través de
+haciaInterfazdesdeClase y averiguo si es de tipo Interfaz
+para armar los getter y setter con esa forma
+«ENDREM»
+«DEFINE getter_setter_Asociaciones FOR Asociacion»
+    «IF this.haciaInterfazdesdeClase.metaType== similuml::Interface»
+        «REM» En este caso es una asociación entre clases e interfaz «ENDREM»
+        public function set«this.haciaInterfazdesdeClase.nombre.toFirstUpper()»($«this.haciaInterfazdesdeClase.nombre.toFirstLower()») {
+            $this->«this.haciaInterfazdesdeClase.nombre.toFirstLower()» = $«this.haciaInterfazdesdeClase.nombre.toFirstLower()»;
+        }
+        
+        public function get«this.haciaInterfazdesdeClase.nombre.toFirstUpper()»() {
+            return $this->«this.haciaInterfazdesdeClase.nombre.toFirstLower()»;
+        }
+    «ELSE»
+        «REM» En este caso es una asociación entre clases «ENDREM»
+        public function set«this.nombre.toFirstUpper()»($«this.nombre.toFirstLower()») {
+            $this->«this.nombre.toFirstLower()» = «this.nombre.toFirstLower()»;
+        }
+        
+        public function get«this.nombre.toFirstUpper()»() {
+            return $this->«this.nombre.toFirstLower()»;
+        }     
+    «ENDIF»
+«ENDDEFINE»
+
+
+«REM» Getter y setter de las composiciones «ENDREM»
+«REM»
+En este caso armamos getter y setter para las composiciones
+«ENDREM»
+«DEFINE getter_setter_Composiciones FOR Composicion»
+    public function set«this.nombre.toFirstUpper()»($«this.nombre.toFirstLower()») {
+        $this->«this.nombre.toFirstLower()» = $«this.nombre.toFirstLower()»;
+    }
+    
+    public function get«this.nombre.toFirstUpper()»() {
+        return $this->«this.nombre.toFirstLower()»;
+    }
+«ENDDEFINE»
+
+
+«REM» Getter y setter de las agregaciones «ENDREM»
+«REM»
+En este caso armamos getter y setter para las agregaciones
+«ENDREM»
+«DEFINE  getter_setter_Agregaciones FOR Agregacion»
+    public function set«this.nombre.toFirstUpper()»($«this.nombre.toFirstLower()») {
+        $this->«this.nombre.toFirstLower()» = $«this.nombre.toFirstLower()»;
+    }
+    
+    public function get«this.nombre.toFirstUpper()»() {
+        return $this->«this.nombre.toFirstLower()»;
+    }
+«ENDDEFINE»
+
+
+
+«REM» Crear los archivos de interfaces «ENDREM»
+«DEFINE phpInterfaz FOR Interface»
+    «FILE "modelo/"+this.nombre+".php"»
+<?php
+
+interface «this.nombre»
+	«REM» Pregunto si hay herencias «ENDREM»
+	«IF !this.herenciasInterfaz_contenidas.isEmpty»
+	    extends «EXPAND herencia_entre_Interfaces FOREACH this.herenciasInterfaz_contenidas.hereda_Interfaz_destino»
+	«ENDIF»
+{
+
+// Crear las constantes de las interfaces
+«EXPAND constantes_de_interfaces FOREACH this.contantes_Interfaces»
+
+// Crear los metodos de las interfaces 
+«EXPAND operaciones_de_interfaces FOREACH this.operaciones_iterfaces»
+
+«IF !this.herenciasInterfaz_contenidas.isEmpty»
+    // Heredo los metodos de la herencia
+    «EXPAND heredo_metodos_interfaces FOREACH this.herenciasInterfaz_contenidas.hereda_Interfaz_destino.operaciones_iterfaces»
+«ENDIF»
+
+}
+
+?>
+    «ENDFILE»
+«ENDDEFINE»
+
+
+«REM» Determino de qué interfaz se hereda «ENDREM»
+«DEFINE herencia_entre_Interfaces FOR Interface»
+    «this.nombre»
+«ENDDEFINE»
+
+
+«REM» Armo las constantes de la interfaz «ENDREM»
+«DEFINE constantes_de_interfaces FOR ConstantesInterfaces»
+    «IF this.tipo.toString()=="int" || this.tipo.toString()=="double" || this.tipo.toString()=="float"»
+        define("«this.nombre»", 0);
+    «ELSEIF this.tipo.toString()=="boolean"»
+        define("«this.nombre»", true);
+    «ELSEIF this.tipo.toString()=="String"»
+        define("«this.nombre»", "");
+    «ENDIF»
+«ENDDEFINE»
+
+
+«REM» Métodos abostractos de la interfaz «ENDREM»
+«DEFINE operaciones_de_interfaces FOR Operacion»
+    public function «this.nombre»(«EXPAND parametros_de_operacion FOREACH parametros_contenidos SEPARATOR ","-»);
+«ENDDEFINE»
+
+
+«REM» Heredo los métodos de la interfaz «ENDREM»
+«DEFINE heredo_metodos_interfaces FOR Operacion»
+    public function «this.nombre»(«EXPAND parametros_de_operacion FOREACH parametros_contenidos SEPARATOR ","-»);
+«ENDDEFINE»

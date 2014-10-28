@@ -1,0 +1,13 @@
+import similuml;
+
+//extension metamodel::Extensions reexport;
+
+//getter(Feature this) :
+	//"get"+name.toFirstUpper();
+	
+//setter(Feature this) :
+//	"set"+name.toFirstUpper();
+	
+	
+
+	

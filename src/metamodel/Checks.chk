@@ -1,0 +1,12 @@
+
+	
+import similuml;
+
+extension metamodel::Extensions;
+
+context DiagramaClases ERROR "No se definieron Clases" :
+
+	clases_del_Diagrama.exists(e|Clase.isInstance(e));
+	
+	
+	
