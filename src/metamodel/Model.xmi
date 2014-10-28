@@ -4,6 +4,7 @@
     <atributos_clases nombre="dni"/>
     <atributos_clases nombre="nombre" tipo="String"/>
     <atributos_clases nombre="apellido" tipo="String"/>
+    <asociaciones_contenidas nombre="domicilio" cardinalidadSuperior="1" origen="//@clases_del_Diagrama.0" destino="//@clases_del_Diagrama.1"/>
   </clases_del_Diagrama>
   <clases_del_Diagrama nombre="Domicilio">
     <atributos_clases nombre="calle" tipo="String"/>
