@@ -1,120 +1,13 @@
 <?xml version="1.0" encoding="ASCII"?>
-<similuml:DiagramaClases
-    xmi:version="2.0"
-    xmlns:xmi="http://www.omg.org/XMI"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns:similuml="http://similuml/1.0"
-    xsi:schemaLocation="http://similuml/1.0 SimilUML.ecore">
-  <interfaces_del_Diagrama
-      nombre="IVolador">
-    <operaciones_iterfaces
-        nombre="crear"/>
-    <herenciasInterfaz_contenidas
-        hereda_Interfaz_Origen="//@interfaces_del_Diagrama.0"
-        hereda_Interfaz_destino="//@interfaces_del_Diagrama.1"
-        nombre="voladorPadre"/>
-  </interfaces_del_Diagrama>
-  <interfaces_del_Diagrama
-      nombre="Ipadre">
-    <herenciasInterfaz_contenidas
-        hereda_Interfaz_Origen="//@interfaces_del_Diagrama.1"
-        hereda_Interfaz_destino="//@interfaces_del_Diagrama.4"
-        nombre="diosPadre"/>
-  </interfaces_del_Diagrama>
-  <interfaces_del_Diagrama
-      nombre="Ijugador">
-    <operaciones_iterfaces
-        nombre="jugar"
-        visibilidad="public"/>
-  </interfaces_del_Diagrama>
-  <interfaces_del_Diagrama
-      nombre="Ifumador"/>
-  <interfaces_del_Diagrama
-      nombre="Idios">
-    <operaciones_iterfaces
-        nombre="existir"
-        tipo_retorno="void"
-        visibilidad="public"/>
-  </interfaces_del_Diagrama>
-  <clases_del_Diagrama
-      nombre="Persona"
-      esAbstracta="true">
-    <asociaciones_contenidas
-        nombre="PersonaIvolador"
-        origen="//@clases_del_Diagrama.0"
-        haciaInterfazdesdeClase="//@interfaces_del_Diagrama.0"/>
-    <asociaciones_contenidas
-        nombre="personaDomicilio"
-        origen="//@clases_del_Diagrama.0"
-        destino="//@clases_del_Diagrama.2"/>
-    <composiciones_contenidas
-        nombre="PersonaComputadora"
-        origen="//@clases_del_Diagrama.0"
-        destino="//@clases_del_Diagrama.2"/>
-    <realizacion_contenida
-        origenRealizacion="//@clases_del_Diagrama.0"
-        destinoRealizacion="//@interfaces_del_Diagrama.2"
-        nombre="personaIjugador"/>
-    <realizacion_contenida
-        origenRealizacion="//@clases_del_Diagrama.0"
-        destinoRealizacion="//@interfaces_del_Diagrama.3"
-        nombre="personaIfumador"/>
-    <realizacion_contenida
-        origenRealizacion="//@clases_del_Diagrama.0"
-        destinoRealizacion="//@interfaces_del_Diagrama.1"
-        nombre="personaPadre"/>
-    <herenciasClases_contenidas
-        herenciaClase_Origen="//@clases_del_Diagrama.0"
-        hereda_Clase_Destino="//@clases_del_Diagrama.1"
-        nombre="personaAbuelo"/>
+<similuml:DiagramaClases xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:similuml="http://similuml/1.0" xsi:schemaLocation="http://similuml/1.0 SimilUML.ecore">
+  <clases_del_Diagrama nombre="Persona">
+    <atributos_clases nombre="dni"/>
+    <atributos_clases nombre="nombre" tipo="String"/>
+    <atributos_clases nombre="apellido" tipo="String"/>
   </clases_del_Diagrama>
-  <clases_del_Diagrama
-      nombre="Abuelo"
-      esAbstracta="true">
-    <operaciones_clases
-        nombre="mimar"
-        tipo_retorno="String"/>
-    <operaciones_clases
-        nombre="besar"
-        tipo_retorno="boolean"
-        esAbstracto="true"
-        visibilidad="public"/>
+  <clases_del_Diagrama nombre="Domicilio">
+    <atributos_clases nombre="calle" tipo="String"/>
+    <atributos_clases nombre="numero"/>
+    <atributos_clases nombre="localidad" tipo="String"/>
   </clases_del_Diagrama>
-  <clases_del_Diagrama
-      nombre="Domicilio">
-    <herenciasClases_contenidas
-        herenciaClase_Origen="//@clases_del_Diagrama.2"
-        hereda_Clase_Destino="//@clases_del_Diagrama.6"
-        nombre="CompuestaDomicilio"/>
-  </clases_del_Diagrama>
-  <clases_del_Diagrama
-      nombre="Alumno">
-    <atributos_clases
-        nombre="legajo"/>
-    <atributos_clases
-        nombre="nombre"
-        tipo="String"/>
-    <herenciasClases_contenidas
-        herenciaClase_Origen="//@clases_del_Diagrama.3"
-        hereda_Clase_Destino="//@clases_del_Diagrama.0"
-        nombre="PersonaAlumno"/>
-  </clases_del_Diagrama>
-  <clases_del_Diagrama
-      nombre="Profesor">
-    <herenciasClases_contenidas
-        herenciaClase_Origen="//@clases_del_Diagrama.4"
-        hereda_Clase_Destino="//@clases_del_Diagrama.0"
-        nombre="ProfesorPersona"/>
-  </clases_del_Diagrama>
-  <clases_del_Diagrama
-      nombre="Auto"/>
-  <clases_del_Diagrama
-      nombre="Compuesta">
-    <composiciones_contenidas
-        nombre="DomicilioCompuesta"
-        origen="//@clases_del_Diagrama.6"
-        destino="//@clases_del_Diagrama.2"/>
-  </clases_del_Diagrama>
-  <clases_del_Diagrama
-      nombre="Computadora"/>
 </similuml:DiagramaClases>
