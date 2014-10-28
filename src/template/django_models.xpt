@@ -15,31 +15,46 @@ from django.db import models
     «ENDFILE»
 «ENDDEFINE»
 
+
+«REM»Nombre de la clase en mayúsculas«ENDREM»
+«DEFINE nombreClaseMayus FOR Clase-»
+«this.nombre.toFirstUpper()»«ENDDEFINE»
+
+
+«REM»Nombre de la clase en minúsculas«ENDREM»
+«DEFINE nombreClaseMinus FOR Clase-»
+«this.nombre.toFirstLower()»«ENDDEFINE»
+
+
 «REM»Declaración de clases«ENDREM»
 «DEFINE claseDjango FOR Clase»
-class «this.nombre»(«EXPAND herenciaClase FOR this»):
+class «EXPAND nombreClaseMayus FOR this»(«EXPAND herenciaClase FOR this»):
     # Atributos
     «EXPAND atributoClase FOREACH this.atributos_clases-»
     # Relaciones
     «EXPAND asociacionClase FOREACH this.asociaciones_contenidas-»
 «ENDDEFINE»
 
+
 «REM»Atributos de clase«ENDREM»
 «DEFINE atributoClase FOR Atributo-»
-    «this.nombre» = Model.«EXPAND campoTipoDato FOR this.tipo»(«EXPAND opcionesCampo FOR this.tipo»)
+    «this.nombre.toFirstLower()» = Model.«EXPAND campoTipoDato FOR this.tipo»(«EXPAND opcionesCampo FOR this.tipo»)
 «ENDDEFINE»
+
 
 «REM»Asociaciones de clase«ENDREM»
 «DEFINE asociacionClase FOR Asociacion-»
-    «this.nombre» = Model.ForeignKey('«this.destino.nombre»')
+    «this.nombre.toFirstLower()» = Model.ForeignKey('«EXPAND nombreClaseMayus FOR this.destino»')
 «ENDDEFINE»
+
 
 «REM»Herencia de clase«ENDREM»
 «DEFINE herenciaClase FOR Clase-»
 «IF this.herenciasClases_contenidas.isEmpty-»
 models.Model«ELSE-»
-«this.herenciasClases_contenidas.first()»«ENDIF-»
+«EXPAND nombreClaseMayus FOREACH this.herenciasClases_contenidas SEPARATOR ', '»«ENDIF-»
 «ENDDEFINE»
+
 
 «REM»Campo asociado al tipo de dato del atributo de clase«ENDREM»
 «DEFINE campoTipoDato FOR Tipo_Predefinido-»
@@ -51,6 +66,7 @@ BooleanField«ELSEIF this.toString()=='String'-»
 CharField«ELSEIF this.toString()=='double'-»
 DecimalField«ENDIF-»
 «ENDDEFINE»
+
 
 «REM»Opciones específicas de campo del atributo de clase«ENDREM»
 «DEFINE opcionesCampo FOR Tipo_Predefinido-»

@@ -11,17 +11,19 @@ Archivo generado: admin.py
     «FILE 'admin.py'-»
 from django.contrib import admin
 
-from .models import «EXPAND nombreClase FOREACH clases_del_Diagrama SEPARATOR ','»
+from .models import «EXPAND nombreClaseMayus FOREACH clases_del_Diagrama SEPARATOR ', '»
 
 «EXPAND registroAdminClase FOREACH clases_del_Diagrama-»
     «ENDFILE»
 «ENDDEFINE»
 
-«REM»Nombre de clases«ENDREM»
-«DEFINE nombreClase FOR Clase-»
-«this.nombre»«ENDDEFINE»
 
 «REM»Registro de la clase en administración«ENDREM»
 «DEFINE registroAdminClase FOR Clase-»
-admin.site.register(«EXPAND nombreClase FOR this»)
+admin.site.register(«EXPAND nombreClaseMayus FOR this»)
 «ENDDEFINE»
+
+
+«REM»Nombre de la clase en mayúsculas«ENDREM»
+«DEFINE nombreClaseMayus FOR Clase-»
+«this.nombre.toFirstUpper()»«ENDDEFINE»

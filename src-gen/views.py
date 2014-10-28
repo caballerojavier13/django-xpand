@@ -5,7 +5,7 @@ from django.template import RequestContext
 
 import json
 
-from .models import Persona,Domicilio
+from .models import Persona, Domicilio
 
 
 # Clase: Persona
@@ -117,7 +117,7 @@ def domicilio_eliminar_json(request, id):
 
 
 def domicilio_detallar_json(request, id):
-    object = get_object_or_404(Persona, pk=id)
+    object = get_object_or_404(Domicilio, pk=id)
     data = serializers.serialize('json', [object])
     return HttpResponse(data, content_type='application/json; charset=utf-8')
 
