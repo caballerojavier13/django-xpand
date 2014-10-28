@@ -30,20 +30,19 @@ from .models import «EXPAND nombreClase FOREACH clases_del_Diagrama SEPARATOR '
 «DEFINE vistasClase FOR Clase»
 # Clase: «this.nombre»
 ## Vistas genéricas
-    «EXPAND vistaCrear FOR this»
-    «EXPAND vistaEditar FOR this»
-    «EXPAND vistaEliminar FOR this»
-    «EXPAND vistaDetallar FOR this»
-    «EXPAND vistaListar FOR this»
-    
+«EXPAND vistaCrear FOR this»
+«EXPAND vistaEditar FOR this»
+«EXPAND vistaEliminar FOR this»
+«EXPAND vistaDetallar FOR this»
+«EXPAND vistaListar FOR this»
+
 ## Vistas JSON
 
-    «EXPAND vistaCrearJson FOR this»
-    «EXPAND vistaEditarJson FOR this»
-    «EXPAND vistaEliminarJson FOR this»
-    «EXPAND vistaDetallarJson FOR this»
-    «EXPAND vistaListarJson FOR this»
-
+«EXPAND vistaCrearJson FOR this»
+«EXPAND vistaEditarJson FOR this»
+«EXPAND vistaEliminarJson FOR this»
+«EXPAND vistaDetallarJson FOR this»
+«EXPAND vistaListarJson FOR this»
 
 «ENDDEFINE»
 
@@ -88,24 +87,24 @@ def «this.nombre.toFirstLower()»_listar(request):
 «ENDDEFINE»
 
 «REM»Vista Crear de la clase, en JSON«ENDREM»
+«REM»Falta implementación«ENDREM»
 «DEFINE vistaCrearJson FOR Clase»
 def «this.nombre.toFirstLower()»_crear_json(request):
     pass
-    «REM»Falta implementación«ENDREM»
 «ENDDEFINE»
 
 «REM»Vista Editar de la clase, en JSON«ENDREM»
+«REM»Falta implementación«ENDREM»
 «DEFINE vistaEditarJson FOR Clase»
 def «this.nombre.toFirstLower()»_editar_json(request, id):
     pass
-    «REM»Falta implementación«ENDREM»
 «ENDDEFINE»
 
 «REM»Vista Eliminar de la clase, en JSON«ENDREM»
+«REM»Falta implementación«ENDREM»
 «DEFINE vistaEliminarJson FOR Clase»
 def «this.nombre.toFirstLower()»_eliminar_json(request, id):
     pass
-    «REM»Falta implementación«ENDREM»
 «ENDDEFINE»
 
 «REM»Vista Detallar de la clase, en JSON«ENDREM»

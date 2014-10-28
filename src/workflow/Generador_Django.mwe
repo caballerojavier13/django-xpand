@@ -40,7 +40,7 @@
 			<fileEncoding value="UTF-8"/>
 		</resourceManager>
 	</component>
-	
+
 	<component class="org.eclipse.xpand2.Generator">
 		<metaModel idRef="mm_emf"/>
 		<expand
@@ -51,7 +51,7 @@
 			<fileEncoding value="UTF-8"/>
 		</resourceManager>
 	</component>
-	
+
 	<component class="org.eclipse.xpand2.Generator">
 		<metaModel idRef="mm_emf"/>
 		<expand
