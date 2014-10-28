@@ -1,0 +1,131 @@
+«IMPORT similuml»
+«EXTENSION template::GeneratorExtensions»
+
+«REM»
+Creación de URLs de la aplicación Django
+Archivo generado: urls.py
+«ENDREM»
+
+«REM»Creación del archivo de URLs«ENDREM»
+«DEFINE main FOR DiagramaClases»
+    «FILE 'urls.py'-»
+from django.conf.urls import patterns, url
+
+from . import views
+
+
+urlpatterns = patterns('',
+«EXPAND urlsClase FOREACH clases_del_Diagrama-»
+)
+    «ENDFILE»
+«ENDDEFINE»
+
+«REM»Listado de URLs por clase«ENDREM»
+«DEFINE urlsClase FOR Clase»
+# Clase: «this.nombre»
+## URLs genéricas
+«EXPAND urlCrear FOR this»
+«EXPAND urlEditar FOR this»
+«EXPAND urlEliminar FOR this»
+«EXPAND urlDetallar FOR this»
+«EXPAND urlListar FOR this»
+
+## URLs JSON
+
+«EXPAND urlCrearJson FOR this»
+«EXPAND urlEditarJson FOR this»
+«EXPAND urlEliminarJson FOR this»
+«EXPAND urlDetallarJson FOR this»
+«EXPAND urlListarJson FOR this»
+
+«ENDDEFINE»
+
+«REM»URL Crear de la clase«ENDREM»
+«DEFINE urlCrear FOR Clase»
+    url(
+        regex = r'^«this.nombre.toFirstLower()»/crear/$',
+        view  = views.«this.nombre.toFirstLower()»_crear,
+        name  = '«this.nombre.toFirstLower()»_crear'
+    ),
+«ENDDEFINE»
+
+«REM»URL Editar de la clase«ENDREM»
+«DEFINE urlEditar FOR Clase»
+    url(
+        regex = r'^«this.nombre.toFirstLower()»/(?P<id>\d+)/editar/$',
+        view  = views.«this.nombre.toFirstLower()»_editar,
+        name  = '«this.nombre.toFirstLower()»_editar'
+    ),
+«ENDDEFINE»
+
+«REM»URL Eliminar de la clase«ENDREM»
+«DEFINE urlEliminar FOR Clase»
+    url(
+        regex = r'^«this.nombre.toFirstLower()»/(?P<id>\d+)/eliminar/$',
+        view  = views.«this.nombre.toFirstLower()»_eliminar,
+        name  = '«this.nombre.toFirstLower()»_eliminar'
+    ),
+«ENDDEFINE»
+
+«REM»URL Detallar de la clase«ENDREM»
+«DEFINE urlDetallar FOR Clase»
+    url(
+        regex = r'^«this.nombre.toFirstLower()»/(?P<id>\d+)/$',
+        view  = views.«this.nombre.toFirstLower()»_detallar,
+        name  = '«this.nombre.toFirstLower()»_detallar'
+    ),
+«ENDDEFINE»
+
+«REM»URL Listar de la clase«ENDREM»
+«DEFINE urlListar FOR Clase»
+    url(
+        regex = r'^«this.nombre.toFirstLower()»/$',
+        view  = views.«this.nombre.toFirstLower()»_listar,
+        name  = '«this.nombre.toFirstLower()»_listar'
+    ),
+«ENDDEFINE»
+
+«REM»URL Crear de la clase, en JSON«ENDREM»
+«DEFINE urlCrearJson FOR Clase»
+    url(
+        regex = r'^«this.nombre.toFirstLower()»/json/crear/$',
+        view  = views.«this.nombre.toFirstLower()»_crear_json,
+        name  = '«this.nombre.toFirstLower()»_crear_json'
+    ),
+«ENDDEFINE»
+
+«REM»URL Editar de la clase, en JSON«ENDREM»
+«DEFINE urlEditarJson FOR Clase»
+    url(
+        regex = r'^«this.nombre.toFirstLower()»/json/(?P<id>\d+)/editar/$',
+        view  = views.«this.nombre.toFirstLower()»_editar_json,
+        name  = '«this.nombre.toFirstLower()»_editar_json'
+    ),
+«ENDDEFINE»
+
+«REM»URL Eliminar de la clase, en JSON«ENDREM»
+«DEFINE urlEliminarJson FOR Clase»
+    url(
+        regex = r'^«this.nombre.toFirstLower()»/json/(?P<id>\d+)/eliminar/$',
+        view  = views.«this.nombre.toFirstLower()»_eliminar_json,
+        name  = '«this.nombre.toFirstLower()»_eliminar_json'
+    ),
+«ENDDEFINE»
+
+«REM»URL Detallar de la clase, en JSON«ENDREM»
+«DEFINE urlDetallarJson FOR Clase»
+    url(
+        regex = r'^«this.nombre.toFirstLower()»/json/(?P<id>\d+)/$',
+        view  = views.«this.nombre.toFirstLower()»_detallar_json,
+        name  = '«this.nombre.toFirstLower()»_detallar_json'
+    ),
+«ENDDEFINE»
+
+«REM»URL Listar de la clase, en JSON«ENDREM»
+«DEFINE urlListarJson FOR Clase»
+    url(
+        regex = r'^«this.nombre.toFirstLower()»/json/$',
+        view  = views.«this.nombre.toFirstLower()»_listar_json,
+        name  = '«this.nombre.toFirstLower()»_listar_json'
+    ),
+«ENDDEFINE»
