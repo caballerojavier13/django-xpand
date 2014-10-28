@@ -1,5 +1,5 @@
 from django.db import models
-        
+
 
 class Persona(models.Model):
     # Atributos

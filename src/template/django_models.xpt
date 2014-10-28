@@ -10,7 +10,7 @@ Archivo generado: models.py
 «DEFINE main FOR DiagramaClases»
     «FILE 'models.py'-»
 from django.db import models
-        
+
 «EXPAND claseDjango FOREACH clases_del_Diagrama-»
     «ENDFILE»
 «ENDDEFINE»

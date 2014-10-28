@@ -1,0 +1,27 @@
+«IMPORT similuml»
+«EXTENSION template::GeneratorExtensions»
+
+«REM»
+Creación de la configuración de administración de la aplicación Django
+Archivo generado: admin.py
+«ENDREM»
+
+«REM»Creación del archivo de configuración de administración«ENDREM»
+«DEFINE main FOR DiagramaClases»
+    «FILE 'admin.py'-»
+from django.contrib import admin
+
+from .models import «EXPAND nombreClase FOREACH clases_del_Diagrama SEPARATOR ','»
+
+«EXPAND registroAdminClase FOREACH clases_del_Diagrama-»
+    «ENDFILE»
+«ENDDEFINE»
+
+«REM»Nombre de clases«ENDREM»
+«DEFINE nombreClase FOR Clase-»
+«this.nombre»«ENDDEFINE»
+
+«REM»Registro de la clase en administración«ENDREM»
+«DEFINE registroAdminClase FOR Clase-»
+admin.site.register(«EXPAND nombreClase FOR this»)
+«ENDDEFINE»
