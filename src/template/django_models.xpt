@@ -1,4 +1,5 @@
 «IMPORT similuml»
+«IMPORT template»
 «EXTENSION template::GeneratorExtensions»
 
 «REM»
@@ -16,19 +17,9 @@ from django.db import models
 «ENDDEFINE»
 
 
-«REM»Nombre de la clase en mayúsculas«ENDREM»
-«DEFINE nombreClaseMayus FOR Clase-»
-«this.nombre.toFirstUpper()»«ENDDEFINE»
-
-
-«REM»Nombre de la clase en minúsculas«ENDREM»
-«DEFINE nombreClaseMinus FOR Clase-»
-«this.nombre.toFirstLower()»«ENDDEFINE»
-
-
 «REM»Declaración de clases«ENDREM»
 «DEFINE claseDjango FOR Clase»
-class «EXPAND nombreClaseMayus FOR this»(«EXPAND herenciaClase FOR this»):
+class «EXPAND django_global::nombreClaseMayus FOR this»(«EXPAND herenciaClase FOR this»):
     # Atributos
     «EXPAND atributoClase FOREACH this.atributos_clases-»
     # Relaciones
@@ -44,7 +35,7 @@ class «EXPAND nombreClaseMayus FOR this»(«EXPAND herenciaClase FOR this»):
 
 «REM»Asociaciones de clase«ENDREM»
 «DEFINE asociacionClase FOR Asociacion-»
-    «this.nombre.toFirstLower()» = Model.ForeignKey('«EXPAND nombreClaseMayus FOR this.destino»')
+    «this.nombre.toFirstLower()» = Model.ForeignKey('«EXPAND django_global::nombreClaseMayus FOR this.destino»')
 «ENDDEFINE»
 
 
@@ -52,7 +43,7 @@ class «EXPAND nombreClaseMayus FOR this»(«EXPAND herenciaClase FOR this»):
 «DEFINE herenciaClase FOR Clase-»
 «IF this.herenciasClases_contenidas.isEmpty-»
 models.Model«ELSE-»
-«EXPAND nombreClaseMayus FOREACH this.herenciasClases_contenidas SEPARATOR ', '»«ENDIF-»
+«EXPAND django_global::nombreClaseMayus FOREACH this.herenciasClases_contenidas SEPARATOR ', '»«ENDIF-»
 «ENDDEFINE»
 
 

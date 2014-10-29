@@ -1,0 +1,16 @@
+«IMPORT similuml»
+«EXTENSION template::GeneratorExtensions»
+
+«REM»
+Plantilla de definiciones globales para la aplicación Django
+«ENDREM»
+
+
+«REM»Nombre de la clase en mayúsculas«ENDREM»
+«DEFINE nombreClaseMayus FOR Clase-»
+«this.nombre.toFirstUpper()»«ENDDEFINE»
+
+
+«REM»Nombre de la clase en minúsculas«ENDREM»
+«DEFINE nombreClaseMinus FOR Clase-»
+«this.nombre.toFirstLower()»«ENDDEFINE»
