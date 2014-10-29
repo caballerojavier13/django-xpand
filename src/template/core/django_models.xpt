@@ -11,6 +11,7 @@ Archivo generado: models.py
 «DEFINE main FOR DiagramaClases»
     «FILE 'models.py'-»
 from django.db import models
+from django.db.models.base import Model
 
 «EXPAND claseDjango FOREACH clases_del_Diagrama-»
     «ENDFILE»
@@ -29,20 +30,20 @@ class «EXPAND django_global::nombre FOR this»(«EXPAND herenciaClase FOR this�
 
 «REM»Atributos de clase«ENDREM»
 «DEFINE atributoClase FOR Atributo-»
-    «this.nombre.toFirstLower()» = Model.«EXPAND campoTipoDato FOR this.tipo»(«EXPAND opcionesCampo FOR this.tipo»)
+    «this.nombre.toFirstLower()» = models.«EXPAND campoTipoDato FOR this.tipo»(«EXPAND opcionesCampo FOR this.tipo»)
 «ENDDEFINE»
 
 
 «REM»Asociaciones de clase«ENDREM»
 «DEFINE asociacionClase FOR Asociacion-»
-    «this.nombre.toFirstLower()» = Model.«EXPAND campoTipoAsociacion FOR this»('«EXPAND django_global::nombre FOR this.destino»')
+    «this.nombre.toFirstLower()» = models.«EXPAND campoTipoAsociacion FOR this»('«EXPAND django_global::nombre FOR this.destino»')
 «ENDDEFINE»
 
 
 «REM»Herencia de clase«ENDREM»
 «DEFINE herenciaClase FOR Clase-»
 «IF this.herenciasClases_contenidas.isEmpty-»
-models.Model«ELSE-»
+Model«ELSE-»
 «EXPAND destinoHerencia FOREACH this.herenciasClases_contenidas SEPARATOR ', '»«ENDIF-»
 «ENDDEFINE»
 

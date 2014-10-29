@@ -1,18 +1,19 @@
 from django.db import models
+from django.db.models.base import Model
 
 
-class Persona(models.Model):
+class Persona(Model):
     # Atributos
-    dni = Model.IntegerField()
-    nombre = Model.CharField(max_length=50)
-    apellido = Model.CharField(max_length=50)
+    dni = models.IntegerField()
+    nombre = models.CharField(max_length=50)
+    apellido = models.CharField(max_length=50)
     # Relaciones
-    domicilio = Model.ForeignKey('Domicilio')
+    domicilio = models.ForeignKey('Domicilio')
 
-class Domicilio(models.Model):
+class Domicilio(Model):
     # Atributos
-    calle = Model.CharField(max_length=50)
-    numero = Model.IntegerField()
-    localidad = Model.CharField(max_length=50)
+    calle = models.CharField(max_length=50)
+    numero = models.IntegerField()
+    localidad = models.CharField(max_length=50)
     # Relaciones
     
