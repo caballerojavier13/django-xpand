@@ -17,7 +17,7 @@ from django.template import RequestContext
 
 import json
 
-from .models import «EXPAND django_global::nombreClase FOREACH clases_del_Diagrama SEPARATOR ', '»
+from .models import «EXPAND django_global::nombre FOREACH clases_del_Diagrama SEPARATOR ', '»
 
 «EXPAND vistasClase FOREACH clases_del_Diagrama-»
     «ENDFILE»
@@ -26,7 +26,7 @@ from .models import «EXPAND django_global::nombreClase FOREACH clases_del_Diagr
 
 «REM»Listado de vistas por clase«ENDREM»
 «DEFINE vistasClase FOR Clase»
-# Clase: «EXPAND django_global::nombreClase FOR this»
+# Clase: «EXPAND django_global::nombre FOR this»
 ## Vistas genéricas
 «EXPAND vistaCrear FOR this»
 «EXPAND vistaEditar FOR this»
@@ -47,8 +47,8 @@ from .models import «EXPAND django_global::nombreClase FOREACH clases_del_Diagr
 
 «REM»Vista Crear de la clase«ENDREM»
 «DEFINE vistaCrear FOR Clase»
-def «EXPAND django_global::nombreClaseMinus FOR this»_crear(request):
-    return render_to_response('app/«EXPAND django_global::nombreClaseMinus FOR this»_crear.html',
+def «EXPAND django_global::nombreMinus FOR this»_crear(request):
+    return render_to_response('app/«EXPAND django_global::nombreMinus FOR this»_crear.html',
                               context_instance=RequestContext(request),
                               )
 «ENDDEFINE»
@@ -56,8 +56,8 @@ def «EXPAND django_global::nombreClaseMinus FOR this»_crear(request):
 
 «REM»Vista Editar de la clase«ENDREM»
 «DEFINE vistaEditar FOR Clase»
-def «EXPAND django_global::nombreClaseMinus FOR this»_editar(request):
-    return render_to_response('app/«EXPAND django_global::nombreClaseMinus FOR this»_editar.html',
+def «EXPAND django_global::nombreMinus FOR this»_editar(request):
+    return render_to_response('app/«EXPAND django_global::nombreMinus FOR this»_editar.html',
                               context_instance=RequestContext(request),
                               )
 «ENDDEFINE»
@@ -65,8 +65,8 @@ def «EXPAND django_global::nombreClaseMinus FOR this»_editar(request):
 
 «REM»Vista Eliminar de la clase«ENDREM»
 «DEFINE vistaEliminar FOR Clase»
-def «EXPAND django_global::nombreClaseMinus FOR this»_eliminar(request):
-    return render_to_response('app/«EXPAND django_global::nombreClaseMinus FOR this»_eliminar.html',
+def «EXPAND django_global::nombreMinus FOR this»_eliminar(request):
+    return render_to_response('app/«EXPAND django_global::nombreMinus FOR this»_eliminar.html',
                               context_instance=RequestContext(request),
                               )
 «ENDDEFINE»
@@ -74,8 +74,8 @@ def «EXPAND django_global::nombreClaseMinus FOR this»_eliminar(request):
 
 «REM»Vista Detallar de la clase«ENDREM»
 «DEFINE vistaDetallar FOR Clase»
-def «EXPAND django_global::nombreClaseMinus FOR this»_detallar(request):
-    return render_to_response('app/«EXPAND django_global::nombreClaseMinus FOR this»_detallar.html',
+def «EXPAND django_global::nombreMinus FOR this»_detallar(request):
+    return render_to_response('app/«EXPAND django_global::nombreMinus FOR this»_detallar.html',
                               context_instance=RequestContext(request),
                               )
 «ENDDEFINE»
@@ -83,8 +83,8 @@ def «EXPAND django_global::nombreClaseMinus FOR this»_detallar(request):
 
 «REM»Vista Listar de la clase«ENDREM»
 «DEFINE vistaListar FOR Clase»
-def «EXPAND django_global::nombreClaseMinus FOR this»_listar(request):
-    return render_to_response('app/«EXPAND django_global::nombreClaseMinus FOR this»_listar.html',
+def «EXPAND django_global::nombreMinus FOR this»_listar(request):
+    return render_to_response('app/«EXPAND django_global::nombreMinus FOR this»_listar.html',
                               context_instance=RequestContext(request),
                               )
 «ENDDEFINE»
@@ -93,7 +93,7 @@ def «EXPAND django_global::nombreClaseMinus FOR this»_listar(request):
 «REM»Vista Crear de la clase, en JSON«ENDREM»
 «REM»Falta implementación«ENDREM»
 «DEFINE vistaCrearJson FOR Clase»
-def «EXPAND django_global::nombreClaseMinus FOR this»_crear_json(request):
+def «EXPAND django_global::nombreMinus FOR this»_crear_json(request):
     pass
 «ENDDEFINE»
 
@@ -101,7 +101,7 @@ def «EXPAND django_global::nombreClaseMinus FOR this»_crear_json(request):
 «REM»Vista Editar de la clase, en JSON«ENDREM»
 «REM»Falta implementación«ENDREM»
 «DEFINE vistaEditarJson FOR Clase»
-def «EXPAND django_global::nombreClaseMinus FOR this»_editar_json(request, id):
+def «EXPAND django_global::nombreMinus FOR this»_editar_json(request, id):
     pass
 «ENDDEFINE»
 
@@ -109,15 +109,15 @@ def «EXPAND django_global::nombreClaseMinus FOR this»_editar_json(request, id)
 «REM»Vista Eliminar de la clase, en JSON«ENDREM»
 «REM»Falta implementación«ENDREM»
 «DEFINE vistaEliminarJson FOR Clase»
-def «EXPAND django_global::nombreClaseMinus FOR this»_eliminar_json(request, id):
+def «EXPAND django_global::nombreMinus FOR this»_eliminar_json(request, id):
     pass
 «ENDDEFINE»
 
 
 «REM»Vista Detallar de la clase, en JSON«ENDREM»
 «DEFINE vistaDetallarJson FOR Clase»
-def «EXPAND django_global::nombreClaseMinus FOR this»_detallar_json(request, id):
-    object = get_object_or_404(«EXPAND django_global::nombreClase FOR this», pk=id)
+def «EXPAND django_global::nombreMinus FOR this»_detallar_json(request, id):
+    object = get_object_or_404(«EXPAND django_global::nombre FOR this», pk=id)
     data = serializers.serialize('json', [object])
     return HttpResponse(data, content_type='application/json; charset=utf-8')
 «ENDDEFINE»
@@ -125,7 +125,7 @@ def «EXPAND django_global::nombreClaseMinus FOR this»_detallar_json(request, i
 
 «REM»Vista Listar de la clase, en JSON«ENDREM»
 «DEFINE vistaListarJson FOR Clase»
-def «EXPAND django_global::nombreClaseMinus FOR this»_listar_json(request):
-    data = serializers.serialize('json', «EXPAND django_global::nombreClase FOR this».objects.all())
+def «EXPAND django_global::nombreMinus FOR this»_listar_json(request):
+    data = serializers.serialize('json', «EXPAND django_global::nombre FOR this».objects.all())
     return HttpResponse(data, content_type='application/json; charset=utf-8')
 «ENDDEFINE»

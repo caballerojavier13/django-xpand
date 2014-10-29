@@ -6,16 +6,21 @@ Plantilla de definiciones globales para la aplicación Django
 «ENDREM»
 
 
+«REM»Texto con inicio en mayúscula«ENDREM»
+«DEFINE inicialMayus FOR String-»
+«this.toFirstUpper()»«ENDDEFINE»
+
+
+«REM»Texto con inicio en minúscula«ENDREM»
+«DEFINE inicialMinus FOR String-»
+«this.toFirstLower()»«ENDDEFINE»
+
+
 «REM»Nombre de la clase por defecto«ENDREM»
-«DEFINE nombreClase FOR Clase-»
-«EXPAND nombreClaseMayus FOR this»«ENDDEFINE»
+«DEFINE nombre FOR Clase-»
+«EXPAND inicialMayus FOR this.nombre»«ENDDEFINE»
 
 
-«REM»Nombre de la clase en mayúsculas«ENDREM»
-«DEFINE nombreClaseMayus FOR Clase-»
-«this.nombre.toFirstUpper()»«ENDDEFINE»
-
-
-«REM»Nombre de la clase en minúsculas«ENDREM»
-«DEFINE nombreClaseMinus FOR Clase-»
-«this.nombre.toFirstLower()»«ENDDEFINE»
+«REM»Nombre de la clase con inicio en minúscula«ENDREM»
+«DEFINE nombreMinus FOR Clase-»
+«EXPAND inicialMinus FOR this.nombre»«ENDDEFINE»

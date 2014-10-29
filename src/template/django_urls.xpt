@@ -24,7 +24,7 @@ urlpatterns = patterns('',
 
 «REM»Listado de URLs por clase«ENDREM»
 «DEFINE urlsClase FOR Clase»
-# Clase: «EXPAND django_global::nombreClase FOR this»
+# Clase: «EXPAND django_global::nombre FOR this»
 ## URLs genéricas
 «EXPAND urlCrear FOR this»
 «EXPAND urlEditar FOR this»
@@ -46,9 +46,9 @@ urlpatterns = patterns('',
 «REM»URL Crear de la clase«ENDREM»
 «DEFINE urlCrear FOR Clase»
     url(
-        regex = r'^«EXPAND django_global::nombreClaseMinus FOR this»/crear/$',
-        view  = views.«EXPAND django_global::nombreClaseMinus FOR this»_crear,
-        name  = '«EXPAND django_global::nombreClaseMinus FOR this»_crear'
+        regex = r'^«EXPAND django_global::nombreMinus FOR this»/crear/$',
+        view  = views.«EXPAND django_global::nombreMinus FOR this»_crear,
+        name  = '«EXPAND django_global::nombreMinus FOR this»_crear'
     ),
 «ENDDEFINE»
 
@@ -56,9 +56,9 @@ urlpatterns = patterns('',
 «REM»URL Editar de la clase«ENDREM»
 «DEFINE urlEditar FOR Clase»
     url(
-        regex = r'^«EXPAND django_global::nombreClaseMinus FOR this»/(?P<id>\d+)/editar/$',
-        view  = views.«EXPAND django_global::nombreClaseMinus FOR this»_editar,
-        name  = '«EXPAND django_global::nombreClaseMinus FOR this»_editar'
+        regex = r'^«EXPAND django_global::nombreMinus FOR this»/(?P<id>\d+)/editar/$',
+        view  = views.«EXPAND django_global::nombreMinus FOR this»_editar,
+        name  = '«EXPAND django_global::nombreMinus FOR this»_editar'
     ),
 «ENDDEFINE»
 
@@ -66,9 +66,9 @@ urlpatterns = patterns('',
 «REM»URL Eliminar de la clase«ENDREM»
 «DEFINE urlEliminar FOR Clase»
     url(
-        regex = r'^«EXPAND django_global::nombreClaseMinus FOR this»/(?P<id>\d+)/eliminar/$',
-        view  = views.«EXPAND django_global::nombreClaseMinus FOR this»_eliminar,
-        name  = '«EXPAND django_global::nombreClaseMinus FOR this»_eliminar'
+        regex = r'^«EXPAND django_global::nombreMinus FOR this»/(?P<id>\d+)/eliminar/$',
+        view  = views.«EXPAND django_global::nombreMinus FOR this»_eliminar,
+        name  = '«EXPAND django_global::nombreMinus FOR this»_eliminar'
     ),
 «ENDDEFINE»
 
@@ -76,9 +76,9 @@ urlpatterns = patterns('',
 «REM»URL Detallar de la clase«ENDREM»
 «DEFINE urlDetallar FOR Clase»
     url(
-        regex = r'^«EXPAND django_global::nombreClaseMinus FOR this»/(?P<id>\d+)/$',
-        view  = views.«EXPAND django_global::nombreClaseMinus FOR this»_detallar,
-        name  = '«EXPAND django_global::nombreClaseMinus FOR this»_detallar'
+        regex = r'^«EXPAND django_global::nombreMinus FOR this»/(?P<id>\d+)/$',
+        view  = views.«EXPAND django_global::nombreMinus FOR this»_detallar,
+        name  = '«EXPAND django_global::nombreMinus FOR this»_detallar'
     ),
 «ENDDEFINE»
 
@@ -86,9 +86,9 @@ urlpatterns = patterns('',
 «REM»URL Listar de la clase«ENDREM»
 «DEFINE urlListar FOR Clase»
     url(
-        regex = r'^«EXPAND django_global::nombreClaseMinus FOR this»/$',
-        view  = views.«EXPAND django_global::nombreClaseMinus FOR this»_listar,
-        name  = '«EXPAND django_global::nombreClaseMinus FOR this»_listar'
+        regex = r'^«EXPAND django_global::nombreMinus FOR this»/$',
+        view  = views.«EXPAND django_global::nombreMinus FOR this»_listar,
+        name  = '«EXPAND django_global::nombreMinus FOR this»_listar'
     ),
 «ENDDEFINE»
 
@@ -96,9 +96,9 @@ urlpatterns = patterns('',
 «REM»URL Crear de la clase, en JSON«ENDREM»
 «DEFINE urlCrearJson FOR Clase»
     url(
-        regex = r'^«EXPAND django_global::nombreClaseMinus FOR this»/json/crear/$',
-        view  = views.«EXPAND django_global::nombreClaseMinus FOR this»_crear_json,
-        name  = '«EXPAND django_global::nombreClaseMinus FOR this»_crear_json'
+        regex = r'^«EXPAND django_global::nombreMinus FOR this»/json/crear/$',
+        view  = views.«EXPAND django_global::nombreMinus FOR this»_crear_json,
+        name  = '«EXPAND django_global::nombreMinus FOR this»_crear_json'
     ),
 «ENDDEFINE»
 
@@ -106,9 +106,9 @@ urlpatterns = patterns('',
 «REM»URL Editar de la clase, en JSON«ENDREM»
 «DEFINE urlEditarJson FOR Clase»
     url(
-        regex = r'^«EXPAND django_global::nombreClaseMinus FOR this»/json/(?P<id>\d+)/editar/$',
-        view  = views.«EXPAND django_global::nombreClaseMinus FOR this»_editar_json,
-        name  = '«EXPAND django_global::nombreClaseMinus FOR this»_editar_json'
+        regex = r'^«EXPAND django_global::nombreMinus FOR this»/json/(?P<id>\d+)/editar/$',
+        view  = views.«EXPAND django_global::nombreMinus FOR this»_editar_json,
+        name  = '«EXPAND django_global::nombreMinus FOR this»_editar_json'
     ),
 «ENDDEFINE»
 
@@ -116,9 +116,9 @@ urlpatterns = patterns('',
 «REM»URL Eliminar de la clase, en JSON«ENDREM»
 «DEFINE urlEliminarJson FOR Clase»
     url(
-        regex = r'^«EXPAND django_global::nombreClaseMinus FOR this»/json/(?P<id>\d+)/eliminar/$',
-        view  = views.«EXPAND django_global::nombreClaseMinus FOR this»_eliminar_json,
-        name  = '«EXPAND django_global::nombreClaseMinus FOR this»_eliminar_json'
+        regex = r'^«EXPAND django_global::nombreMinus FOR this»/json/(?P<id>\d+)/eliminar/$',
+        view  = views.«EXPAND django_global::nombreMinus FOR this»_eliminar_json,
+        name  = '«EXPAND django_global::nombreMinus FOR this»_eliminar_json'
     ),
 «ENDDEFINE»
 
@@ -126,9 +126,9 @@ urlpatterns = patterns('',
 «REM»URL Detallar de la clase, en JSON«ENDREM»
 «DEFINE urlDetallarJson FOR Clase»
     url(
-        regex = r'^«EXPAND django_global::nombreClaseMinus FOR this»/json/(?P<id>\d+)/$',
-        view  = views.«EXPAND django_global::nombreClaseMinus FOR this»_detallar_json,
-        name  = '«EXPAND django_global::nombreClaseMinus FOR this»_detallar_json'
+        regex = r'^«EXPAND django_global::nombreMinus FOR this»/json/(?P<id>\d+)/$',
+        view  = views.«EXPAND django_global::nombreMinus FOR this»_detallar_json,
+        name  = '«EXPAND django_global::nombreMinus FOR this»_detallar_json'
     ),
 «ENDDEFINE»
 
@@ -136,8 +136,8 @@ urlpatterns = patterns('',
 «REM»URL Listar de la clase, en JSON«ENDREM»
 «DEFINE urlListarJson FOR Clase»
     url(
-        regex = r'^«EXPAND django_global::nombreClaseMinus FOR this»/json/$',
-        view  = views.«EXPAND django_global::nombreClaseMinus FOR this»_listar_json,
-        name  = '«EXPAND django_global::nombreClaseMinus FOR this»_listar_json'
+        regex = r'^«EXPAND django_global::nombreMinus FOR this»/json/$',
+        view  = views.«EXPAND django_global::nombreMinus FOR this»_listar_json,
+        name  = '«EXPAND django_global::nombreMinus FOR this»_listar_json'
     ),
 «ENDDEFINE»
