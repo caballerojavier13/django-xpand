@@ -6,6 +6,11 @@ Plantilla de definiciones globales para la aplicación Django
 «ENDREM»
 
 
+«REM»Nombre de la clase por defecto«ENDREM»
+«DEFINE nombreClase FOR Clase-»
+«EXPAND nombreClaseMayus FOR this»«ENDDEFINE»
+
+
 «REM»Nombre de la clase en mayúsculas«ENDREM»
 «DEFINE nombreClaseMayus FOR Clase-»
 «this.nombre.toFirstUpper()»«ENDDEFINE»

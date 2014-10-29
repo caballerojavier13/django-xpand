@@ -12,7 +12,7 @@ Archivo generado: admin.py
     «FILE 'admin.py'-»
 from django.contrib import admin
 
-from .models import «EXPAND django_global::nombreClaseMayus FOREACH clases_del_Diagrama SEPARATOR ', '»
+from .models import «EXPAND django_global::nombreClase FOREACH clases_del_Diagrama SEPARATOR ', '»
 
 «EXPAND registroAdminClase FOREACH clases_del_Diagrama-»
     «ENDFILE»
@@ -21,5 +21,5 @@ from .models import «EXPAND django_global::nombreClaseMayus FOREACH clases_del_
 
 «REM»Registro de la clase en administración«ENDREM»
 «DEFINE registroAdminClase FOR Clase-»
-admin.site.register(«EXPAND django_global::nombreClaseMayus FOR this»)
+admin.site.register(«EXPAND django_global::nombreClase FOR this»)
 «ENDDEFINE»

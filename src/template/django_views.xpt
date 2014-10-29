@@ -17,7 +17,7 @@ from django.template import RequestContext
 
 import json
 
-from .models import «EXPAND django_global::nombreClaseMayus FOREACH clases_del_Diagrama SEPARATOR ', '»
+from .models import «EXPAND django_global::nombreClase FOREACH clases_del_Diagrama SEPARATOR ', '»
 
 «EXPAND vistasClase FOREACH clases_del_Diagrama-»
     «ENDFILE»
@@ -26,7 +26,7 @@ from .models import «EXPAND django_global::nombreClaseMayus FOREACH clases_del_
 
 «REM»Listado de vistas por clase«ENDREM»
 «DEFINE vistasClase FOR Clase»
-# Clase: «EXPAND django_global::nombreClaseMayus FOR this»
+# Clase: «EXPAND django_global::nombreClase FOR this»
 ## Vistas genéricas
 «EXPAND vistaCrear FOR this»
 «EXPAND vistaEditar FOR this»
@@ -117,7 +117,7 @@ def «EXPAND django_global::nombreClaseMinus FOR this»_eliminar_json(request, i
 «REM»Vista Detallar de la clase, en JSON«ENDREM»
 «DEFINE vistaDetallarJson FOR Clase»
 def «EXPAND django_global::nombreClaseMinus FOR this»_detallar_json(request, id):
-    object = get_object_or_404(«EXPAND django_global::nombreClaseMayus FOR this», pk=id)
+    object = get_object_or_404(«EXPAND django_global::nombreClase FOR this», pk=id)
     data = serializers.serialize('json', [object])
     return HttpResponse(data, content_type='application/json; charset=utf-8')
 «ENDDEFINE»
@@ -126,6 +126,6 @@ def «EXPAND django_global::nombreClaseMinus FOR this»_detallar_json(request, i
 «REM»Vista Listar de la clase, en JSON«ENDREM»
 «DEFINE vistaListarJson FOR Clase»
 def «EXPAND django_global::nombreClaseMinus FOR this»_listar_json(request):
-    data = serializers.serialize('json', «EXPAND django_global::nombreClaseMayus FOR this».objects.all())
+    data = serializers.serialize('json', «EXPAND django_global::nombreClase FOR this».objects.all())
     return HttpResponse(data, content_type='application/json; charset=utf-8')
 «ENDDEFINE»

@@ -19,7 +19,7 @@ from django.db import models
 
 «REM»Declaración de clases«ENDREM»
 «DEFINE claseDjango FOR Clase»
-class «EXPAND django_global::nombreClaseMayus FOR this»(«EXPAND herenciaClase FOR this»):
+class «EXPAND django_global::nombreClase FOR this»(«EXPAND herenciaClase FOR this»):
     # Atributos
     «EXPAND atributoClase FOREACH this.atributos_clases-»
     # Relaciones
@@ -35,7 +35,7 @@ class «EXPAND django_global::nombreClaseMayus FOR this»(«EXPAND herenciaClase
 
 «REM»Asociaciones de clase«ENDREM»
 «DEFINE asociacionClase FOR Asociacion-»
-    «this.nombre.toFirstLower()» = Model.ForeignKey('«EXPAND django_global::nombreClaseMayus FOR this.destino»')
+    «this.nombre.toFirstLower()» = Model.«EXPAND campoTipoAsociacion FOR this»('«EXPAND django_global::nombreClase FOR this.destino»')
 «ENDDEFINE»
 
 
@@ -43,8 +43,13 @@ class «EXPAND django_global::nombreClaseMayus FOR this»(«EXPAND herenciaClase
 «DEFINE herenciaClase FOR Clase-»
 «IF this.herenciasClases_contenidas.isEmpty-»
 models.Model«ELSE-»
-«EXPAND django_global::nombreClaseMayus FOREACH this.herenciasClases_contenidas SEPARATOR ', '»«ENDIF-»
+«EXPAND destinoHerencia FOREACH this.herenciasClases_contenidas SEPARATOR ', '»«ENDIF-»
 «ENDDEFINE»
+
+
+«REM»Nombre de la clase destino de la herencia«ENDREM»
+«DEFINE destinoHerencia FOR Herencia-»
+«EXPAND django_global::nombreClase FOR this.hereda_Clase_Destino»«ENDDEFINE»
 
 
 «REM»Campo asociado al tipo de dato del atributo de clase«ENDREM»
@@ -68,4 +73,12 @@ max_length=1«ELSEIF this.toString()=='boolean'-»
 «ELSEIF this.toString()=='String'-»
 max_length=50«ELSEIF this.toString()=='double'-»
 max_digits=12, decimal_places=3«ENDIF-»
+«ENDDEFINE»
+
+
+«REM»Campo asociado al tipo de asociación entre clases«ENDREM»
+«DEFINE campoTipoAsociacion FOR Asociacion-»
+«IF this.cardinalidadSuperior==1-»
+ForeignKey«ELSE-»
+ManyToManyField«ENDIF-»
 «ENDDEFINE»

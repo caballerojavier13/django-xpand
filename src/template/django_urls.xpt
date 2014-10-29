@@ -24,7 +24,7 @@ urlpatterns = patterns('',
 
 «REM»Listado de URLs por clase«ENDREM»
 «DEFINE urlsClase FOR Clase»
-# Clase: «EXPAND django_global::nombreClaseMayus FOR this»
+# Clase: «EXPAND django_global::nombreClase FOR this»
 ## URLs genéricas
 «EXPAND urlCrear FOR this»
 «EXPAND urlEditar FOR this»
