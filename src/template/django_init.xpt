@@ -1,0 +1,13 @@
+«IMPORT similuml»
+«EXTENSION template::GeneratorExtensions»
+
+«REM»
+Creación del archivo init de la aplicación Django
+Archivo generado: __init__.py
+«ENDREM»
+
+«REM»Creación del archivo init«ENDREM»
+«DEFINE main FOR DiagramaClases»
+    «FILE '__init__.py'-»
+    «ENDFILE»
+«ENDDEFINE»
