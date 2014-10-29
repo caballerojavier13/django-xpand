@@ -8,6 +8,5 @@ Archivo generado: __init__.py
 
 «REM»Creación del archivo init«ENDREM»
 «DEFINE main FOR DiagramaClases»
-    «FILE '__init__.py'-»
-    «ENDFILE»
+    «FILE '__init__.py'-»«ENDFILE»
 «ENDDEFINE»
