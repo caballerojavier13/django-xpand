@@ -17,11 +17,6 @@
 		<modelSlot value="model" />
 	</component>
 
-    <!-- Clear output directory -->
-	<component class="org.eclipse.emf.mwe.utils.DirectoryCleaner">
-			<directory value="${src-gen}"/>
-	</component>
-
 	<!-- check model -->
 	<component class="org.eclipse.xtend.check.CheckComponent">
 		<metaModel idRef="mm_emf"/>
