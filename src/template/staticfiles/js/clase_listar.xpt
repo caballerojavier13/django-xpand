@@ -1,0 +1,77 @@
+«IMPORT similuml»
+«IMPORT template»
+«EXTENSION template::GeneratorExtensions»
+
+«REM»
+Creación de archivos estáticos JavaScript de la página de listado para las clases de la aplicación Django
+Archivo generado: static/gen/js/<clase>_listar.js
+«ENDREM»
+
+«REM»Creación del archivo estático JavaScript de la página de listado de cada clase«ENDREM»
+«DEFINE main FOR DiagramaClases»
+    «EXPAND archivoClase FOREACH clases_del_Diagrama»
+«ENDDEFINE»
+
+
+«REM»Creación de archivo JavaScript por clase«ENDREM»
+«DEFINE archivoClase FOR Clase»
+    «FILE 'static/gen/js/'+this.nombre.toFirstLower()+'_listar.js'-»
+«EXPAND generarTabla FOR this-»
+
+«EXPAND armarFilaTabla FOR this-»
+    «ENDFILE»
+«ENDDEFINE»
+
+
+«REM»Generación de tabla de instancias de la clase«ENDREM»
+«DEFINE generarTabla FOR Clase-»
+$(function() {
+    generarTabla('/«EXPAND django_global::nombreMinus FOR this»/json/', function(data) {
+        cargarTabla('table', data, init);
+    });
+});
+«ENDDEFINE»
+
+
+«REM»Creación de fila de la tabla, con información de una instancia de clase«ENDREM»
+«DEFINE armarFilaTabla FOR Clase-»
+function armarFila(index, instancia) {
+    fila = '<tr>'
+    
+    «IF !this.atributos_clases.isEmpty-»
+    // Atributos
+    fila += '<td>' + instancia.pk + '</td>' +
+            «EXPAND atributoTabla FOREACH this.atributos_clases SEPARATOR ' + '-»;
+    «ENDIF»
+    
+    «IF !this.asociaciones_contenidas.isEmpty-»
+    // Asociaciones
+    fila += «EXPAND asociacionTabla FOREACH this.asociaciones_contenidas SEPARATOR ' + '-»;
+    «ENDIF»
+    
+    // Botones 'Editar' y 'Eliminar'
+    fila += '<td>' +
+            '<a href="/«EXPAND django_global::nombreMinus FOR this»/edit/'+ instancia.pk + 
+            '/" class="btn btn-primary" title="Editar"><span class="glyphicon glyphicon-pencil"></span></a>' +
+            '<a href="/«EXPAND django_global::nombreMinus FOR this»/delete/'+ instancia.pk +
+            '/" class="btn btn-danger" title="Eliminar"><span class="glyphicon glyphicon-trash"></span></a>' +
+            '</td>';
+    
+    fila += '</tr>';
+    
+    return fila;
+}
+«ENDDEFINE»
+
+
+«REM»Campo de atributo de la clase en la tabla«ENDREM»
+«DEFINE atributoTabla FOR Atributo-»
+'<td>' + instancia.fields.«this.nombre.toFirstLower()» + '</td>'
+«ENDDEFINE»
+
+
+«REM»Campo de asociación de la clase en la tabla«ENDREM»
+«DEFINE asociacionTabla FOR Asociacion-»
+'<td>' + '<a href="/«EXPAND django_global::nombreMinus FOR this.destino»/' + instancia.fields.«this.nombre.toFirstLower()» +
+'/" class="btn btn-info">Ver «this.nombre.toFirstLower()»</a>' + '</td>'
+«ENDDEFINE»
