@@ -3,7 +3,7 @@
 
 «REM»
 Creación del archivo init de las migraciones de la aplicación Django
-Archivo generado: __init__.py
+Archivo generado: migrations/__init__.py
 «ENDREM»
 
 «REM»Creación del archivo init de migraciones«ENDREM»

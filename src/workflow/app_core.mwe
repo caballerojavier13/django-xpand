@@ -33,7 +33,7 @@
 	<component class="org.eclipse.xpand2.Generator">
 		<metaModel idRef="mm_emf"/>
 		<expand
-			value="template::core::django_models::main FOR model" />
+			value="template::core::app_models::main FOR model" />
 		<outlet path="${src-gen}" >
 		</outlet>
 		<resourceManager class ="org.eclipse.xtend.expression.ResourceManagerDefaultImpl">
@@ -44,7 +44,7 @@
 	<component class="org.eclipse.xpand2.Generator">
 		<metaModel idRef="mm_emf"/>
 		<expand
-			value="template::core::django_admin::main FOR model" />
+			value="template::core::app_admin::main FOR model" />
 		<outlet path="${src-gen}" >
 		</outlet>
 		<resourceManager class ="org.eclipse.xtend.expression.ResourceManagerDefaultImpl">
@@ -55,7 +55,7 @@
 	<component class="org.eclipse.xpand2.Generator">
 		<metaModel idRef="mm_emf"/>
 		<expand
-			value="template::core::django_views::main FOR model" />
+			value="template::core::app_views::main FOR model" />
 		<outlet path="${src-gen}" >
 		</outlet>
 		<resourceManager class ="org.eclipse.xtend.expression.ResourceManagerDefaultImpl">
@@ -66,7 +66,7 @@
     <component class="org.eclipse.xpand2.Generator">
 		<metaModel idRef="mm_emf"/>
 		<expand
-			value="template::core::django_urls::main FOR model" />
+			value="template::core::app_urls::main FOR model" />
 		<outlet path="${src-gen}" >
 		</outlet>
 		<resourceManager class ="org.eclipse.xtend.expression.ResourceManagerDefaultImpl">
@@ -77,7 +77,7 @@
 	<component class="org.eclipse.xpand2.Generator">
 		<metaModel idRef="mm_emf"/>
 		<expand
-			value="template::core::django_init::main FOR model" />
+			value="template::core::app_init::main FOR model" />
 		<outlet path="${src-gen}" >
 		</outlet>
 		<resourceManager class ="org.eclipse.xtend.expression.ResourceManagerDefaultImpl">
@@ -88,7 +88,7 @@
     <component class="org.eclipse.xpand2.Generator">
 		<metaModel idRef="mm_emf"/>
 		<expand
-			value="template::core::django_migrations_init::main FOR model" />
+			value="template::core::app_migrations_init::main FOR model" />
 		<outlet path="${src-gen}" >
 		</outlet>
 		<resourceManager class ="org.eclipse.xtend.expression.ResourceManagerDefaultImpl">
