@@ -1,0 +1,87 @@
+«IMPORT similuml»
+«IMPORT template»
+«EXTENSION template::GeneratorExtensions»
+
+«REM»
+Creación de archivos plantilla HTML de la página de listado para las clases de la aplicación Django
+Archivo generado: static/gen/templates/<clase>_listar.html
+«ENDREM»
+
+«REM»Creación del archivo plantilla HTML de la página de listado de cada clase«ENDREM»
+«DEFINE main FOR DiagramaClases»
+    «EXPAND archivoClase FOREACH clases_del_Diagrama»
+«ENDDEFINE»
+
+
+«REM»Creación de archivo HTML por clase«ENDREM»
+«DEFINE archivoClase FOR Clase»
+    «FILE 'templates/gen/'+this.nombre.toFirstLower()+'_listar.html'-»
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block title %}«EXPAND bloqueTitulo FOR this»{% endblock title %}
+
+{% block cssprivate %}«EXPAND bloqueCSS FOR this»{% endblock cssprivate %}
+{% block jsprivate %}«EXPAND bloqueJS FOR this»{% endblock jsprivate %}
+
+{% block content %}«EXPAND bloqueContenido FOR this-»{% endblock content %}
+    «ENDFILE»
+«ENDDEFINE»
+
+
+«REM»Generación de título de plantilla de la clase«ENDREM»
+«DEFINE bloqueTitulo FOR Clase-»
+Listado de entidades: «EXPAND django_global::nombre FOR this-»
+«ENDDEFINE»
+
+
+«REM»Importación de archivos CSS de la clase«ENDREM»
+«DEFINE bloqueCSS FOR Clase»
+<link href="{% static 'gen/css/«EXPAND django_global::nombreMinus FOR this-»_listar.css' %}" rel="stylesheet">
+«ENDDEFINE»
+
+
+«REM»Importación de archivos JS de la clase«ENDREM»
+«DEFINE bloqueJS FOR Clase»
+<script src="{% static 'gen/js/«EXPAND django_global::nombreMinus FOR this-»_listar.js' %}"></script>
+<script src="{% static 'js/funciones_tabla.js' %}"></script>
+«ENDDEFINE»
+
+
+«REM»Generación de contenido de plantilla de la clase«ENDREM»
+«DEFINE bloqueContenido FOR Clase»
+<div class="container">
+    <div class="page-header">
+        <h1>Listado de: «EXPAND django_global::nombre FOR this-»</h1>
+    </div>
+    <a href="{% url 'gen:«EXPAND django_global::nombreMinus FOR this-»_crear' %}" type="button" id="«EXPAND django_global::nombreMinus FOR this-»_crear" class="btn btn-success">
+        <span class="glyphicon glyphicon-plus"></span>Crear nuevo
+    </a>
+    <div class="table-responsive">
+        <table class="table table-bordered table-hover">
+            <thead>
+                <tr class="active">
+                    <th>ID</th>
+                    «EXPAND atributoTabla FOREACH this.atributos_clases-»
+                    «EXPAND asociacionTabla FOREACH this.asociaciones_contenidas-»
+                    <th>Operaciones</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
+</div>
+«ENDDEFINE»
+
+
+«REM»Cabecera de atributo de la clase en la tabla«ENDREM»
+«DEFINE atributoTabla FOR Atributo-»
+<td>«this.nombre.toFirstUpper()»</td>
+«ENDDEFINE»
+
+
+«REM»Cabecera de asociación de la clase en la tabla«ENDREM»
+«DEFINE asociacionTabla FOR Asociacion-»
+<td>«this.nombre.toFirstUpper()»</td>
+«ENDDEFINE»

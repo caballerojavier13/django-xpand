@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block title %}Listado de entidades: Domicilio{% endblock title %}
+
+{% block cssprivate %}
+<link href="{% static 'gen/css/domicilio_listar.css' %}" rel="stylesheet">
+{% endblock cssprivate %}
+{% block jsprivate %}
+<script src="{% static 'gen/js/domicilio_listar.js' %}"></script>
+<script src="{% static 'js/funciones_tabla.js' %}"></script>
+{% endblock jsprivate %}
+
+{% block content %}
+<div class="container">
+    <div class="page-header">
+        <h1>Listado de: Domicilio</h1>
+    </div>
+    <a href="{% url 'gen:domicilio_crear' %}" type="button" id="domicilio_crear" class="btn btn-success">
+        <span class="glyphicon glyphicon-plus"></span>Crear nuevo
+    </a>
+    <div class="table-responsive">
+        <table class="table table-bordered table-hover">
+            <thead>
+                <tr class="active">
+                    <th>ID</th>
+<td>Calle</td>
+<td>Numero</td>
+<td>Localidad</td>
+                    <th>Operaciones</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock content %}
+    

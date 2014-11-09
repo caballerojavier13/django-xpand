@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block title %}Listado de entidades: Persona{% endblock title %}
+
+{% block cssprivate %}
+<link href="{% static 'gen/css/persona_listar.css' %}" rel="stylesheet">
+{% endblock cssprivate %}
+{% block jsprivate %}
+<script src="{% static 'gen/js/persona_listar.js' %}"></script>
+<script src="{% static 'js/funciones_tabla.js' %}"></script>
+{% endblock jsprivate %}
+
+{% block content %}
+<div class="container">
+    <div class="page-header">
+        <h1>Listado de: Persona</h1>
+    </div>
+    <a href="{% url 'gen:persona_crear' %}" type="button" id="persona_crear" class="btn btn-success">
+        <span class="glyphicon glyphicon-plus"></span>Crear nuevo
+    </a>
+    <div class="table-responsive">
+        <table class="table table-bordered table-hover">
+            <thead>
+                <tr class="active">
+                    <th>ID</th>
+<td>Dni</td>
+<td>Nombre</td>
+<td>Apellido</td>
+<td>Domicilio</td>
+                    <th>Operaciones</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock content %}
+    
