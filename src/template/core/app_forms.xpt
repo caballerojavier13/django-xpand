@@ -1,0 +1,29 @@
+«IMPORT similuml»
+«IMPORT template»
+«EXTENSION template::GeneratorExtensions»
+
+«REM»
+Creación de formularios de la aplicación Django
+Archivo generado: forms.py
+«ENDREM»
+
+«REM»Creación del archivo de formularios«ENDREM»
+«DEFINE main FOR DiagramaClases»
+    «FILE 'forms.py'-»
+from django import forms
+
+from .models import «EXPAND django_global::nombre FOREACH clases_del_Diagrama SEPARATOR ', '»
+
+«EXPAND formularioClase FOREACH clases_del_Diagrama-»
+    «ENDFILE»
+«ENDDEFINE»
+
+
+«REM»Formulario por clase«ENDREM»
+«DEFINE formularioClase FOR Clase»
+# Clase: «EXPAND django_global::nombre FOR this»
+class «EXPAND django_global::nombreMinus FOR this»_form(forms.ModelForm):
+    class Meta:
+        model = «EXPAND django_global::nombre FOR this»
+        fields = '__all__'
+«ENDDEFINE»
