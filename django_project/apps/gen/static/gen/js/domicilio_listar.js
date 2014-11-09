@@ -1,5 +1,5 @@
 $(function() {
-    generarTabla('/domicilio/json/', function(data) {
+    generarTabla('/app/domicilio/json/', function(data) {
         cargarTabla('table', data, init);
     });
 });
@@ -19,10 +19,10 @@ function armarFila(index, instancia) {
     
     // Botones 'Editar' y 'Eliminar'
     fila += '<td>' +
-            '<a href="/domicilio/edit/'+ instancia.pk + 
-            '/" class="btn btn-primary" title="Editar"><span class="glyphicon glyphicon-pencil"></span></a>' +
-            '<a href="/domicilio/delete/'+ instancia.pk +
-            '/" class="btn btn-danger" title="Eliminar"><span class="glyphicon glyphicon-trash"></span></a>' +
+            '<a href="/app/domicilio/' + instancia.pk + '/editar/' +
+            '" class="btn btn-primary" title="Editar"><span class="glyphicon glyphicon-pencil"></span></a>' +
+            '<a href="/app/domicilio/' + instancia.pk + '/eliminar/' +
+            '" class="btn btn-danger" title="Eliminar"><span class="glyphicon glyphicon-trash"></span></a>' +
             '</td>';
     
     fila += '</tr>';

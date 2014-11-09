@@ -26,7 +26,7 @@ Archivo generado: static/gen/js/<clase>_listar.js
 «REM»Generación de tabla de instancias de la clase«ENDREM»
 «DEFINE generarTabla FOR Clase-»
 $(function() {
-    generarTabla('/«EXPAND django_global::nombreMinus FOR this»/json/', function(data) {
+    generarTabla('/app/«EXPAND django_global::nombreMinus FOR this»/json/', function(data) {
         cargarTabla('table', data, init);
     });
 });
@@ -51,10 +51,10 @@ function armarFila(index, instancia) {
     
     // Botones 'Editar' y 'Eliminar'
     fila += '<td>' +
-            '<a href="/«EXPAND django_global::nombreMinus FOR this»/edit/'+ instancia.pk + 
-            '/" class="btn btn-primary" title="Editar"><span class="glyphicon glyphicon-pencil"></span></a>' +
-            '<a href="/«EXPAND django_global::nombreMinus FOR this»/delete/'+ instancia.pk +
-            '/" class="btn btn-danger" title="Eliminar"><span class="glyphicon glyphicon-trash"></span></a>' +
+            '<a href="/app/«EXPAND django_global::nombreMinus FOR this»/' + instancia.pk + '/editar/' +
+            '" class="btn btn-primary" title="Editar"><span class="glyphicon glyphicon-pencil"></span></a>' +
+            '<a href="/app/«EXPAND django_global::nombreMinus FOR this»/' + instancia.pk + '/eliminar/' +
+            '" class="btn btn-danger" title="Eliminar"><span class="glyphicon glyphicon-trash"></span></a>' +
             '</td>';
     
     fila += '</tr>';
@@ -72,6 +72,6 @@ function armarFila(index, instancia) {
 
 «REM»Campo de asociación de la clase en la tabla«ENDREM»
 «DEFINE asociacionTabla FOR Asociacion-»
-'<td>' + '<a href="/«EXPAND django_global::nombreMinus FOR this.destino»/' + instancia.fields.«this.nombre.toFirstLower()» +
-'/" class="btn btn-info">Ver «this.nombre.toFirstLower()»</a>' + '</td>'
+'<td>' + '<a href="/«EXPAND django_global::nombreMinus FOR this.destino»/' + instancia.fields.«this.nombre.toFirstLower()» + '/' +
+'" class="btn btn-info">Ver «this.nombre.toFirstLower()»</a>' + '</td>'
 «ENDDEFINE»
