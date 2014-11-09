@@ -12,16 +12,15 @@
         <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
         {% block cssprivate %}{% endblock cssprivate %}
         <link href="{% static 'css/all.css' %}" rel="stylesheet">
-        <link href="{% static 'css/loading_page.css' %}" rel="stylesheet">
 
         <script src="{% static 'js/jquery/jquery.min.js' %}"></script>
         <script src="{% static 'js/bootstrap.min.js' %}"></script>
-        <script src="{% static 'js/functions.js' %}"></script>
+        <script src="{% static 'js/funciones.js' %}"></script>
         {% block jsprivate %}{% endblock jsprivate %}
     </head>
 
 	<body>
-		<header style="display: none;">
+		<header>
 		    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
 				<div class="container-fluid">
 				<!-- Brand and toggle get grouped for better mobile display -->
@@ -40,7 +39,7 @@
 					  <ul class="nav navbar-nav navbar-right">
 
 					    <li class="dropdown">
-					      <a href="#" class="dropdown-toggle" data-toggle="dropdown">Módulos <span class="caret"></span></a>
+					      <a href="#" class="dropdown-toggle" data-toggle="dropdown">Módulos<span class="caret"></span></a>
 					      <ul class="dropdown-menu" role="menu" id="listado_modulos">
 					        {% block listmodulos %}{% endblock listmodulos %}
 					      </ul>
@@ -51,15 +50,6 @@
 				</div><!-- /.container-fluid -->
 			</nav>
 		</header>
-		<div class="loading_wrap">
-		  <div class="	bg">
-		    <div class="loading">
-		      <span class="loading_title">Cargando</span>
-		      <span class="loading_text">Proyecto MDA</span>
-		    </div>
-		  </div>
-		</div>
 	    {% block content %}{% endblock content %}
-	    {% block modals%}{% endblock modals %}
 	</body>
 </html>
