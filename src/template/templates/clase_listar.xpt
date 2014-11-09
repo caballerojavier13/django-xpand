@@ -16,7 +16,7 @@ Archivo generado: static/gen/templates/<clase>_listar.html
 «REM»Creación de archivo HTML por clase«ENDREM»
 «DEFINE archivoClase FOR Clase»
     «FILE 'templates/gen/'+this.nombre.toFirstLower()+'_listar.html'-»
-{% extends "base.html" %}
+{% extends "gen/base.html" %}
 {% load staticfiles %}
 
 {% block title %}«EXPAND bloqueTitulo FOR this»{% endblock title %}

@@ -1,8 +1,8 @@
 var miniLoading = false;
 
 $(function() {
-    if ($("#listado_modulos li").length < 1) {
-        $("#listado_modulos").parent().remove();
+    if ($("#desplegable li").length < 1) {
+        $("#desplegable").parent().remove();
     }
     $(".alert .close").on("click", function() {
         $(".alert").hide();

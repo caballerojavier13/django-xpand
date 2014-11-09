@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends "base_project.html" %}
 
 {% load staticfiles %}
 
@@ -12,9 +12,13 @@
 {% block jsprivate %}
 {% endblock jsprivate %}
 
-{% block listmodulos %}
+{% block titulodesplegable %}
+Aplicaciones
+{% endblock titulodesplegable %}
+
+{% block desplegable %}
 <li><a href="/app/">Persona</a></li>
-{% endblock listmodulos %}
+{% endblock desplegable %}
 
 {% block content %}
 <div class="container">

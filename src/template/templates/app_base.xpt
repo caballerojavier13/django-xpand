@@ -1,0 +1,31 @@
+«IMPORT similuml»
+«IMPORT template»
+«EXTENSION template::GeneratorExtensions»
+
+«REM»
+Creación de archivos HTML base de la aplicación Django
+Archivo generado: templates/gen/base.html
+«ENDREM»
+
+«REM»Creación del archivo HTML base«ENDREM»
+«DEFINE main FOR DiagramaClases»
+    «FILE 'templates/gen/base.html'-»
+{% extends "base_project.html" %}
+
+{% block titulodesplegable %}Entidades{% endblock titulodesplegable %}
+
+{% block desplegable %}«EXPAND bloqueDesplegable FOR this»{% endblock desplegable %}
+    «ENDFILE»
+«ENDDEFINE»
+
+
+«REM»Generación de lista desplegable de la aplicación«ENDREM»
+«DEFINE bloqueDesplegable FOR DiagramaClases-»
+    «EXPAND entidadLista FOREACH clases_del_Diagrama»
+«ENDDEFINE»
+
+
+«REM»Generación de elemento entidad en la lista desplegable«ENDREM»
+«DEFINE entidadLista FOR Clase-»
+    <li><a href="/app/«EXPAND django_global::nombreMinus FOR this»">«EXPAND django_global::nombre FOR this»</a></li>
+«ENDDEFINE»
