@@ -48,7 +48,7 @@ function armarFila(index, instancia) {
     
     «IF !this.asociaciones_contenidas.isEmpty-»
     // Asociaciones
-    fila += «EXPAND asociacionTabla FOREACH this.asociaciones_contenidas SEPARATOR ' + '-»;
+    «EXPAND asociacionTabla FOREACH this.asociaciones_contenidas-»
     «ENDIF»
     
     // Botones 'Editar' y 'Eliminar'
@@ -83,6 +83,23 @@ $(document).on("click", ".modal-eliminar", function () {
 
 «REM»Campo de asociación de la clase en la tabla«ENDREM»
 «DEFINE asociacionTabla FOR Asociacion-»
+if (instancia.fields.«this.nombre.toFirstLower()» != null) {
+    fila += «EXPAND asociacionExistente FOR this»;
+}
+else {
+    fila += «EXPAND asociacionNula FOR this»;
+}
+«ENDDEFINE»
+
+
+«REM»Asociación existente entre instancias de clase«ENDREM»
+«DEFINE asociacionExistente FOR Asociacion-»
 '<td>' + '<a href="/app/«EXPAND django_global::nombreMinus FOR this.destino»/' + instancia.fields.«this.nombre.toFirstLower()» + '/' +
 '" class="btn btn-info">Ver «this.nombre.toFirstLower()»</a>' + '</td>'
+«ENDDEFINE»
+
+
+«REM»Asociación inexistente entre instancias de clase«ENDREM»
+«DEFINE asociacionNula FOR Asociacion-»
+'<td>' + 'Sin «EXPAND django_global::nombreMinus FOR this.destino»' + '</td>'
 «ENDDEFINE»

@@ -16,9 +16,15 @@ function armarFila(index, instancia) {
     
     
     // Asociaciones
+if (instancia.fields.domicilio != null) {
     fila += '<td>' + '<a href="/app/domicilio/' + instancia.fields.domicilio + '/' +
 '" class="btn btn-info">Ver domicilio</a>' + '</td>'
 ;
+}
+else {
+    fila += '<td>' + 'Sin domicilio' + '</td>'
+;
+}
     
     
     // Botones 'Editar' y 'Eliminar'
