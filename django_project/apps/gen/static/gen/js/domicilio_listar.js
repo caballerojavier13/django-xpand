@@ -1,6 +1,6 @@
 $(function() {
     generarTabla('/app/domicilio/json/', function(data) {
-        cargarTabla('table', data, init);
+        cargarTabla('table', data);
     });
 });
 

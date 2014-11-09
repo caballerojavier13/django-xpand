@@ -27,7 +27,7 @@ Archivo generado: static/gen/js/<clase>_listar.js
 «DEFINE generarTabla FOR Clase-»
 $(function() {
     generarTabla('/app/«EXPAND django_global::nombreMinus FOR this»/json/', function(data) {
-        cargarTabla('table', data, init);
+        cargarTabla('table', data);
     });
 });
 «ENDDEFINE»

@@ -16,7 +16,7 @@ function cargarTabla(idTabla, data, callback) {
 function generarTabla(url, callback){
     var tabla = new Array();
     $.getJSON(url, function(data) {
-	    jQuery.each(data,function(index, elemento) {
+	    $.each(data, function(index, elemento) {
 	        var fila = armarFila(index, elemento);
 	        tabla.push(fila);
 	    });
