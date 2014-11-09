@@ -72,6 +72,6 @@ function armarFila(index, instancia) {
 
 «REM»Campo de asociación de la clase en la tabla«ENDREM»
 «DEFINE asociacionTabla FOR Asociacion-»
-'<td>' + '<a href="/«EXPAND django_global::nombreMinus FOR this.destino»/' + instancia.fields.«this.nombre.toFirstLower()» + '/' +
+'<td>' + '<a href="/app/«EXPAND django_global::nombreMinus FOR this.destino»/' + instancia.fields.«this.nombre.toFirstLower()» + '/' +
 '" class="btn btn-info">Ver «this.nombre.toFirstLower()»</a>' + '</td>'
 «ENDDEFINE»

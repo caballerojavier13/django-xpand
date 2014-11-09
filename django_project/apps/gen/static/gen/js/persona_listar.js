@@ -16,7 +16,7 @@ function armarFila(index, instancia) {
     
     
     // Asociaciones
-    fila += '<td>' + '<a href="/domicilio/' + instancia.fields.domicilio + '/' +
+    fila += '<td>' + '<a href="/app/domicilio/' + instancia.fields.domicilio + '/' +
 '" class="btn btn-info">Ver domicilio</a>' + '</td>'
 ;
     
