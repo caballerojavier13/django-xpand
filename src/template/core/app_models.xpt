@@ -36,7 +36,7 @@ class «EXPAND django_global::nombre FOR this»(«EXPAND herenciaClase FOR this�
 
 «REM»Asociaciones de clase«ENDREM»
 «DEFINE asociacionClase FOR Asociacion-»
-    «this.nombre.toFirstLower()» = models.«EXPAND campoTipoAsociacion FOR this»('«EXPAND django_global::nombre FOR this.destino»')
+    «this.nombre.toFirstLower()» = models.«EXPAND campoTipoAsociacion FOR this»('«EXPAND django_global::nombre FOR this.destino»'«EXPAND opcionesAsociacion FOR this»)
 «ENDDEFINE»
 
 
@@ -82,4 +82,11 @@ max_digits=12, decimal_places=3«ENDIF-»
 «IF this.cardinalidadSuperior==1-»
 ForeignKey«ELSE-»
 ManyToManyField«ENDIF-»
+«ENDDEFINE»
+
+
+«REM»Opciones específicas de asociación de clase«ENDREM»
+«DEFINE opcionesAsociacion FOR Asociacion-»
+«IF this.cardinalidadInferior == 0-»
+, null=True, blank=True, on_delete=models.SET_NULL«ENDIF-»
 «ENDDEFINE»

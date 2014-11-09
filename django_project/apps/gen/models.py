@@ -8,7 +8,7 @@ class Persona(Model):
     nombre = models.CharField(max_length=50)
     apellido = models.CharField(max_length=50)
     # Relaciones
-    domicilio = models.ForeignKey('Domicilio')
+    domicilio = models.ForeignKey('Domicilio', null=True, blank=True, on_delete=models.SET_NULL)
 
 class Domicilio(Model):
     # Atributos
