@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block title %}Formulario de entidad: Persona{% endblock title %}
+
+{% block cssprivate %}
+<link href="{% static 'gen/css/persona_form.css' %}" rel="stylesheet">
+{% endblock cssprivate %}
+{% block jsprivate %}
+<script src="{% static 'gen/js/persona_form.js' %}"></script>
+{% endblock jsprivate %}
+
+{% block content %}
+{{ form.as_p }}
+{% endblock content %}
+    

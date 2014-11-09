@@ -1,0 +1,53 @@
+«IMPORT similuml»
+«IMPORT template»
+«EXTENSION template::GeneratorExtensions»
+
+«REM»
+Creación de archivos plantilla HTML de la página de formulario para las clases de la aplicación Django
+Archivo generado: static/gen/templates/<clase>_form.html
+«ENDREM»
+
+«REM»Creación del archivo plantilla HTML de la página de formulario de cada clase«ENDREM»
+«DEFINE main FOR DiagramaClases»
+    «EXPAND archivoClase FOREACH clases_del_Diagrama»
+«ENDDEFINE»
+
+
+«REM»Creación de archivo HTML por clase«ENDREM»
+«DEFINE archivoClase FOR Clase»
+    «FILE 'templates/gen/'+this.nombre.toFirstLower()+'_form.html'-»
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block title %}«EXPAND bloqueTitulo FOR this»{% endblock title %}
+
+{% block cssprivate %}«EXPAND bloqueCSS FOR this»{% endblock cssprivate %}
+{% block jsprivate %}«EXPAND bloqueJS FOR this»{% endblock jsprivate %}
+
+{% block content %}«EXPAND bloqueContenido FOR this-»{% endblock content %}
+    «ENDFILE»
+«ENDDEFINE»
+
+
+«REM»Generación de título de plantilla de la clase«ENDREM»
+«DEFINE bloqueTitulo FOR Clase-»
+Formulario de entidad: «EXPAND django_global::nombre FOR this-»
+«ENDDEFINE»
+
+
+«REM»Importación de archivos CSS de la clase«ENDREM»
+«DEFINE bloqueCSS FOR Clase»
+<link href="{% static 'gen/css/«EXPAND django_global::nombreMinus FOR this-»_form.css' %}" rel="stylesheet">
+«ENDDEFINE»
+
+
+«REM»Importación de archivos JS de la clase«ENDREM»
+«DEFINE bloqueJS FOR Clase»
+<script src="{% static 'gen/js/«EXPAND django_global::nombreMinus FOR this-»_form.js' %}"></script>
+«ENDDEFINE»
+
+
+«REM»Generación de contenido de plantilla de la clase«ENDREM»
+«DEFINE bloqueContenido FOR Clase»
+{{ form.as_p }}
+«ENDDEFINE»
