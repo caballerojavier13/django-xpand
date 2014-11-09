@@ -4,7 +4,7 @@
 
 «REM»
 Creación de archivos plantilla HTML de la página de formulario para las clases de la aplicación Django
-Archivo generado: static/gen/templates/<clase>_form.html
+Archivo generado: templates/gen/<clase>_form.html
 «ENDREM»
 
 «REM»Creación del archivo plantilla HTML de la página de formulario de cada clase«ENDREM»

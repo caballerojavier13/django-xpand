@@ -4,7 +4,7 @@
 
 «REM»
 Creación de archivos plantilla HTML de la página de listado para las clases de la aplicación Django
-Archivo generado: static/gen/templates/<clase>_listar.html
+Archivo generado: templates/gen/<clase>_listar.html
 «ENDREM»
 
 «REM»Creación del archivo plantilla HTML de la página de listado de cada clase«ENDREM»
