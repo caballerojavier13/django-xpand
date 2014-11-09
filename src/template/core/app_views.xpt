@@ -13,6 +13,7 @@ Archivo generado: views.py
 from django.shortcuts import render_to_response, get_object_or_404
 from django.http import HttpResponse
 from django.core import serializers
+from django.core.urlresolvers import reverse_lazy
 from django.template import RequestContext
 from django.views.generic import CreateView, UpdateView
 
@@ -48,6 +49,7 @@ class «EXPAND django_global::nombreMinus FOR this»_crear(CreateView):
     model = «EXPAND django_global::nombre FOR this»
     form_class = «EXPAND django_global::nombreMinus FOR this»_form
     template_name_suffix = '_form'
+    success_url = reverse_lazy('gen:«EXPAND django_global::nombreMinus FOR this»_listar')
 «ENDDEFINE»
 
 
@@ -57,6 +59,7 @@ class «EXPAND django_global::nombreMinus FOR this»_editar(UpdateView):
     model = «EXPAND django_global::nombre FOR this»
     form_class = «EXPAND django_global::nombreMinus FOR this»_form
     template_name_suffix = '_form'
+    success_url = reverse_lazy('gen:«EXPAND django_global::nombreMinus FOR this»_listar')
 «ENDDEFINE»
 
 

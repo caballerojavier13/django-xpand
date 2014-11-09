@@ -49,5 +49,15 @@ Formulario de entidad: «EXPAND django_global::nombre FOR this-»
 
 «REM»Generación de contenido de plantilla de la clase«ENDREM»
 «DEFINE bloqueContenido FOR Clase»
-{{ form.as_p }}
+<form action='' method='POST'>
+    {% csrf_token %}
+    {{ form.as_p }}
+    
+    <button type="submit" class="btn btn-primary">
+        Guardar
+    </button>
+    <a href="{% url 'gen:«EXPAND django_global::nombreMinus FOR this-»_listar' %}" class="btn btn-danger" role="button">
+        Deshacer
+    </a>
+</form>
 «ENDDEFINE»

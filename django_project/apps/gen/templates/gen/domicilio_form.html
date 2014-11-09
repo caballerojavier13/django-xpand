@@ -11,6 +11,16 @@
 {% endblock jsprivate %}
 
 {% block content %}
-{{ form.as_p }}
+<form action='' class='form-horizontal' method='POST'>
+    {% csrf_token %}
+    {{ form.as_p }}
+    
+    <button type="submit" class="btn btn-primary">
+        Guardar
+    </button>
+    <a href="{% url 'gen:domicilio_listar' %}" class="btn btn-danger" role="button">
+        Deshacer
+    </a>
+</form>
 {% endblock content %}
     

@@ -1,6 +1,7 @@
 from django.shortcuts import render_to_response, get_object_or_404
 from django.http import HttpResponse
 from django.core import serializers
+from django.core.urlresolvers import reverse_lazy
 from django.template import RequestContext
 from django.views.generic import CreateView, UpdateView
 
@@ -17,12 +18,14 @@ class persona_crear(CreateView):
     model = Persona
     form_class = persona_form
     template_name_suffix = '_form'
+    success_url = reverse_lazy('gen:persona_listar')
 
 
 class persona_editar(UpdateView):
     model = Persona
     form_class = persona_form
     template_name_suffix = '_form'
+    success_url = reverse_lazy('gen:persona_listar')
 
 
 def persona_eliminar(request):
@@ -63,12 +66,14 @@ class domicilio_crear(CreateView):
     model = Domicilio
     form_class = domicilio_form
     template_name_suffix = '_form'
+    success_url = reverse_lazy('gen:domicilio_listar')
 
 
 class domicilio_editar(UpdateView):
     model = Domicilio
     form_class = domicilio_form
     template_name_suffix = '_form'
+    success_url = reverse_lazy('gen:domicilio_listar')
 
 
 def domicilio_eliminar(request):
