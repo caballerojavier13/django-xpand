@@ -45,28 +45,6 @@ urlpatterns = patterns('',
 
 ## URLs JSON
 
-
-    url(
-        regex = r'^persona/json/crear/$',
-        view  = views.persona_crear_json,
-        name  = 'persona_crear_json'
-    ),
-
-
-    url(
-        regex = r'^persona/json/(?P<id>\d+)/editar/$',
-        view  = views.persona_editar_json,
-        name  = 'persona_editar_json'
-    ),
-
-
-    url(
-        regex = r'^persona/json/(?P<id>\d+)/eliminar/$',
-        view  = views.persona_eliminar_json,
-        name  = 'persona_eliminar_json'
-    ),
-
-
     url(
         regex = r'^persona/json/(?P<id>\d+)/$',
         view  = views.persona_detallar_json,
@@ -121,28 +99,6 @@ urlpatterns = patterns('',
 
 
 ## URLs JSON
-
-
-    url(
-        regex = r'^domicilio/json/crear/$',
-        view  = views.domicilio_crear_json,
-        name  = 'domicilio_crear_json'
-    ),
-
-
-    url(
-        regex = r'^domicilio/json/(?P<id>\d+)/editar/$',
-        view  = views.domicilio_editar_json,
-        name  = 'domicilio_editar_json'
-    ),
-
-
-    url(
-        regex = r'^domicilio/json/(?P<id>\d+)/eliminar/$',
-        view  = views.domicilio_eliminar_json,
-        name  = 'domicilio_eliminar_json'
-    ),
-
 
     url(
         regex = r'^domicilio/json/(?P<id>\d+)/$',

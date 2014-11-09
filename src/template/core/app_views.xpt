@@ -35,9 +35,6 @@ from .models import «EXPAND django_global::nombre FOREACH clases_del_Diagrama S
 «EXPAND vistaListar FOR this»
 
 ## Vistas JSON
-«EXPAND vistaCrearJson FOR this»
-«EXPAND vistaEditarJson FOR this»
-«EXPAND vistaEliminarJson FOR this»
 «EXPAND vistaDetallarJson FOR this»
 «EXPAND vistaListarJson FOR this»
 «ENDDEFINE»
@@ -85,30 +82,6 @@ def «EXPAND django_global::nombreMinus FOR this»_listar(request):
     return render_to_response('gen/«EXPAND django_global::nombreMinus FOR this»_listar.html',
                               context_instance=RequestContext(request),
                               )
-«ENDDEFINE»
-
-
-«REM»Vista Crear de la clase, en JSON«ENDREM»
-«REM»Falta implementación«ENDREM»
-«DEFINE vistaCrearJson FOR Clase»
-def «EXPAND django_global::nombreMinus FOR this»_crear_json(request):
-    pass
-«ENDDEFINE»
-
-
-«REM»Vista Editar de la clase, en JSON«ENDREM»
-«REM»Falta implementación«ENDREM»
-«DEFINE vistaEditarJson FOR Clase»
-def «EXPAND django_global::nombreMinus FOR this»_editar_json(request, id):
-    pass
-«ENDDEFINE»
-
-
-«REM»Vista Eliminar de la clase, en JSON«ENDREM»
-«REM»Falta implementación«ENDREM»
-«DEFINE vistaEliminarJson FOR Clase»
-def «EXPAND django_global::nombreMinus FOR this»_eliminar_json(request, id):
-    pass
 «ENDDEFINE»
 
 

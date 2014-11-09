@@ -43,18 +43,6 @@ def persona_listar(request):
 
 ## Vistas JSON
 
-def persona_crear_json(request):
-    pass
-
-
-def persona_editar_json(request, id):
-    pass
-
-
-def persona_eliminar_json(request, id):
-    pass
-
-
 def persona_detallar_json(request, id):
     object = get_object_or_404(Persona, pk=id)
     data = serializers.serialize('json', [object])
@@ -100,18 +88,6 @@ def domicilio_listar(request):
 
 
 ## Vistas JSON
-
-def domicilio_crear_json(request):
-    pass
-
-
-def domicilio_editar_json(request, id):
-    pass
-
-
-def domicilio_eliminar_json(request, id):
-    pass
-
 
 def domicilio_detallar_json(request, id):
     object = get_object_or_404(Domicilio, pk=id)
