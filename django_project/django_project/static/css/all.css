@@ -1,0 +1,204 @@
+:hover{text-decoration:none !important;}
+a{text-decoration:none !important;}
+/* Space out content a bit */
+body {
+  padding-top: 70px;
+}
+/* Everything but the jumbotron gets side spacing for mobile first views */
+.header,
+.footer {
+  padding: 0;
+}
+
+/* Custom page footer */
+.footer {
+  padding-top: 19px;
+  color: #888;
+  border-top: 1px solid rgba(98, 97, 97, 1);
+}
+
+.navbar-brand,
+.dropdown-toggle{
+  color: white !important;
+}
+/* Customize container */
+
+
+header{
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 100;
+}
+.bold{
+  font-weight: bolder;
+}
+footer{
+  position: relative;
+  left: 10%;
+  width: 80%;
+}
+
+.container-narrow > hr {
+  margin: 30px 0;
+}
+
+.show_white{
+  background: white !important;
+  color: black !important;
+  cursor: default !important;
+}
+
+.modal-header{
+  background-color: rgb(231, 231, 231);
+  border-radius: 4px 4px 0 0;
+}
+
+.container{
+  margin-bottom: 30px !important;
+}
+
+.breadcrumb {
+  border: solid 1px #BBBBBB;
+}
+/* Responsive: Portrait tablets and up */
+@media screen and (min-width: 768px) {
+  /* Remove the padding we set earlier */
+  .header,
+  .marketing,
+  .footer {
+    padding-right: 0;
+    padding-left: 0;
+  }
+  /* Space out the masthead */
+  .header {
+    margin-bottom: 30px;
+  }
+  /* Remove the bottom border on the jumbotron for visual effect */
+  .jumbotron {
+    border-bottom: 0;
+   }
+}
+
+.center{
+  position: relative !important;
+  margin: 0 auto !important;
+}
+
+.dropdown-menu li{
+  cursor: pointer;
+}
+
+.alert{
+  display: none;
+}
+
+.pagination a{
+  cursor: pointer;
+}
+
+
+.spinner {
+  position: fixed;
+  -webkit-animation: rotator 1.4s linear infinite;
+  animation: rotator 1.4s linear infinite;
+  bottom: 50px;
+  right: 50px;
+}
+
+@-webkit-keyframes rotator {
+  0% {
+    -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(270deg);
+            transform: rotate(270deg);
+  }
+}
+
+@keyframes rotator {
+  0% {
+    -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(270deg);
+            transform: rotate(270deg);
+  }
+}
+.path {
+  stroke-dasharray: 187;
+  stroke-dashoffset: 0;
+  -webkit-transform-origin: center;
+      -ms-transform-origin: center;
+          transform-origin: center;
+  -webkit-animation: dash 1.4s ease-in-out infinite, colors 5.6s ease-in-out infinite;
+          animation: dash 1.4s ease-in-out infinite, colors 5.6s ease-in-out infinite;
+}
+
+@-webkit-keyframes colors {
+  0% {
+    stroke: #4285F4;
+  }
+  25% {
+    stroke: #DE3E35;
+  }
+  50% {
+    stroke: #F7C223;
+  }
+  75% {
+    stroke: #1B9A59;
+  }
+  100% {
+    stroke: #4285F4;
+  }
+}
+
+@keyframes colors {
+  0% {
+    stroke: #4285F4;
+  }
+  25% {
+    stroke: #DE3E35;
+  }
+  50% {
+    stroke: #F7C223;
+  }
+  75% {
+    stroke: #1B9A59;
+  }
+  100% {
+    stroke: #4285F4;
+  }
+}
+@-webkit-keyframes dash {
+  0% {
+    stroke-dashoffset: 187;
+  }
+  50% {
+    stroke-dashoffset: 46.75;
+    -webkit-transform: rotate(135deg);
+            transform: rotate(135deg);
+  }
+  100% {
+    stroke-dashoffset: 187;
+    -webkit-transform: rotate(450deg);
+            transform: rotate(450deg);
+  }
+}
+@keyframes dash {
+  0% {
+    stroke-dashoffset: 187;
+  }
+  50% {
+    stroke-dashoffset: 46.75;
+    -webkit-transform: rotate(135deg);
+            transform: rotate(135deg);
+  }
+  100% {
+    stroke-dashoffset: 187;
+    -webkit-transform: rotate(450deg);
+            transform: rotate(450deg);
+  }
+}

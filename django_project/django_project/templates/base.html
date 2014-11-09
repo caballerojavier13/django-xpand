@@ -1,0 +1,65 @@
+{% load staticfiles %}
+
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="icon" href="{% static 'img/favicon.png' %}">
+        <title>{% block title %}{% endblock title %}</title>
+
+        <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+        {% block cssprivate %}{% endblock cssprivate %}
+        <link href="{% static 'css/all.css' %}" rel="stylesheet">
+        <link href="{% static 'css/loading_page.css' %}" rel="stylesheet">
+
+        <script src="{% static 'js/jquery/jquery.min.js' %}"></script>
+        <script src="{% static 'js/bootstrap.min.js' %}"></script>
+        <script src="{% static 'js/functions.js' %}"></script>
+        {% block jsprivate %}{% endblock jsprivate %}
+    </head>
+
+	<body>
+		<header style="display: none;">
+		    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+				<div class="container-fluid">
+				<!-- Brand and toggle get grouped for better mobile display -->
+					<div class="navbar-header">
+					  <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-navbar-collapse" id="bs-navbar-collapse-button">
+					    <span class="sr-only">Toggle navigation</span>
+					    <span class="icon-bar"></span>
+					    <span class="icon-bar"></span>
+					    <span class="icon-bar"></span>
+					  </button>
+					  <a href="/" class="navbar-brand" >Proyecto MDA</a>
+					</div>
+
+					<!-- Collect the nav links, forms, and other content for toggling -->
+					<div class="collapse navbar-collapse" id="bs-navbar-collapse">
+					  <ul class="nav navbar-nav navbar-right">
+
+					    <li class="dropdown">
+					      <a href="#" class="dropdown-toggle" data-toggle="dropdown">Módulos <span class="caret"></span></a>
+					      <ul class="dropdown-menu" role="menu" id="listado_modulos">
+					        {% block listmodulos %}{% endblock listmodulos %}
+					      </ul>
+					    </li>
+					  </ul>
+
+					</div><!-- /.navbar-collapse -->
+				</div><!-- /.container-fluid -->
+			</nav>
+		</header>
+		<div class="loading_wrap">
+		  <div class="	bg">
+		    <div class="loading">
+		      <span class="loading_title">Cargando</span>
+		      <span class="loading_text">Proyecto MDA</span>
+		    </div>
+		  </div>
+		</div>
+	    {% block content %}{% endblock content %}
+	    {% block modals%}{% endblock modals %}
+	</body>
+</html>
