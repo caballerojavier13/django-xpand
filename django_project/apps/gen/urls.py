@@ -23,14 +23,14 @@ urlpatterns = patterns('',
 
 
     url(
-        regex = r'^persona/(?P<id>\d+)/eliminar/$',
+        regex = r'^persona/(?P<pk>\d+)/eliminar/$',
         view  = views.persona_eliminar,
         name  = 'persona_eliminar'
     ),
 
 
     url(
-        regex = r'^persona/(?P<id>\d+)/$',
+        regex = r'^persona/(?P<pk>\d+)/$',
         view  = views.persona_detallar,
         name  = 'persona_detallar'
     ),
@@ -46,7 +46,7 @@ urlpatterns = patterns('',
 ## URLs JSON
 
     url(
-        regex = r'^persona/json/(?P<id>\d+)/$',
+        regex = r'^persona/json/(?P<pk>\d+)/$',
         view  = views.persona_detallar_json,
         name  = 'persona_detallar_json'
     ),
@@ -78,14 +78,14 @@ urlpatterns = patterns('',
 
 
     url(
-        regex = r'^domicilio/(?P<id>\d+)/eliminar/$',
+        regex = r'^domicilio/(?P<pk>\d+)/eliminar/$',
         view  = views.domicilio_eliminar,
         name  = 'domicilio_eliminar'
     ),
 
 
     url(
-        regex = r'^domicilio/(?P<id>\d+)/$',
+        regex = r'^domicilio/(?P<pk>\d+)/$',
         view  = views.domicilio_detallar,
         name  = 'domicilio_detallar'
     ),
@@ -101,7 +101,7 @@ urlpatterns = patterns('',
 ## URLs JSON
 
     url(
-        regex = r'^domicilio/json/(?P<id>\d+)/$',
+        regex = r'^domicilio/json/(?P<pk>\d+)/$',
         view  = views.domicilio_detallar_json,
         name  = 'domicilio_detallar_json'
     ),

@@ -1,5 +1,5 @@
 from django.shortcuts import render_to_response, get_object_or_404
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.core import serializers
 from django.core.urlresolvers import reverse_lazy
 from django.template import RequestContext
@@ -28,10 +28,10 @@ class persona_editar(UpdateView):
     success_url = reverse_lazy('gen:persona_listar')
 
 
-def persona_eliminar(request):
-    return render_to_response('gen/persona_eliminar.html',
-                              context_instance=RequestContext(request),
-                              )
+def persona_eliminar(request, pk):
+    instancia = Persona.objects.get(pk=pk)
+    instancia.delete()
+    return HttpResponseRedirect(reverse_lazy('gen:persona_listar'))
 
 
 def persona_detallar(request):
@@ -48,8 +48,8 @@ def persona_listar(request):
 
 ## Vistas JSON
 
-def persona_detallar_json(request, id):
-    object = get_object_or_404(Persona, pk=id)
+def persona_detallar_json(request, pk):
+    object = get_object_or_404(Persona, pk=pk)
     data = serializers.serialize('json', [object])
     return HttpResponse(data, content_type='application/json; charset=utf-8')
 
@@ -76,10 +76,10 @@ class domicilio_editar(UpdateView):
     success_url = reverse_lazy('gen:domicilio_listar')
 
 
-def domicilio_eliminar(request):
-    return render_to_response('gen/domicilio_eliminar.html',
-                              context_instance=RequestContext(request),
-                              )
+def domicilio_eliminar(request, pk):
+    instancia = Domicilio.objects.get(pk=pk)
+    instancia.delete()
+    return HttpResponseRedirect(reverse_lazy('gen:domicilio_listar'))
 
 
 def domicilio_detallar(request):
@@ -96,8 +96,8 @@ def domicilio_listar(request):
 
 ## Vistas JSON
 
-def domicilio_detallar_json(request, id):
-    object = get_object_or_404(Domicilio, pk=id)
+def domicilio_detallar_json(request, pk):
+    object = get_object_or_404(Domicilio, pk=pk)
     data = serializers.serialize('json', [object])
     return HttpResponse(data, content_type='application/json; charset=utf-8')
 

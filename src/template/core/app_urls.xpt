@@ -62,7 +62,7 @@ urlpatterns = patterns('',
 «REM»URL Eliminar de la clase«ENDREM»
 «DEFINE urlEliminar FOR Clase»
     url(
-        regex = r'^«EXPAND django_global::nombreMinus FOR this»/(?P<id>\d+)/eliminar/$',
+        regex = r'^«EXPAND django_global::nombreMinus FOR this»/(?P<pk>\d+)/eliminar/$',
         view  = views.«EXPAND django_global::nombreMinus FOR this»_eliminar,
         name  = '«EXPAND django_global::nombreMinus FOR this»_eliminar'
     ),
@@ -72,7 +72,7 @@ urlpatterns = patterns('',
 «REM»URL Detallar de la clase«ENDREM»
 «DEFINE urlDetallar FOR Clase»
     url(
-        regex = r'^«EXPAND django_global::nombreMinus FOR this»/(?P<id>\d+)/$',
+        regex = r'^«EXPAND django_global::nombreMinus FOR this»/(?P<pk>\d+)/$',
         view  = views.«EXPAND django_global::nombreMinus FOR this»_detallar,
         name  = '«EXPAND django_global::nombreMinus FOR this»_detallar'
     ),
@@ -92,7 +92,7 @@ urlpatterns = patterns('',
 «REM»URL Detallar de la clase, en JSON«ENDREM»
 «DEFINE urlDetallarJson FOR Clase»
     url(
-        regex = r'^«EXPAND django_global::nombreMinus FOR this»/json/(?P<id>\d+)/$',
+        regex = r'^«EXPAND django_global::nombreMinus FOR this»/json/(?P<pk>\d+)/$',
         view  = views.«EXPAND django_global::nombreMinus FOR this»_detallar_json,
         name  = '«EXPAND django_global::nombreMinus FOR this»_detallar_json'
     ),
