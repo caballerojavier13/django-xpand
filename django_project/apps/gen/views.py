@@ -2,25 +2,27 @@ from django.shortcuts import render_to_response, get_object_or_404
 from django.http import HttpResponse
 from django.core import serializers
 from django.template import RequestContext
+from django.views.generic import CreateView, UpdateView
 
 import json
 
 from .models import Persona, Domicilio
+from .forms import persona_form, domicilio_form
 
 
 # Clase: Persona
 ## Vistas genéricas
 
-def persona_crear(request):
-    return render_to_response('gen/persona_crear.html',
-                              context_instance=RequestContext(request),
-                              )
+class persona_crear(CreateView):
+    model = Persona
+    form_class = persona_form
+    template_name_suffix = '_form'
 
 
-def persona_editar(request):
-    return render_to_response('gen/persona_editar.html',
-                              context_instance=RequestContext(request),
-                              )
+class persona_editar(UpdateView):
+    model = Persona
+    form_class = persona_form
+    template_name_suffix = '_form'
 
 
 def persona_eliminar(request):
@@ -57,16 +59,16 @@ def persona_listar_json(request):
 # Clase: Domicilio
 ## Vistas genéricas
 
-def domicilio_crear(request):
-    return render_to_response('gen/domicilio_crear.html',
-                              context_instance=RequestContext(request),
-                              )
+class domicilio_crear(CreateView):
+    model = Domicilio
+    form_class = domicilio_form
+    template_name_suffix = '_form'
 
 
-def domicilio_editar(request):
-    return render_to_response('gen/domicilio_editar.html',
-                              context_instance=RequestContext(request),
-                              )
+class domicilio_editar(UpdateView):
+    model = Domicilio
+    form_class = domicilio_form
+    template_name_suffix = '_form'
 
 
 def domicilio_eliminar(request):

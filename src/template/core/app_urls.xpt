@@ -43,7 +43,7 @@ urlpatterns = patterns('',
 «DEFINE urlCrear FOR Clase»
     url(
         regex = r'^«EXPAND django_global::nombreMinus FOR this»/crear/$',
-        view  = views.«EXPAND django_global::nombreMinus FOR this»_crear,
+        view  = views.«EXPAND django_global::nombreMinus FOR this»_crear.as_view(),
         name  = '«EXPAND django_global::nombreMinus FOR this»_crear'
     ),
 «ENDDEFINE»
@@ -52,8 +52,8 @@ urlpatterns = patterns('',
 «REM»URL Editar de la clase«ENDREM»
 «DEFINE urlEditar FOR Clase»
     url(
-        regex = r'^«EXPAND django_global::nombreMinus FOR this»/(?P<id>\d+)/editar/$',
-        view  = views.«EXPAND django_global::nombreMinus FOR this»_editar,
+        regex = r'^«EXPAND django_global::nombreMinus FOR this»/(?P<pk>\d+)/editar/$',
+        view  = views.«EXPAND django_global::nombreMinus FOR this»_editar.as_view(),
         name  = '«EXPAND django_global::nombreMinus FOR this»_editar'
     ),
 «ENDDEFINE»

@@ -10,14 +10,14 @@ urlpatterns = patterns('',
 
     url(
         regex = r'^persona/crear/$',
-        view  = views.persona_crear,
+        view  = views.persona_crear.as_view(),
         name  = 'persona_crear'
     ),
 
 
     url(
-        regex = r'^persona/(?P<id>\d+)/editar/$',
-        view  = views.persona_editar,
+        regex = r'^persona/(?P<pk>\d+)/editar/$',
+        view  = views.persona_editar.as_view(),
         name  = 'persona_editar'
     ),
 
@@ -65,14 +65,14 @@ urlpatterns = patterns('',
 
     url(
         regex = r'^domicilio/crear/$',
-        view  = views.domicilio_crear,
+        view  = views.domicilio_crear.as_view(),
         name  = 'domicilio_crear'
     ),
 
 
     url(
-        regex = r'^domicilio/(?P<id>\d+)/editar/$',
-        view  = views.domicilio_editar,
+        regex = r'^domicilio/(?P<pk>\d+)/editar/$',
+        view  = views.domicilio_editar.as_view(),
         name  = 'domicilio_editar'
     ),
 
