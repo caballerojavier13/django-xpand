@@ -11,6 +11,13 @@ from .models import Persona, Domicilio
 from .forms import persona_form, domicilio_form
 
 
+# Índice
+def index(request):
+    return render_to_response('gen/index.html',
+                              context_instance=RequestContext(request),
+                              )
+
+
 # Clase: Persona
 ## Vistas genéricas
 

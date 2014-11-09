@@ -5,6 +5,14 @@ from . import views
 
 urlpatterns = patterns('',
 
+# Índice
+    url(
+        regex = r'^$',
+        view  = views.index,
+        name  = 'index'
+    ),
+
+
 # Clase: Persona
 ## URLs genéricas
 

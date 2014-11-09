@@ -1,0 +1,64 @@
+«IMPORT similuml»
+«IMPORT template»
+«EXTENSION template::GeneratorExtensions»
+
+«REM»
+Creación de archivos índice HTML de la aplicación Django
+Archivo generado: templates/gen/index.html
+«ENDREM»
+
+«REM»Creación del archivo índice HTML«ENDREM»
+«DEFINE main FOR DiagramaClases»
+    «FILE 'templates/gen/index.html'-»
+{% extends "gen/base.html" %}
+{% load staticfiles %}
+
+{% block title %}
+Índice - Aplicación autogenerada
+{% endblock title %}
+
+{% block cssprivate %}
+<link href="{% static 'gen/css/index.css' %}" rel="stylesheet">
+{% endblock cssprivate %}
+
+{% block jsprivate %}
+<script src="{% static 'gen/js/index.js' %}"></script>
+{% endblock jsprivate %}
+
+{% block content %}«EXPAND bloqueContenido FOR this-»{% endblock content %}
+    «ENDFILE»
+«ENDDEFINE»
+
+
+
+«REM»Generación de contenido de plantilla«ENDREM»
+«DEFINE bloqueContenido FOR DiagramaClases»
+<div class="container">
+    <div class="page-header">
+        <h1>Índice - Aplicación autogenerada</h1>
+    </div>
+    
+    «EXPAND panelClase FOREACH clases_del_Diagrama»
+</div>
+«ENDDEFINE»
+
+
+«REM»Generación de panel de la clase«ENDREM»
+«DEFINE panelClase FOR Clase»
+<div class="panel panel-success">
+    <div class="panel-heading">
+        <h3 class="panel-title">«EXPAND django_global::nombre FOR this»</h3>
+    </div>
+    
+    <div class="panel-body">
+        <div class="btn-group">
+            <a class="btn btn-primary" href="{% url 'gen:«EXPAND django_global::nombreMinus FOR this»_listar' %}" role="button">
+                <span class="glyphicon glyphicon-list"></span> Ver listado
+            </a>
+            <a class="btn btn-success" href="{% url 'gen:«EXPAND django_global::nombreMinus FOR this»_crear' %}" role="button">
+                <span class="glyphicon glyphicon-plus"></span> Crear nuevo
+            </a>
+        </div>
+    </div>
+</div>
+«ENDDEFINE»

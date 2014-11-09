@@ -16,6 +16,14 @@ from . import views
 
 
 urlpatterns = patterns('',
+
+# Índice
+    url(
+        regex = r'^$',
+        view  = views.index,
+        name  = 'index'
+    ),
+
 «EXPAND urlsClase FOREACH clases_del_Diagrama-»
 )
     «ENDFILE»

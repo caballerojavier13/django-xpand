@@ -1,0 +1,59 @@
+{% extends "gen/base.html" %}
+{% load staticfiles %}
+
+{% block title %}
+Índice - Aplicación autogenerada
+{% endblock title %}
+
+{% block cssprivate %}
+<link href="{% static 'gen/css/index.css' %}" rel="stylesheet">
+{% endblock cssprivate %}
+
+{% block jsprivate %}
+<script src="{% static 'gen/js/index.js' %}"></script>
+{% endblock jsprivate %}
+
+{% block content %}
+<div class="container">
+    <div class="page-header">
+        <h1>Índice - Aplicación autogenerada</h1>
+    </div>
+    
+    
+<div class="panel panel-success">
+    <div class="panel-heading">
+        <h3 class="panel-title">Persona</h3>
+    </div>
+    
+    <div class="panel-body">
+        <div class="btn-group">
+            <a class="btn btn-primary" href="{% url 'gen:persona_listar' %}" role="button">
+                <span class="glyphicon glyphicon-list"></span> Ver listado
+            </a>
+            <a class="btn btn-success" href="{% url 'gen:persona_crear' %}" role="button">
+                <span class="glyphicon glyphicon-plus"></span> Crear nuevo
+            </a>
+        </div>
+    </div>
+</div>
+
+<div class="panel panel-success">
+    <div class="panel-heading">
+        <h3 class="panel-title">Domicilio</h3>
+    </div>
+    
+    <div class="panel-body">
+        <div class="btn-group">
+            <a class="btn btn-primary" href="{% url 'gen:domicilio_listar' %}" role="button">
+                <span class="glyphicon glyphicon-list"></span> Ver listado
+            </a>
+            <a class="btn btn-success" href="{% url 'gen:domicilio_crear' %}" role="button">
+                <span class="glyphicon glyphicon-plus"></span> Crear nuevo
+            </a>
+        </div>
+    </div>
+</div>
+
+</div>
+{% endblock content %}
+    
