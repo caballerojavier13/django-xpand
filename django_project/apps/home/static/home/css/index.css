@@ -1,0 +1,85 @@
+.jumbotron {
+  text-align: center;
+  width: 100%;
+  position: relative;
+  margin: 0 auto;
+  padding-top: 40px;
+  margin-top: 30px;
+  padding-bottom: 30px;
+  border-radius: 0 !important;
+  background-color: #009CE7 !important;
+}
+
+.jumbotron a{
+  width: 200px;
+}
+
+.jumbotron h1{
+  font-weight: bolder;
+  margin-bottom: 40px;
+}
+
+.jumbotron h2{
+  line-height: 40px;
+  color: white;
+}
+
+.grid{
+  position: relative;
+  text-align: center;
+  margin: 0 auto;
+  border-radius: 5px;
+  padding-top: 2px;
+  padding-bottom: 20px;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+
+
+
+.listview .list div{
+  color: black;
+  border: 1px #eaeaea solid;
+  margin-bottom: 10px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.listview .list :hover{
+  outline: 3px #ccc solid;
+  font-variant: none;
+}
+
+.container{
+  position: relative;
+  width: 90% !important;
+  background: white;
+  padding: 10px !important;
+  border-radius: 5px;
+}
+
+
+/* Responsive: Portrait tablets and up */
+@media screen and (min-width: 768px) {
+  /* Remove the padding we set earlier */
+  .header,
+  .marketing,
+  .footer {
+    padding-right: 0;
+    padding-left: 0;
+  }
+  /* Space out the masthead */
+  .header {
+    margin-bottom: 30px;
+  }
+  /* Remove the bottom border on the jumbotron for visual effect */
+  .jumbotron {
+    border-bottom: 0;
+    width: 100%;
+  }
+  .container{
+    width: 100% !important;
+    padding: 0 !important;
+  }
+}

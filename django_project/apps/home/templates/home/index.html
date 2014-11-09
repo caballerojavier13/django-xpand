@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+
+{% load staticfiles %}
+
+
+{% block title %}Proyecto Django - MDA 2014{% endblock title %}
+
+{% block cssprivate %}
+<link href="{% static 'home/css/index.css' %}" rel="stylesheet">
+{% endblock cssprivate %}
+
+{% block jsprivate %}
+{% endblock jsprivate %}
+
+{% block listmodulos %}
+<li><a href="/app/">Persona</a></li>
+{% endblock listmodulos %}
+
+{% block content %}
+<div class="container">
+    <div class="jumbotron large">
+        <h1>Proyecto MDA - 2014</h1>
+        <h2 class="lead bold">Proyecto final - Desarrollo de software dirigido por modelos 2014</h2>
+        <h2 class="lead bold">Backend: Django  -  Frontend: Bootstrap</h2>
+    </div>
+    <div class="grid">
+        <div class="row"><h3>Integrantes</h3></div>
+        <div class="listview row">
+            <div class="col-md-3 col-md-offset-2">
+                <a href="#" class="list">
+                    <div class="list-content">Romina Echevarieta</div>
+                </a>
+                <a href="#" class="list">
+                    <div class="list-content">Yanina Morales</div>
+                </a>
+                <a href="#" class="list">
+                    <div class="list-content">Franco Canizo</div>
+                </a>
+            </div>
+            <div class="col-md-3 col-md-offset-2">
+                <a href="#" class="list">
+                    <div class="list-content">Michael Manganiello</div>
+                </a>
+                <a href="#" class="list">
+                    <div class="list-content">Javier Caballero</div>
+                </a>
+                <a href="#" class="list">
+                    <div class="list-content">Walter Manna</div>
+                </a>
+            </div>
+        </div>
+    </div>
+</div> <!-- /container -->
+
+<footer>
+    <div class="footer">
+        <p style="text-align: center;">Desarrollo de Software Dirigido por Modelos 2014</p>
+    </div>
+</footer>
+{% endblock content %}

@@ -6,6 +6,7 @@ urlpatterns = patterns('',
     # url(r'^$', 'django_project.views.home', name='home'),
     # url(r'^blog/', include('blog.urls')),
 
+    url(r'^$', include('apps.home.urls', namespace='home', app_name='home')),
     url(r'^app/', include('apps.gen.urls', namespace='gen', app_name='gen')),
     url(r'^admin/', include(admin.site.urls)),
 )
