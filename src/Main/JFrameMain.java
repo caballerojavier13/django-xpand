@@ -5,15 +5,17 @@
  */
 package Main;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.swing.UIManager;
 
 import org.eclipse.emf.mwe.core.WorkflowRunner;
 import org.eclipse.emf.mwe.core.monitor.NullProgressMonitor;
 import org.eclipse.emf.mwe.core.monitor.ProgressMonitor;
-/**
- *
- * @author Puesto 4.3
- */
+
+
 public class JFrameMain extends javax.swing.JFrame {
 
     /**
@@ -106,11 +108,11 @@ public class JFrameMain extends javax.swing.JFrame {
                     .addComponent(jLabel3)))
         );
 
-        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Generadores de CÛdigo Autom·ticos"));
+        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Generadores autom√°ticos de c√≥digo"));
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("PHP"));
 
-        jButton2.setText("Generador de Clases");
+        jButton2.setText("Generador de clases");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
@@ -136,7 +138,7 @@ public class JFrameMain extends javax.swing.JFrame {
 
         jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder("Java"));
 
-        jButton1.setText("Generador de Clases");
+        jButton1.setText("Generador de clases");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -160,23 +162,28 @@ public class JFrameMain extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder("Python - Boostrap"));
+        jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder("Django - Boostrap"));
 
-        jButton3.setText("Generar AplicaciÛn Completa");
+        jButton3.setText("Generar aplicaci√≥n completa");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton3ActionPerformed(evt);
             }
         });
 
-        jButton4.setText("Generar Backend Python");
+        jButton4.setText("Generar backend Django");
         jButton4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton4ActionPerformed(evt);
             }
         });
 
-        jButton5.setText("Generar Frontend Bootstrap");
+        jButton5.setText("Generar frontend Bootstrap");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -259,13 +266,7 @@ public class JFrameMain extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         //Java Button
-        //        String wFile = "D:\\Nuevo workspace2\\facu.generator.project\\src\\workflow\\Generador_Java.mwe"; //url al generador Java
-        //        Map properties = new HashMap();
-        //        Map slotContents = new HashMap();
-        //        new WorkflowRunner().run(wFile,
-        //                (ProgressMonitor) new  NullProgressMonitor(),
-        //                properties, slotContents
-        //                );
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -276,11 +277,47 @@ public class JFrameMain extends javax.swing.JFrame {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
+        
+        jButton4ActionPerformed(evt);
+        jButton5ActionPerformed(evt);
+        
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
+        
+        ArrayList<String> archivos = new ArrayList<String>();
+        archivos.add("src/workflow/app_core.mwe");
+        
+        for (String archivo : archivos) {
+            Map properties = new HashMap();
+            Map slotContents = new HashMap();
+            new WorkflowRunner().run(archivo,
+                                     (ProgressMonitor) new  NullProgressMonitor(),
+                                     properties, slotContents
+                                     );
+        }
+        
     }//GEN-LAST:event_jButton4ActionPerformed
+    
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        // TODO add your handling code here:
+        
+        ArrayList<String> archivos = new ArrayList<String>();
+        archivos.add("src/workflow/app_staticfiles.mwe");
+        archivos.add("src/workflow/app_templates.mwe");
+        
+        for (String archivo : archivos) {
+            Map properties = new HashMap();
+            Map slotContents = new HashMap();
+            new WorkflowRunner().run(archivo,
+                                     (ProgressMonitor) new  NullProgressMonitor(),
+                                     properties, slotContents
+                                     );
+        }
+        
+    }//GEN-LAST:event_jButton5ActionPerformed
+    
 
     /**
      * @param args the command line arguments
