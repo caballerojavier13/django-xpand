@@ -28,6 +28,29 @@ class persona_crear(CreateView):
     form_class = persona_form
     template_name_suffix = '_form'
     success_url = reverse_lazy('gen:persona_listar')
+    
+    
+    def get_context_data(self, **kwargs):
+        context = super(persona_crear, self).get_context_data(**kwargs)
+        if self.request.POST:
+            context['PersonaDomicilioFormset'] = PersonaDomicilioFormset(self.request.POST)
+        else:
+                context['PersonaDomicilioFormset'] = PersonaDomicilioFormset(
+                  queryset=Domicilio.objects.none())
+        return context
+    def form_valid(self, form):
+        context = self.get_context_data()
+        domicilio_form = context['PersonaDomicilioFormset']
+        if domicilio_form.is_valid():
+            self.object = form.save()
+            domicilio_form.instance = self.object
+            domicilio_list = domicilio_form.save()
+            self.object.domicilio = domicilio_list.pop()
+            self.object.save()
+            return HttpResponseRedirect(reverse_lazy('gen:persona_listar'))
+        else:
+            return self.render_to_response(self.get_context_data(form=form))
+        
 
 
 class persona_editar(UpdateView):
@@ -35,6 +58,33 @@ class persona_editar(UpdateView):
     form_class = persona_form
     template_name_suffix = '_form'
     success_url = reverse_lazy('gen:persona_listar')
+    
+    
+    def get_context_data(self, **kwargs):
+        context = super(persona_editar, self).get_context_data(**kwargs)
+        if self.request.POST:
+            context['PersonaDomicilioFormset'] = PersonaDomicilioFormset(self.request.POST)
+        else:
+            if (self.object.domicilio):
+                context['PersonaDomicilioFormset'] = PersonaDomicilioFormset(
+                  queryset=Domicilio.objects.filter(pk=self.object.domicilio.pk))
+            else:
+                context['PersonaDomicilioFormset'] = PersonaDomicilioFormset(
+                  queryset=Domicilio.objects.none())
+        return context
+    def form_valid(self, form):
+        context = self.get_context_data()
+        domicilio_form = context['PersonaDomicilioFormset']
+        if domicilio_form.is_valid():
+            self.object = form.save()
+            domicilio_form.instance = self.object
+            domicilio_list = domicilio_form.save()
+            self.object.domicilio = domicilio_list.pop()
+            self.object.save()
+            return HttpResponseRedirect(reverse_lazy('gen:persona_listar'))
+        else:
+            return self.render_to_response(self.get_context_data(form=form))
+     
 
 
 def persona_eliminar(request, pk):
@@ -76,6 +126,8 @@ class domicilio_crear(CreateView):
     form_class = domicilio_form
     template_name_suffix = '_form'
     success_url = reverse_lazy('gen:domicilio_listar')
+    
+        
 
 
 class domicilio_editar(UpdateView):
@@ -83,6 +135,8 @@ class domicilio_editar(UpdateView):
     form_class = domicilio_form
     template_name_suffix = '_form'
     success_url = reverse_lazy('gen:domicilio_listar')
+    
+     
 
 
 def domicilio_eliminar(request, pk):

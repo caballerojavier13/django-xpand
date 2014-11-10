@@ -57,6 +57,11 @@ class «EXPAND django_global::nombreMinus FOR this»_crear(CreateView):
     form_class = «EXPAND django_global::nombreMinus FOR this»_form
     template_name_suffix = '_form'
     success_url = reverse_lazy('gen:«EXPAND django_global::nombreMinus FOR this»_listar')
+    
+    «IF !this.asociaciones_contenidas.isEmpty-»
+    «EXPAND administracionFormsetCrear FOR this-»
+    «EXPAND formularioValido FOR this-»
+    «ENDIF»    
 «ENDDEFINE»
 
 
@@ -67,6 +72,11 @@ class «EXPAND django_global::nombreMinus FOR this»_editar(UpdateView):
     form_class = «EXPAND django_global::nombreMinus FOR this»_form
     template_name_suffix = '_form'
     success_url = reverse_lazy('gen:«EXPAND django_global::nombreMinus FOR this»_listar')
+    
+    «IF !this.asociaciones_contenidas.isEmpty-»
+    «EXPAND administracionFormsetEditar FOR this-»
+    «EXPAND formularioValido FOR this-»
+    «ENDIF» 
 «ENDDEFINE»
 
 
@@ -125,3 +135,90 @@ def «EXPAND django_global::nombreMinus FOR this»_listar_json(request):
 from .forms import «EXPAND django_global::nombreFormset FOREACH this.asociaciones_contenidas SEPARATOR ', '-»
 «ENDIF»
 «ENDDEFINE»
+
+
+«REM»Administración de formsets en el formulario de creación de la clase«ENDREM»
+«DEFINE administracionFormsetCrear FOR Clase»
+    def get_context_data(self, **kwargs):
+        context = super(«EXPAND django_global::nombreMinus FOR this»_crear, self).get_context_data(**kwargs)
+        if self.request.POST:
+            «EXPAND contextoFormsetPost FOREACH this.asociaciones_contenidas»
+        else:
+            «EXPAND contextoFormsetGetCrear FOREACH this.asociaciones_contenidas»
+        return context
+«ENDDEFINE»
+
+
+«REM»Administración de formsets en el formulario de edición de la clase«ENDREM»
+«DEFINE administracionFormsetEditar FOR Clase»
+    def get_context_data(self, **kwargs):
+        context = super(«EXPAND django_global::nombreMinus FOR this»_editar, self).get_context_data(**kwargs)
+        if self.request.POST:
+            «EXPAND contextoFormsetPost FOREACH this.asociaciones_contenidas»
+        else:
+            «EXPAND contextoFormsetGetEditar FOREACH this.asociaciones_contenidas»
+        return context
+«ENDDEFINE»
+
+
+«REM»Generación de formsets en contexto para solicitud POST«ENDREM»
+«DEFINE contextoFormsetPost FOR Asociacion-»
+            context['«EXPAND django_global::nombreFormset FOR this»'] = «EXPAND django_global::nombreFormset FOR this»(self.request.POST)«ENDDEFINE»
+
+
+«REM»Generación de formsets en contexto de formulario de creación, para solicitud GET«ENDREM»
+«DEFINE contextoFormsetGetCrear FOR Asociacion-»
+                context['«EXPAND django_global::nombreFormset FOR this»'] = «EXPAND django_global::nombreFormset FOR this»(
+                  queryset=«EXPAND django_global::nombre FOR this.destino».objects.none())«ENDDEFINE»
+
+
+«REM»Generación de formsets en contexto de formulario de edición, para solicitud GET«ENDREM»
+«DEFINE contextoFormsetGetEditar FOR Asociacion-»
+            if (self.object.«this.nombre.toFirstLower()»):
+                context['«EXPAND django_global::nombreFormset FOR this»'] = «EXPAND django_global::nombreFormset FOR this»(
+                  queryset=«EXPAND django_global::nombre FOR this.destino».objects.filter(pk=self.object.«this.nombre.toFirstLower()».pk))
+            else:
+                context['«EXPAND django_global::nombreFormset FOR this»'] = «EXPAND django_global::nombreFormset FOR this»(
+                  queryset=«EXPAND django_global::nombre FOR this.destino».objects.none())«ENDDEFINE»
+
+
+«REM»Persistencia de datos introducidos en formulario con formsets válidos«ENDREM»
+«DEFINE formularioValido FOR Clase-»
+    def form_valid(self, form):
+        context = self.get_context_data()
+        «EXPAND formsetContexto FOREACH this.asociaciones_contenidas»
+        if «EXPAND formsetValido FOREACH this.asociaciones_contenidas SEPARATOR ' and '»:
+            self.object = form.save()
+            «EXPAND formsetInstancia FOREACH this.asociaciones_contenidas»
+            «EXPAND formsetGuardado FOREACH this.asociaciones_contenidas»
+            «EXPAND formsetAsociacion FOREACH this.asociaciones_contenidas»
+            self.object.save()
+            return HttpResponseRedirect(reverse_lazy('gen:«EXPAND django_global::nombreMinus FOR this»_listar'))
+        else:
+            return self.render_to_response(self.get_context_data(form=form))
+«ENDDEFINE»
+
+
+«REM»Obtención de formset desde el contexto de la solicitud«ENDREM»
+«DEFINE formsetContexto FOR Asociacion-»
+        «this.nombre.toFirstLower()»_form = context['«EXPAND django_global::nombreFormset FOR this»']«ENDDEFINE»
+
+
+«REM»Validación del formset«ENDREM»
+«DEFINE formsetValido FOR Asociacion-»
+«this.nombre.toFirstLower()»_form.is_valid()«ENDDEFINE»
+
+
+«REM»Instanciación del objeto relacionado al formset«ENDREM»
+«DEFINE formsetInstancia FOR Asociacion-»
+            «this.nombre.toFirstLower()»_form.instance = self.object«ENDDEFINE»
+
+
+«REM»Persistencia de la información del formset«ENDREM»
+«DEFINE formsetGuardado FOR Asociacion-»
+            «this.nombre.toFirstLower()»_list = «this.nombre.toFirstLower()»_form.save()«ENDDEFINE»
+
+
+«REM»Creación de la asociación entre clase del formset y clase del formulario«ENDREM»
+«DEFINE formsetAsociacion FOR Asociacion-»
+            self.object.«this.nombre.toFirstLower()» = «this.nombre.toFirstLower()»_list.pop()«ENDDEFINE»

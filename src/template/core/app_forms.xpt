@@ -11,7 +11,7 @@ Archivo generado: forms.py
 «DEFINE main FOR DiagramaClases»
     «FILE 'forms.py'-»
 from django import forms
-from django.forms.models import inlineformset_factory
+from django.forms.models import modelformset_factory
 
 from .models import «EXPAND django_global::nombre FOREACH clases_del_Diagrama SEPARATOR ', '»
 
@@ -40,6 +40,7 @@ class «EXPAND django_global::nombreMinus FOR this»_form(forms.ModelForm):
 «REM»Formset por clase«ENDREM»
 «DEFINE formsetClase FOR Clase-»
 «IF !this.asociaciones_contenidas.isEmpty-»
+# Formsets generados por la clase: «EXPAND django_global::nombre FOR this»
     «EXPAND formsetAsociacion FOREACH this.asociaciones_contenidas-»
 «ENDIF»
 «ENDDEFINE»
@@ -47,5 +48,11 @@ class «EXPAND django_global::nombreMinus FOR this»_form(forms.ModelForm):
 
 «REM»Formset de asociación entre clases«ENDREM»
 «DEFINE formsetAsociacion FOR Asociacion-»
-«EXPAND django_global::nombreFormset FOR this» = inlineformset_factory(«EXPAND django_global::nombre FOR this.origen», «EXPAND django_global::nombre FOR this.destino»)
+«EXPAND django_global::nombreFormset FOR this» = modelformset_factory(«EXPAND django_global::nombre FOR this.destino», extra=1«EXPAND formsetCantidadLimite FOR this»)
 «ENDDEFINE»
+
+
+«REM»Cantidad límite de formset, dependiente de la cardinalidad«ENDREM»
+«DEFINE formsetCantidadLimite FOR Asociacion-»
+«IF this.cardinalidadSuperior == 1-»
+, max_num=1«ENDIF»«ENDDEFINE»
