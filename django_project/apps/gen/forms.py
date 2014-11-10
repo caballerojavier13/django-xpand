@@ -7,11 +7,11 @@ from .models import Persona, Domicilio
 class persona_form(forms.ModelForm):
     class Meta:
         model = Persona
-        fields = '__all__'
+        fields = ('dni', 'nombre', 'apellido')
 
 # Clase: Domicilio
 class domicilio_form(forms.ModelForm):
     class Meta:
         model = Domicilio
-        fields = '__all__'
+        fields = ('calle', 'numero', 'localidad')
     

@@ -25,5 +25,10 @@ from .models import «EXPAND django_global::nombre FOREACH clases_del_Diagrama S
 class «EXPAND django_global::nombreMinus FOR this»_form(forms.ModelForm):
     class Meta:
         model = «EXPAND django_global::nombre FOR this»
-        fields = '__all__'
+        fields = («EXPAND campoFormulario FOREACH this.atributos_clases SEPARATOR ', '»)
 «ENDDEFINE»
+
+
+«REM»Campo de atributo de clase en el formulario«ENDREM»
+«DEFINE campoFormulario FOR Atributo-»
+'«this.nombre.toFirstLower()»'«ENDDEFINE»
