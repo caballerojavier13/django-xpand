@@ -49,15 +49,39 @@ Formulario de entidad: «EXPAND django_global::nombre FOR this-»
 
 «REM»Generación de contenido de plantilla de la clase«ENDREM»
 «DEFINE bloqueContenido FOR Clase»
-<form action='' method='POST'>
-    {% csrf_token %}
-    {{ form.as_p }}
+<div class="container">
+    <div class="page-header">
+        {% if object %}
+            <h1 class="text-center">Editar objeto: «EXPAND django_global::nombre FOR this»</h1>
+        {% else %}
+            <h1 class="text-center">Crear objeto: «EXPAND django_global::nombre FOR this»</h1>
+        {% endif %}
+    </div>
     
-    <button type="submit" class="btn btn-primary">
-        Guardar
-    </button>
-    <a href="{% url 'gen:«EXPAND django_global::nombreMinus FOR this-»_listar' %}" class="btn btn-danger" role="button">
-        Deshacer
-    </a>
-</form>
+    <form action='' method='POST'>
+        {% csrf_token %}
+        {{ form.as_p }}
+        
+        «IF !this.asociaciones_contenidas.isEmpty»
+        «EXPAND formsetAsociacion FOREACH this.asociaciones_contenidas»
+        «ENDIF»
+        
+        <button type="submit" class="btn btn-primary">
+            Guardar
+        </button>
+        <a href="{% url 'gen:«EXPAND django_global::nombreMinus FOR this-»_listar' %}" class="btn btn-danger" role="button">
+            Deshacer
+        </a>
+    </form>
+</div>
+
+«ENDDEFINE»
+
+
+«REM»Inserción de formset de asociación entre clases«ENDREM»
+«DEFINE formsetAsociacion FOR Asociacion»
+<div>
+    <p>Relación: «this.nombre.toFirstUpper()»</p>
+    {{ «EXPAND django_global::nombreFormset FOR this».as_p }}
+</div>
 «ENDDEFINE»

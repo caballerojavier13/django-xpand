@@ -11,16 +11,36 @@
 {% endblock jsprivate %}
 
 {% block content %}
-<form action='' method='POST'>
-    {% csrf_token %}
-    {{ form.as_p }}
+<div class="container">
+    <div class="page-header">
+        {% if object %}
+            <h1 class="text-center">Editar objeto: Persona</h1>
+        {% else %}
+            <h1 class="text-center">Crear objeto: Persona</h1>
+        {% endif %}
+    </div>
     
-    <button type="submit" class="btn btn-primary">
-        Guardar
-    </button>
-    <a href="{% url 'gen:persona_listar' %}" class="btn btn-danger" role="button">
-        Deshacer
-    </a>
-</form>
+    <form action='' method='POST'>
+        {% csrf_token %}
+        {{ form.as_p }}
+        
+        
+        
+<div>
+    <p>Relación: Domicilio</p>
+    {{ PersonaDomicilioFormset.as_p }}
+</div>
+
+        
+        
+        <button type="submit" class="btn btn-primary">
+            Guardar
+        </button>
+        <a href="{% url 'gen:persona_listar' %}" class="btn btn-danger" role="button">
+            Deshacer
+        </a>
+    </form>
+</div>
+
 {% endblock content %}
     

@@ -11,16 +11,29 @@
 {% endblock jsprivate %}
 
 {% block content %}
-<form action='' method='POST'>
-    {% csrf_token %}
-    {{ form.as_p }}
+<div class="container">
+    <div class="page-header">
+        {% if object %}
+            <h1 class="text-center">Editar objeto: Domicilio</h1>
+        {% else %}
+            <h1 class="text-center">Crear objeto: Domicilio</h1>
+        {% endif %}
+    </div>
     
-    <button type="submit" class="btn btn-primary">
-        Guardar
-    </button>
-    <a href="{% url 'gen:domicilio_listar' %}" class="btn btn-danger" role="button">
-        Deshacer
-    </a>
-</form>
+    <form action='' method='POST'>
+        {% csrf_token %}
+        {{ form.as_p }}
+        
+        
+        
+        <button type="submit" class="btn btn-primary">
+            Guardar
+        </button>
+        <a href="{% url 'gen:domicilio_listar' %}" class="btn btn-danger" role="button">
+            Deshacer
+        </a>
+    </form>
+</div>
+
 {% endblock content %}
     
