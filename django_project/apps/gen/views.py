@@ -45,7 +45,8 @@ class persona_crear(CreateView):
             self.object = form.save()
             domicilio_form.instance = self.object
             domicilio_list = domicilio_form.save()
-            self.object.domicilio = domicilio_list.pop()
+            if (domicilio_list):
+                self.object.domicilio = domicilio_list.pop()
             self.object.save()
             return HttpResponseRedirect(reverse_lazy('gen:persona_listar'))
         else:
@@ -79,7 +80,8 @@ class persona_editar(UpdateView):
             self.object = form.save()
             domicilio_form.instance = self.object
             domicilio_list = domicilio_form.save()
-            self.object.domicilio = domicilio_list.pop()
+            if (domicilio_list):
+                self.object.domicilio = domicilio_list.pop()
             self.object.save()
             return HttpResponseRedirect(reverse_lazy('gen:persona_listar'))
         else:

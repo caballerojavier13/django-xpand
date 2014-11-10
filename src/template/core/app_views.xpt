@@ -221,4 +221,5 @@ from .forms import «EXPAND django_global::nombreFormset FOREACH this.asociacion
 
 «REM»Creación de la asociación entre clase del formset y clase del formulario«ENDREM»
 «DEFINE formsetAsociacion FOR Asociacion-»
-            self.object.«this.nombre.toFirstLower()» = «this.nombre.toFirstLower()»_list.pop()«ENDDEFINE»
+            if («this.nombre.toFirstLower()»_list):
+                self.object.«this.nombre.toFirstLower()» = «this.nombre.toFirstLower()»_list.pop()«ENDDEFINE»
