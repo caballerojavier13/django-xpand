@@ -12,6 +12,14 @@ Archivo generado: templates/gen/base.html
     «FILE 'templates/gen/base.html'-»
 {% extends "base_project.html" %}
 
+{% block barranav %}
+<li>
+    <a href="{% url 'gen:index' %}">
+        <span class="glyphicon glyphicon-home"></span>
+    </a>
+</li>
+{% endblock barranav %}
+
 {% block titulodesplegable %}Entidades{% endblock titulodesplegable %}
 
 {% block desplegable %}«EXPAND bloqueDesplegable FOR this»{% endblock desplegable %}
@@ -27,5 +35,5 @@ Archivo generado: templates/gen/base.html
 
 «REM»Generación de elemento entidad en la lista desplegable«ENDREM»
 «DEFINE entidadLista FOR Clase-»
-    <li><a href="/app/«EXPAND django_global::nombreMinus FOR this»">«EXPAND django_global::nombre FOR this»</a></li>
+    <li><a href="{% url 'gen:«EXPAND django_global::nombreMinus FOR this»_listar' %}">«EXPAND django_global::nombre FOR this»</a></li>
 «ENDDEFINE»

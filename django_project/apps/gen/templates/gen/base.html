@@ -1,9 +1,17 @@
 {% extends "base_project.html" %}
 
+{% block barranav %}
+<li>
+    <a href="{% url 'gen:index' %}">
+        <span class="glyphicon glyphicon-home"></span>
+    </a>
+</li>
+{% endblock barranav %}
+
 {% block titulodesplegable %}Entidades{% endblock titulodesplegable %}
 
-{% block desplegable %}        <li><a href="/app/persona">Persona</a></li>
-    <li><a href="/app/domicilio">Domicilio</a></li>
+{% block desplegable %}        <li><a href="{% url 'gen:persona_listar' %}">Persona</a></li>
+    <li><a href="{% url 'gen:domicilio_listar' %}">Domicilio</a></li>
 
 {% endblock desplegable %}
     
