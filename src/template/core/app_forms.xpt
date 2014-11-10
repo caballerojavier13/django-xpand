@@ -11,10 +11,13 @@ Archivo generado: forms.py
 «DEFINE main FOR DiagramaClases»
     «FILE 'forms.py'-»
 from django import forms
+from django.forms.models import inlineformset_factory
 
 from .models import «EXPAND django_global::nombre FOREACH clases_del_Diagrama SEPARATOR ', '»
 
 «EXPAND formularioClase FOREACH clases_del_Diagrama-»
+
+«EXPAND formsetClase FOREACH clases_del_Diagrama-»
     «ENDFILE»
 «ENDDEFINE»
 
@@ -32,3 +35,17 @@ class «EXPAND django_global::nombreMinus FOR this»_form(forms.ModelForm):
 «REM»Campo de atributo de clase en el formulario«ENDREM»
 «DEFINE campoFormulario FOR Atributo-»
 '«this.nombre.toFirstLower()»'«ENDDEFINE»
+
+
+«REM»Formset por clase«ENDREM»
+«DEFINE formsetClase FOR Clase-»
+«IF !this.asociaciones_contenidas.isEmpty-»
+    «EXPAND formsetAsociacion FOREACH this.asociaciones_contenidas-»
+«ENDIF»
+«ENDDEFINE»
+
+
+«REM»Formset de asociación entre clases«ENDREM»
+«DEFINE formsetAsociacion FOR Asociacion-»
+«EXPAND django_global::nombreFormset FOR this» = inlineformset_factory(«EXPAND django_global::nombre FOR this.origen», «EXPAND django_global::nombre FOR this.destino»)
+«ENDDEFINE»

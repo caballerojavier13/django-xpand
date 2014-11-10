@@ -21,7 +21,7 @@ import json
 
 from .models import «EXPAND django_global::nombre FOREACH clases_del_Diagrama SEPARATOR ', '»
 from .forms import «EXPAND formularioClase FOREACH clases_del_Diagrama SEPARATOR ', '»
-
+«EXPAND importacionFormset FOREACH clases_del_Diagrama»
 
 # Índice
 def index(request):
@@ -117,3 +117,11 @@ def «EXPAND django_global::nombreMinus FOR this»_listar_json(request):
 «REM»Importación de formulario de la clase«ENDREM»
 «DEFINE formularioClase FOR Clase-»
 «EXPAND django_global::nombreMinus FOR this»_form«ENDDEFINE»
+
+
+«REM»Importación de formsets de la clase«ENDREM»
+«DEFINE importacionFormset FOR Clase-»
+«IF !this.asociaciones_contenidas.isEmpty-»
+from .forms import «EXPAND django_global::nombreFormset FOREACH this.asociaciones_contenidas SEPARATOR ', '-»
+«ENDIF»
+«ENDDEFINE»

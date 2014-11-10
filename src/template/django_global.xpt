@@ -24,3 +24,8 @@ Plantilla de definiciones globales para la aplicación Django
 «REM»Nombre de la clase con inicio en minúscula«ENDREM»
 «DEFINE nombreMinus FOR Clase-»
 «EXPAND inicialMinus FOR this.nombre»«ENDDEFINE»
+
+
+«REM»Nombre de formset de asociación entre clases«ENDREM»
+«DEFINE nombreFormset FOR Asociacion-»
+«EXPAND django_global::nombre FOR this.origen»«EXPAND django_global::nombre FOR this.destino»Formset«ENDDEFINE»
