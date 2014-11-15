@@ -55,7 +55,7 @@ function armarFila(index, instancia) {
     fila += '<td>' +
             '<a href="/app/«EXPAND django_global::nombreMinus FOR this»/' + instancia.pk + '/editar/' +
             '" class="btn btn-primary" title="Editar"><span class="glyphicon glyphicon-pencil"></span></a>' +
-            '<button type="button" class="modal-eliminar btn btn-danger" data-toggle="modal" data-target="#modal-eliminar" ' +
+            ' <button type="button" class="modal-eliminar btn btn-danger" data-toggle="modal" data-target="#modal-eliminar" ' +
             'data-id="' + instancia.pk + '" title="Eliminar"><span class="glyphicon glyphicon-trash"></span></button>' +
             '</td>';
     
