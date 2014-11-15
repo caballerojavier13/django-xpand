@@ -52,16 +52,24 @@ Formulario de entidad: «EXPAND django_global::nombre FOR this-»
 <div class="container">
     <div class="page-header">
         {% if object %}
-            <h1 class="text-center">Editar objeto: «EXPAND django_global::nombre FOR this»</h1>
+            <h1 class="text-center">«EXPAND django_global::nombre FOR this» <small> Editar</small></h1>
         {% else %}
-            <h1 class="text-center">Crear objeto: «EXPAND django_global::nombre FOR this»</h1>
+            <h1 class="text-center">«EXPAND django_global::nombre FOR this» <small> Crear</small></h1>
         {% endif %}
     </div>
     
-    <form action='' method='POST'>
+    <form action='' method='POST' class='form-horizontal ws-validate' role='form'>
         {% csrf_token %}
-        {{ form.as_p }}
-        
+        <div class="panel panel-default">
+		    <div class="panel-heading">
+		      	<h3 class="panel-title">Datos «EXPAND django_global::nombre FOR this»</h3>
+		    </div>
+		    <div class="panel-body">
+		    	<ul>
+	        		{{ form.as_ul }}
+        		</ul>
+        	</div>
+    	</div>
         «IF !this.asociaciones_contenidas.isEmpty»
         «EXPAND formsetAsociacion FOREACH this.asociaciones_contenidas»
         «ENDIF»
@@ -80,8 +88,14 @@ Formulario de entidad: «EXPAND django_global::nombre FOR this-»
 
 «REM»Inserción de formset de asociación entre clases«ENDREM»
 «DEFINE formsetAsociacion FOR Asociacion»
-<div>
-    <p>Relación: «this.nombre.toFirstUpper()»</p>
-    {{ «EXPAND django_global::nombreFormset FOR this».as_p }}
-</div>
+		<div class="panel panel-default">
+		    <div class="panel-heading">
+		      	<h3 class="panel-title">Datos «this.nombre.toFirstUpper()»</h3>
+		    </div>
+		    <div class="panel-body">
+				<ul>
+		    		{{ «EXPAND django_global::nombreFormset FOR this».as_ul }}
+		    	</ul>
+		    </div>
+	    </div>
 «ENDDEFINE»
