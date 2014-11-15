@@ -3,6 +3,7 @@ a{text-decoration:none !important;}
 /* Space out content a bit */
 body {
   padding-top: 70px;
+  background: rgba(214, 214, 214, 0.890196);
 }
 /* Everything but the jumbotron gets side spacing for mobile first views */
 .header,
@@ -56,6 +57,9 @@ footer{
 
 .container{
   margin-bottom: 30px !important;
+  background: white;
+  border-radius: 5px;
+  padding-bottom: 20px;
 }
 
 .breadcrumb {
