@@ -56,9 +56,10 @@ Listado de entidades: «EXPAND django_global::nombre FOR this-»
     <div class="page-header">
         <h1>Listado de: «EXPAND django_global::nombre FOR this-»</h1>
     </div>
-    <a href="{% url 'gen:«EXPAND django_global::nombreMinus FOR this-»_crear' %}" type="button" id="«EXPAND django_global::nombreMinus FOR this-»_crear" class="btn btn-success">
+    <a style="margin-bottom: 15px;" href="{% url 'gen:«EXPAND django_global::nombreMinus FOR this-»_crear' %}" type="button" id="«EXPAND django_global::nombreMinus FOR this-»_crear" class="btn btn-success">
         <span class="glyphicon glyphicon-plus"></span>Crear nuevo
     </a>
+    
     <div class="table-responsive">
         <table class="table table-bordered table-hover">
             <thead>

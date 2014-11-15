@@ -69,8 +69,8 @@ Formulario de entidad: «EXPAND django_global::nombre FOR this-»
         <button type="submit" class="btn btn-primary">
             Guardar
         </button>
-        <a href="{% url 'gen:«EXPAND django_global::nombreMinus FOR this-»_listar' %}" class="btn btn-danger" role="button">
-            Deshacer
+        <a href="{% url 'gen:«EXPAND django_global::nombreMinus FOR this-»_listar' %}" class="btn btn-default" role="button">
+            Atrás
         </a>
     </form>
 </div>
