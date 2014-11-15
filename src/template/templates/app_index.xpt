@@ -45,7 +45,7 @@ Archivo generado: templates/gen/index.html
 
 «REM»Generación de panel de la clase«ENDREM»
 «DEFINE panelClase FOR Clase»
-<div class="panel panel-success">
+<div class="panel panel-default">
     <div class="panel-heading">
         <h3 class="panel-title">«EXPAND django_global::nombre FOR this»</h3>
     </div>

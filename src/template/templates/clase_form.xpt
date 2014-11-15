@@ -1,5 +1,6 @@
 «IMPORT similuml»
 «IMPORT template»
+
 «EXTENSION template::GeneratorExtensions»
 
 «REM»
