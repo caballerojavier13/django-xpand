@@ -60,6 +60,7 @@ class «EXPAND django_global::nombreMinus FOR this»_crear(CreateView):
     
     «IF !this.asociaciones_contenidas.isEmpty-»
     «EXPAND administracionFormsetCrear FOR this-»
+    
     «EXPAND formularioValido FOR this-»
     «ENDIF»    
 «ENDDEFINE»
@@ -75,6 +76,7 @@ class «EXPAND django_global::nombreMinus FOR this»_editar(UpdateView):
     
     «IF !this.asociaciones_contenidas.isEmpty-»
     «EXPAND administracionFormsetEditar FOR this-»
+    
     «EXPAND formularioValido FOR this-»
     «ENDIF» 
 «ENDDEFINE»
@@ -163,23 +165,23 @@ from .forms import «EXPAND django_global::nombreFormset FOREACH this.asociacion
 
 «REM»Generación de formsets en contexto para solicitud POST«ENDREM»
 «DEFINE contextoFormsetPost FOR Asociacion-»
-            context['«EXPAND django_global::nombreFormset FOR this»'] = «EXPAND django_global::nombreFormset FOR this»(self.request.POST)
-«ENDDEFINE-»
+            context['«EXPAND django_global::nombreFormset FOR this»'] = «EXPAND django_global::nombreFormset FOR this»(self.request.POST)«ENDDEFINE»
 
 
 «REM»Generación de formsets en contexto de formulario de creación, para solicitud GET«ENDREM»
 «DEFINE contextoFormsetGetCrear FOR Asociacion-»
-                context['«EXPAND django_global::nombreFormset FOR this»'] = «EXPAND django_global::nombreFormset FOR this»(queryset=«EXPAND django_global::nombre FOR this.destino».objects.none())
-«ENDDEFINE-»
+                context['«EXPAND django_global::nombreFormset FOR this»'] = «EXPAND django_global::nombreFormset FOR this»(
+                  queryset=«EXPAND django_global::nombre FOR this.destino».objects.none())«ENDDEFINE»
 
 
 «REM»Generación de formsets en contexto de formulario de edición, para solicitud GET«ENDREM»
 «DEFINE contextoFormsetGetEditar FOR Asociacion-»
             if (self.object.«this.nombre.toFirstLower()»):
-                context['«EXPAND django_global::nombreFormset FOR this»'] = «EXPAND django_global::nombreFormset FOR this»(queryset=«EXPAND django_global::nombre FOR this.destino».objects.filter(pk=self.object.«this.nombre.toFirstLower()».pk))
+                context['«EXPAND django_global::nombreFormset FOR this»'] = «EXPAND django_global::nombreFormset FOR this»(
+                  queryset=«EXPAND django_global::nombre FOR this.destino».objects.filter(pk=self.object.«this.nombre.toFirstLower()».pk))
             else:
-                context['«EXPAND django_global::nombreFormset FOR this»'] = «EXPAND django_global::nombreFormset FOR this»(queryset=«EXPAND django_global::nombre FOR this.destino».objects.none())
-  «ENDDEFINE-»
+                context['«EXPAND django_global::nombreFormset FOR this»'] = «EXPAND django_global::nombreFormset FOR this»(
+                  queryset=«EXPAND django_global::nombre FOR this.destino».objects.none())«ENDDEFINE»
 
 
 «REM»Persistencia de datos introducidos en formulario con formsets válidos«ENDREM»
@@ -201,8 +203,7 @@ from .forms import «EXPAND django_global::nombreFormset FOREACH this.asociacion
 
 «REM»Obtención de formset desde el contexto de la solicitud«ENDREM»
 «DEFINE formsetContexto FOR Asociacion-»
-        «this.nombre.toFirstLower()»_form = context['«EXPAND django_global::nombreFormset FOR this»']
-«ENDDEFINE-»
+        «this.nombre.toFirstLower()»_form = context['«EXPAND django_global::nombreFormset FOR this»']«ENDDEFINE»
 
 
 «REM»Validación del formset«ENDREM»
@@ -212,18 +213,15 @@ from .forms import «EXPAND django_global::nombreFormset FOREACH this.asociacion
 
 «REM»Instanciación del objeto relacionado al formset«ENDREM»
 «DEFINE formsetInstancia FOR Asociacion-»
-            «this.nombre.toFirstLower()»_form.instance = self.object
-«ENDDEFINE-»
+            «this.nombre.toFirstLower()»_form.instance = self.object«ENDDEFINE»
 
 
 «REM»Persistencia de la información del formset«ENDREM»
 «DEFINE formsetGuardado FOR Asociacion-»
-            «this.nombre.toFirstLower()»_list = «this.nombre.toFirstLower()»_form.save()
-«ENDDEFINE-»
+            «this.nombre.toFirstLower()»_list = «this.nombre.toFirstLower()»_form.save()«ENDDEFINE»
 
 
 «REM»Creación de la asociación entre clase del formset y clase del formulario«ENDREM»
 «DEFINE formsetAsociacion FOR Asociacion-»
             if («this.nombre.toFirstLower()»_list):
-                self.object.«this.nombre.toFirstLower()» = «this.nombre.toFirstLower()»_list.pop()
-«ENDDEFINE-»
+                self.object.«this.nombre.toFirstLower()» = «this.nombre.toFirstLower()»_list.pop()«ENDDEFINE»

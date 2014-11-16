@@ -14,20 +14,22 @@
 {% block content %}
 <div class="container">
     <div class="page-header">
-        <h1>Listado de: Persona</h1>
+        <h1>Persona <small>Listado</small></h1>
     </div>
-    <a href="{% url 'gen:persona_crear' %}" type="button" id="persona_crear" class="btn btn-success">
-        <span class="glyphicon glyphicon-plus"></span>Crear nuevo
+    <a style="margin-bottom: 15px;" href="{% url 'gen:persona_crear' %}" type="button" id="persona_crear" class="btn btn-success">
+        <span class="glyphicon glyphicon-plus"></span> Crear nuevo
     </a>
+    
     <div class="table-responsive">
         <table class="table table-bordered table-hover">
             <thead>
                 <tr class="active">
                     <th>ID</th>
-<td>Dni</td>
-<td>Nombre</td>
-<td>Apellido</td>
-<td>Domicilio</td>
+<th>Dni</th>
+<th>Nombre</th>
+<th>Apellido</th>
+                    <th>Relaciones</th>
+                    
                     <th>Operaciones</th>
                 </tr>
             </thead>
@@ -42,16 +44,16 @@
 <div class="modal fade" id="modal-eliminar" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
-	        <div class="modal-body">
+            <div class="modal-body">
                 <h2 align="center">¿Realmente desea eliminar este objeto?</h2>
             </div>
-	        <div class="modal-footer">
-	            <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
                 <a href="{% url 'gen:persona_eliminar' 0 %}"
                    id="confirmar-eliminar" class=" btn btn-primary" role="button">Aceptar
                 </a>
             </div>
-	    </div>
+        </div>
     </div>
 </div>
 {% endblock modals %}

@@ -14,26 +14,33 @@
 <div class="container">
     <div class="page-header">
         {% if object %}
-            <h1 class="text-center">Editar objeto: Domicilio</h1>
+            <h1 class="text-center">Domicilio <small>Editar</small></h1>
         {% else %}
-            <h1 class="text-center">Crear objeto: Domicilio</h1>
+            <h1 class="text-center">Domicilio <small>Crear</small></h1>
         {% endif %}
     </div>
     
-    <form action='' method='POST'>
+    <form action='' method='POST' class='form-horizontal ws-validate' role='form'>
         {% csrf_token %}
-        {{ form.as_p }}
-        
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                  <h3 class="panel-title">Datos: Domicilio</h3>
+            </div>
+            <div class="panel-body">
+                <ul>
+                    {{ form.as_ul }}
+                </ul>
+            </div>
+        </div>
         
         
         <button type="submit" class="btn btn-primary">
             Guardar
         </button>
-        <a href="{% url 'gen:domicilio_listar' %}" class="btn btn-danger" role="button">
-            Deshacer
+        <a href="{% url 'gen:domicilio_listar' %}" class="btn btn-default" role="button">
+            Atrás
         </a>
     </form>
 </div>
-
 {% endblock content %}
     

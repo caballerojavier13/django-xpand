@@ -38,6 +38,7 @@ class persona_crear(CreateView):
                 context['PersonaDomicilioFormset'] = PersonaDomicilioFormset(
                   queryset=Domicilio.objects.none())
         return context
+    
     def form_valid(self, form):
         context = self.get_context_data()
         domicilio_form = context['PersonaDomicilioFormset']
@@ -73,6 +74,7 @@ class persona_editar(UpdateView):
                 context['PersonaDomicilioFormset'] = PersonaDomicilioFormset(
                   queryset=Domicilio.objects.none())
         return context
+    
     def form_valid(self, form):
         context = self.get_context_data()
         domicilio_form = context['PersonaDomicilioFormset']

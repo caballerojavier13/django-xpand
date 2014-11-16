@@ -85,16 +85,16 @@ Listado de entidades: «EXPAND django_global::nombre FOR this-»
 <div class="modal fade" id="modal-eliminar" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
-	        <div class="modal-body">
+            <div class="modal-body">
                 <h2 align="center">¿Realmente desea eliminar este objeto?</h2>
             </div>
-	        <div class="modal-footer">
-	            <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
                 <a href="{% url 'gen:«EXPAND django_global::nombreMinus FOR this-»_eliminar' 0 %}"
                    id="confirmar-eliminar" class=" btn btn-primary" role="button">Aceptar
                 </a>
             </div>
-	    </div>
+        </div>
     </div>
 </div>
 «ENDDEFINE»
@@ -102,11 +102,5 @@ Listado de entidades: «EXPAND django_global::nombre FOR this-»
 
 «REM»Cabecera de atributo de la clase en la tabla«ENDREM»
 «DEFINE atributoTabla FOR Atributo-»
-<th>«this.nombre.toFirstUpper()»</th>
-«ENDDEFINE»
-
-
-«REM»Cabecera de asociación de la clase en la tabla«ENDREM»
-«DEFINE asociacionTabla FOR Asociacion-»
 <th>«this.nombre.toFirstUpper()»</th>
 «ENDDEFINE»

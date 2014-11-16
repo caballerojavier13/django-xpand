@@ -16,15 +16,26 @@ function armarFila(index, instancia) {
     
     
     // Asociaciones
+    fila += '<td>' +
+            '<div class="dropdown">' +
+            '<button class="btn btn-info" type="button" data-toggle="dropdown" aria-haspopup="true" role="button" aria-expanded="false">' +
+            'Relaciones <span class="caret"></span>' +
+            '</button>' +
+            '<ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">';
+    
 if (instancia.fields.domicilio != null) {
-    fila += '<td>' + '<a href="/app/domicilio/' + instancia.fields.domicilio + '/' +
-'" class="btn btn-info">Ver domicilio</a>' + '</td>'
+    fila += '<li role="presentation"><a role="menuitem" tabindex="-1" href="/app/domicilio/' + instancia.fields.domicilio + '/' +
+'">Domicilio</a></li>'
 ;
 }
 else {
-    fila += '<td>' + 'Sin domicilio' + '</td>'
+    fila += '<li class="disabled" role="presentation"><a role="menuitem" tabindex="-1" href="#">Sin domicilio</a></li>'
 ;
 }
+    
+    fila += '</ul>' +
+            '</div>' +
+            '</td>';
     
     
     // Botones 'Editar' y 'Eliminar'
