@@ -46,23 +46,46 @@ function armarFila(index, instancia) {
             «EXPAND atributoTabla FOREACH this.atributos_clases SEPARATOR ' + '-»;
     «ENDIF»
     
-    «IF !this.asociaciones_contenidas.isEmpty-»
-    // Asociaciones
-    «EXPAND asociacionTabla FOREACH this.asociaciones_contenidas-»
-    «ENDIF»
     
-    // Botones 'Editar' y 'Eliminar'
+    // Asociaciones
+    
+    
+    «IF !this.asociaciones_contenidas.isEmpty-»
+    //Relaciones y botones editar y eliminar
     fila += '<td>' +
-            '<a href="/app/«EXPAND django_global::nombreMinus FOR this»/' + instancia.pk + '/editar/' +
+      '<div class="dropdown">' +
+	  '<button class="btn btn-info" type="button" data-toggle="dropdown" aria-haspopup="true" role="button" aria-expanded="false">' +
+	    'Relaciones <span class="caret"></span>' +
+	  '</button>' +
+	  '<ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">';
+	  fila += '' +
+	    «EXPAND asociacionTabla FOREACH this.asociaciones_contenidas SEPARATOR ' + '-»
+	    '</ul>' +
+		'</div>' +
+		'</td>';
+	fila += '<td> <a href="/app/«EXPAND django_global::nombreMinus FOR this»/' + instancia.pk + '/editar/' +
             '" class="btn btn-primary" title="Editar"><span class="glyphicon glyphicon-pencil"></span></a>' +
             ' <button type="button" class="modal-eliminar btn btn-danger" data-toggle="modal" data-target="#modal-eliminar" ' +
             'data-id="' + instancia.pk + '" title="Eliminar"><span class="glyphicon glyphicon-trash"></span></button>' +
             '</td>';
-    
+	    
+    «ELSE»
+    //Botones Editar y Eliminar
+	fila += '<td> <a href="/app/«EXPAND django_global::nombreMinus FOR this»/' + instancia.pk + '/editar/' +
+        '" class="btn btn-primary" title="Editar"><span class="glyphicon glyphicon-pencil"></span></a>' +
+        ' <button type="button" class="modal-eliminar btn btn-danger" data-toggle="modal" data-target="#modal-eliminar" ' +
+        'data-id="' + instancia.pk + '" title="Eliminar"><span class="glyphicon glyphicon-trash"></span></button>' +
+        '</td>';    
+    «ENDIF»
+
     fila += '</tr>';
     
     return fila;
 }
+
+	«EXPAND asociacionFuncionTabla FOREACH this.asociaciones_contenidas»
+
+
 «ENDDEFINE»
 
 
@@ -83,23 +106,21 @@ $(document).on("click", ".modal-eliminar", function () {
 
 «REM»Campo de asociación de la clase en la tabla«ENDREM»
 «DEFINE asociacionTabla FOR Asociacion-»
-if (instancia.fields.«this.nombre.toFirstLower()» != null) {
-    fila += «EXPAND asociacionExistente FOR this»;
-}
-else {
-    fila += «EXPAND asociacionNula FOR this»;
-}
-«ENDDEFINE»
-
-
-«REM»Asociación existente entre instancias de clase«ENDREM»
-«DEFINE asociacionExistente FOR Asociacion-»
-'<td>' + '<a href="/app/«EXPAND django_global::nombreMinus FOR this.destino»/' + instancia.fields.«this.nombre.toFirstLower()» + '/' +
-'" class="btn btn-info">Ver «this.nombre.toFirstLower()»</a>' + '</td>'
+	asociacion_«this.nombre.toFirstUpper()»(instancia);
 «ENDDEFINE»
 
 
 «REM»Asociación inexistente entre instancias de clase«ENDREM»
-«DEFINE asociacionNula FOR Asociacion-»
-'<td>' + 'Sin «EXPAND django_global::nombreMinus FOR this.destino»' + '</td>'
+«DEFINE asociacionFuncionTabla FOR Asociacion-»
+function asociacion_«this.nombre.toFirstUpper()»(instancia){
+	if (instancia.fields.«this.nombre.toFirstLower()» != null) {
+	    return '<li role="presentation"><a role="menuitem" tabindex="-1" href="/app/«this.nombre.toFirstLower()»/' + instancia.fields.«this.nombre.toFirstLower()» + '/' +
+'">«this.nombre.toFirstUpper()»</a></li>';
+	}
+	else {
+		return '<li class="disabled" role="presentation"><a role="menuitem" tabindex="-1" href="#">No Hay «this.nombre.toFirstLower()»</a></li>';
+	}
+	
+}
 «ENDDEFINE»
+

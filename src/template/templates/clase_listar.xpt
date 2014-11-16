@@ -66,7 +66,9 @@ Listado de entidades: «EXPAND django_global::nombre FOR this-»
                 <tr class="active">
                     <th>ID</th>
                     «EXPAND atributoTabla FOREACH this.atributos_clases-»
-                    «EXPAND asociacionTabla FOREACH this.asociaciones_contenidas-»
+                     «IF !this.asociaciones_contenidas.isEmpty-»
+                    <th>Relaciones</th>
+                    «ENDIF»
                     <th>Operaciones</th>
                 </tr>
             </thead>
@@ -100,11 +102,11 @@ Listado de entidades: «EXPAND django_global::nombre FOR this-»
 
 «REM»Cabecera de atributo de la clase en la tabla«ENDREM»
 «DEFINE atributoTabla FOR Atributo-»
-<td>«this.nombre.toFirstUpper()»</td>
+<th>«this.nombre.toFirstUpper()»</th>
 «ENDDEFINE»
 
 
 «REM»Cabecera de asociación de la clase en la tabla«ENDREM»
 «DEFINE asociacionTabla FOR Asociacion-»
-<td>«this.nombre.toFirstUpper()»</td>
+<th>«this.nombre.toFirstUpper()»</th>
 «ENDDEFINE»
