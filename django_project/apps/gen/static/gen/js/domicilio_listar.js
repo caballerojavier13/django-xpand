@@ -19,6 +19,8 @@ function armarFila(index, instancia) {
     
     // Botones 'Editar' y 'Eliminar'
     fila += '<td>' +
+            '<a href="/app/domicilio/' + instancia.pk + '/' +
+            '" class="btn btn-info" title="Ver"><span class="glyphicon glyphicon-eye-open"></span></a>' +
             '<a href="/app/domicilio/' + instancia.pk + '/editar/' +
             '" class="btn btn-primary" title="Editar"><span class="glyphicon glyphicon-pencil"></span></a>' +
             '<button type="button" class="modal-eliminar btn btn-danger" data-toggle="modal" data-target="#modal-eliminar" ' +
