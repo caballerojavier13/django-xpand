@@ -1,0 +1,81 @@
+{% extends "gen/base.html" %}
+{% load staticfiles %}
+
+{% block title %}Detalle de entidad: Domicilio{% endblock title %}
+
+{% block cssprivate %}
+<link href="{% static 'gen/css/domicilio_detallar.css' %}" rel="stylesheet">
+{% endblock cssprivate %}
+{% block jsprivate %}
+<script src="{% static 'gen/js/domicilio_detallar.js' %}"></script>
+{% endblock jsprivate %}
+
+{% block content %}
+<div class="container">
+    <div class="page-header">
+        <h1 class="pull-left">Domicilio <small>Detalle</small></h1>
+        <div class="pull-right">
+            <div class="btn-group">
+                <a href="{% url 'gen:domicilio_editar' object.pk %}"
+                   class="btn btn-primary" title="Editar"><span class="glyphicon glyphicon-pencil"></span></a>
+                <a href="{% url 'gen:domicilio_eliminar' object.pk %}"
+                   class="btn btn-danger" title="Eliminar"><span class="glyphicon glyphicon-trash"></span></a>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+    
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">Datos</h3>
+    </div>
+    
+    <div class="table-responsive">
+        <table class="table table-condensed table-hover">
+            <tbody>
+{% if object.calle %}
+<tr>
+{% else %}
+<tr class='warning'>
+{% endif %}
+    <td><strong>Calle</strong></td>
+    {% if object.calle %}
+    <td>{{ object.calle }}</td>
+    {% else %}
+    ---
+    {% endif %}
+</tr>
+{% if object.numero %}
+<tr>
+{% else %}
+<tr class='warning'>
+{% endif %}
+    <td><strong>Numero</strong></td>
+    {% if object.numero %}
+    <td>{{ object.numero }}</td>
+    {% else %}
+    ---
+    {% endif %}
+</tr>
+{% if object.localidad %}
+<tr>
+{% else %}
+<tr class='warning'>
+{% endif %}
+    <td><strong>Localidad</strong></td>
+    {% if object.localidad %}
+    <td>{{ object.localidad }}</td>
+    {% else %}
+    ---
+    {% endif %}
+</tr>
+
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+
+{% endblock content %}
+    

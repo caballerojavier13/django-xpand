@@ -39,6 +39,17 @@
 	<component class="org.eclipse.xpand2.Generator">
 		<metaModel idRef="mm_emf"/>
 		<expand
+			value="template::templates::clase_detallar::main FOR model" />
+		<outlet path="${src-gen}" >
+		</outlet>
+		<resourceManager class ="org.eclipse.xtend.expression.ResourceManagerDefaultImpl">
+			<fileEncoding value="UTF-8"/>
+		</resourceManager>
+	</component>
+
+	<component class="org.eclipse.xpand2.Generator">
+		<metaModel idRef="mm_emf"/>
+		<expand
 			value="template::templates::clase_form::main FOR model" />
 		<outlet path="${src-gen}" >
 		</outlet>

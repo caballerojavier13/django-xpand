@@ -81,7 +81,7 @@ urlpatterns = patterns('',
 «DEFINE urlDetallar FOR Clase»
     url(
         regex = r'^«EXPAND django_global::nombreMinus FOR this»/(?P<pk>\d+)/$',
-        view  = views.«EXPAND django_global::nombreMinus FOR this»_detallar,
+        view  = views.«EXPAND django_global::nombreMinus FOR this»_detallar.as_view(),
         name  = '«EXPAND django_global::nombreMinus FOR this»_detallar'
     ),
 «ENDDEFINE»

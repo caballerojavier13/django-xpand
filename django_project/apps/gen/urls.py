@@ -39,7 +39,7 @@ urlpatterns = patterns('',
 
     url(
         regex = r'^persona/(?P<pk>\d+)/$',
-        view  = views.persona_detallar,
+        view  = views.persona_detallar.as_view(),
         name  = 'persona_detallar'
     ),
 
@@ -94,7 +94,7 @@ urlpatterns = patterns('',
 
     url(
         regex = r'^domicilio/(?P<pk>\d+)/$',
-        view  = views.domicilio_detallar,
+        view  = views.domicilio_detallar.as_view(),
         name  = 'domicilio_detallar'
     ),
 

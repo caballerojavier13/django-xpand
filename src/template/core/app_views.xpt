@@ -15,7 +15,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.core import serializers
 from django.core.urlresolvers import reverse_lazy
 from django.template import RequestContext
-from django.views.generic import CreateView, UpdateView
+from django.views.generic import DetailView, CreateView, UpdateView
 
 import json
 
@@ -93,10 +93,9 @@ def «EXPAND django_global::nombreMinus FOR this»_eliminar(request, pk):
 
 «REM»Vista Detallar de la clase«ENDREM»
 «DEFINE vistaDetallar FOR Clase»
-def «EXPAND django_global::nombreMinus FOR this»_detallar(request):
-    return render_to_response('gen/«EXPAND django_global::nombreMinus FOR this»_detallar.html',
-                              context_instance=RequestContext(request),
-                              )
+class «EXPAND django_global::nombreMinus FOR this»_detallar(DetailView):
+    model = «EXPAND django_global::nombre FOR this»
+    template_name_suffix = '_detallar'
 «ENDDEFINE»
 
 

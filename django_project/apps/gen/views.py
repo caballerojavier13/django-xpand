@@ -3,7 +3,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.core import serializers
 from django.core.urlresolvers import reverse_lazy
 from django.template import RequestContext
-from django.views.generic import CreateView, UpdateView
+from django.views.generic import DetailView, CreateView, UpdateView
 
 import json
 
@@ -97,10 +97,9 @@ def persona_eliminar(request, pk):
     return HttpResponseRedirect(reverse_lazy('gen:persona_listar'))
 
 
-def persona_detallar(request):
-    return render_to_response('gen/persona_detallar.html',
-                              context_instance=RequestContext(request),
-                              )
+class persona_detallar(DetailView):
+    model = Persona
+    template_name_suffix = '_detallar'
 
 
 def persona_listar(request):
@@ -149,10 +148,9 @@ def domicilio_eliminar(request, pk):
     return HttpResponseRedirect(reverse_lazy('gen:domicilio_listar'))
 
 
-def domicilio_detallar(request):
-    return render_to_response('gen/domicilio_detallar.html',
-                              context_instance=RequestContext(request),
-                              )
+class domicilio_detallar(DetailView):
+    model = Domicilio
+    template_name_suffix = '_detallar'
 
 
 def domicilio_listar(request):
