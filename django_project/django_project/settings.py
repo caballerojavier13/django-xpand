@@ -24,7 +24,7 @@ DEBUG = True
 
 TEMPLATE_DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
@@ -39,6 +39,7 @@ INSTALLED_APPS = (
     # Aplicaciones del proyecto Django
     'apps.home',
     'apps.gen',
+    'apps.account',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -61,8 +62,12 @@ WSGI_APPLICATION = 'django_project.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'e-commerce',
+        'USER': 'javier',
+        'PASSWORD': '36416999',
+        'HOST': '127.0.0.1',
+        'PORT': '5432',
     }
 }
 
@@ -73,12 +78,15 @@ LANGUAGE_CODE = 'es'
 
 TIME_ZONE = 'America/Argentina/Mendoza'
 
+DEFAULT_CHARSET='utf-8'
+
 USE_I18N = True
 
 USE_L10N = True
 
 USE_TZ = True
 
+LOGOUT_REDIRECT_URL = '/'
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.7/howto/static-files/

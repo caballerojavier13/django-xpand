@@ -15,7 +15,7 @@ Archivo generado: static/gen/js/<clase>_listar.js
 
 «REM»Creación de archivo JavaScript por clase«ENDREM»
 «DEFINE archivoClase FOR Clase»
-    «FILE 'static/gen/js/'+this.nombre.toFirstLower()+'_listar.js'-»
+    «FILE 'static/gen/js/'+this.nombre_url.toFirstLower()+'_listar.js'-»
 «EXPAND generarTabla FOR this-»
 
 «EXPAND armarFilaTabla FOR this-»
@@ -28,7 +28,7 @@ Archivo generado: static/gen/js/<clase>_listar.js
 «REM»Generación de tabla de instancias de la clase«ENDREM»
 «DEFINE generarTabla FOR Clase-»
 $(function() {
-    generarTabla('/app/«EXPAND django_global::nombreMinus FOR this»/json/', function(data) {
+    generarTabla('/configuracion/«this.pertenece.nombre_url.toLowerCase()»/«this.nombre_url.toLowerCase()»/json/', function(data) {
         cargarTabla('table', data);
     });
 });
@@ -43,7 +43,7 @@ function armarFila(index, instancia) {
     «IF !this.atributos_clases.isEmpty-»
     // Atributos
     fila += '<td>' + instancia.pk + '</td>' +
-            «EXPAND atributoTabla FOREACH this.atributos_clases SEPARATOR ' + '-»;
+            «EXPAND atributoTabla FOREACH this.atributos_clases.select(e|e.to_string) SEPARATOR ' + '-»;
     «ENDIF»
     
     «IF !this.asociaciones_contenidas.isEmpty-»
@@ -55,7 +55,7 @@ function armarFila(index, instancia) {
             '</button>' +
             '<ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">';
     
-    «EXPAND asociacionTabla FOREACH this.asociaciones_contenidas-»
+    «EXPAND asociacionTabla FOREACH this.asociaciones_contenidas.select(e|!e.esComposicion)-»
     
     fila += '</ul>' +
             '</div>' +
@@ -64,11 +64,11 @@ function armarFila(index, instancia) {
     
     // Botones 'Editar' y 'Eliminar'
     fila += '<td>' +
-            '<a href="/app/«EXPAND django_global::nombreMinus FOR this»/' + instancia.pk + '/' +
+            ' <a href="/configuracion/«this.pertenece.nombre_url.toLowerCase()»/«this.nombre_url.toLowerCase()»/' + instancia.pk + '/' +
             '" class="btn btn-info" title="Ver"><span class="glyphicon glyphicon-eye-open"></span></a>' +
-            '<a href="/app/«EXPAND django_global::nombreMinus FOR this»/' + instancia.pk + '/editar/' +
+            ' <a href="/configuracion/«this.pertenece.nombre_url.toLowerCase()»/«this.nombre_url.toLowerCase()»/' + instancia.pk + '/editar/' +
             '" class="btn btn-primary" title="Editar"><span class="glyphicon glyphicon-pencil"></span></a>' +
-            '<button type="button" class="modal-eliminar btn btn-danger" data-toggle="modal" data-target="#modal-eliminar" ' +
+            ' <button type="button" class="modal-eliminar btn btn-danger" data-toggle="modal" data-target="#modal-eliminar" ' +
             'data-id="' + instancia.pk + '" title="Eliminar"><span class="glyphicon glyphicon-trash"></span></button>' +
             '</td>';
     
@@ -90,13 +90,13 @@ $(document).on("click", ".modal-eliminar", function () {
 
 «REM»Campo de atributo de la clase en la tabla«ENDREM»
 «DEFINE atributoTabla FOR Atributo-»
-'<td>' + instancia.fields.«this.nombre.toFirstLower()» + '</td>'
+'<td>' + instancia.fields.«this.nombre_url.toFirstLower()» + '</td>'
 «ENDDEFINE»
 
 
 «REM»Campo de asociación de la clase en la tabla«ENDREM»
-«DEFINE asociacionTabla FOR Asociacion-»
-if (instancia.fields.«this.nombre.toFirstLower()» != null) {
+«DEFINE asociacionTabla FOR Relacion-»
+if (instancia.fields.«this.nombre_url.toFirstLower()» != null) {
     fila += «EXPAND asociacionExistente FOR this»;
 }
 else {
@@ -106,13 +106,18 @@ else {
 
 
 «REM»Asociación existente entre instancias de clase«ENDREM»
-«DEFINE asociacionExistente FOR Asociacion-»
-'<li role="presentation"><a role="menuitem" tabindex="-1" href="/app/«this.nombre.toFirstLower()»/' + instancia.fields.«this.nombre.toFirstLower()» + '/' +
+«DEFINE asociacionExistente FOR Relacion-»
+«IF this.cardinalidadSuperior > 1-»
+'<li role="presentation"><a role="menuitem" tabindex="-1" href="/configuracion/«this.destino.pertenece.nombre_url.toLowerCase()»/«this.destino.nombre_url.toLowerCase()»/' +
 '">«this.nombre.toFirstUpper()»</a></li>'
-«ENDDEFINE»
+«ELSE-»
+'<li role="presentation"><a role="menuitem" tabindex="-1" href="/configuracion/«this.destino.pertenece.nombre_url.toLowerCase()»/«this.destino.nombre_url.toLowerCase()»/' + instancia.fields.«this.nombre_url.toFirstLower()» +
+'">«this.nombre.toFirstUpper()»</a></li>'
+«ENDIF-»
+«ENDDEFINE-»
 
 
 «REM»Asociación inexistente entre instancias de clase«ENDREM»
-«DEFINE asociacionNula FOR Asociacion-»
+«DEFINE asociacionNula FOR Relacion-»
 '<li class="disabled" role="presentation"><a role="menuitem" tabindex="-1" href="#">Sin «this.nombre.toFirstLower()»</a></li>'
 «ENDDEFINE»

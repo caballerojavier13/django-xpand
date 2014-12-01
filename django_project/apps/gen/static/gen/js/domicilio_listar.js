@@ -1,5 +1,5 @@
 $(function() {
-    generarTabla('/app/domicilio/json/', function(data) {
+    generarTabla('/configuracion//domicilio/json/', function(data) {
         cargarTabla('table', data);
     });
 });
@@ -12,6 +12,7 @@ function armarFila(index, instancia) {
 '<td>' + instancia.fields.calle + '</td>'
  + '<td>' + instancia.fields.numero + '</td>'
  + '<td>' + instancia.fields.localidad + '</td>'
+ + '<td>' + instancia.fields.provincia + '</td>'
 ;
     
     
@@ -19,11 +20,11 @@ function armarFila(index, instancia) {
     
     // Botones 'Editar' y 'Eliminar'
     fila += '<td>' +
-            '<a href="/app/domicilio/' + instancia.pk + '/' +
+            ' <a href="/configuracion//domicilio/' + instancia.pk + '/' +
             '" class="btn btn-info" title="Ver"><span class="glyphicon glyphicon-eye-open"></span></a>' +
-            '<a href="/app/domicilio/' + instancia.pk + '/editar/' +
+            ' <a href="/configuracion//domicilio/' + instancia.pk + '/editar/' +
             '" class="btn btn-primary" title="Editar"><span class="glyphicon glyphicon-pencil"></span></a>' +
-            '<button type="button" class="modal-eliminar btn btn-danger" data-toggle="modal" data-target="#modal-eliminar" ' +
+            ' <button type="button" class="modal-eliminar btn btn-danger" data-toggle="modal" data-target="#modal-eliminar" ' +
             'data-id="' + instancia.pk + '" title="Eliminar"><span class="glyphicon glyphicon-trash"></span></button>' +
             '</td>';
     

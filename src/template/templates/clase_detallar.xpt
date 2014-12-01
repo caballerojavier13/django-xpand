@@ -15,7 +15,7 @@ Archivo generado: templates/gen/<clase>_detallar.html
 
 «REM»Creación de archivo HTML por clase«ENDREM»
 «DEFINE archivoClase FOR Clase»
-    «FILE 'templates/gen/'+this.nombre.toFirstLower()+'_detallar.html'-»
+    «FILE 'templates/gen/'+this.nombre_url.toFirstLower()+'_detallar.html'-»
 {% extends "gen/base.html" %}
 {% load staticfiles %}
 
@@ -25,18 +25,21 @@ Archivo generado: templates/gen/<clase>_detallar.html
 {% block jsprivate %}«EXPAND bloqueJS FOR this»{% endblock jsprivate %}
 
 {% block content %}«EXPAND bloqueContenido FOR this-»{% endblock content %}
+
+{% block modals %}«EXPAND bloqueModales FOR this-»{% endblock modals %}
     «ENDFILE»
 «ENDDEFINE»
 
 
 «REM»Generación de título de plantilla de la clase«ENDREM»
 «DEFINE bloqueTitulo FOR Clase-»
-Detalle de entidad: «EXPAND django_global::nombre FOR this-»
+Detalle de entidad: «this.nombre.toFirstUpper()-»
 «ENDDEFINE»
 
 
 «REM»Importación de archivos CSS de la clase«ENDREM»
 «DEFINE bloqueCSS FOR Clase»
+<link href="{% static 'gen/css/index.css' %}" rel="stylesheet">
 <link href="{% static 'gen/css/«EXPAND django_global::nombreMinus FOR this-»_detallar.css' %}" rel="stylesheet">
 «ENDDEFINE»
 
@@ -49,60 +52,71 @@ Detalle de entidad: «EXPAND django_global::nombre FOR this-»
 
 «REM»Generación de contenido de plantilla de la clase«ENDREM»
 «DEFINE bloqueContenido FOR Clase»
-<div class="container">
     <div class="page-header">
-        <h1 class="pull-left">«EXPAND django_global::nombre FOR this-» <small>Detalle</small></h1>
-        <div class="pull-right">
-            <div class="btn-group">
-                <a href="{% url 'gen:«EXPAND django_global::nombreMinus FOR this»_editar' object.pk %}"
-                   class="btn btn-primary" title="Editar"><span class="glyphicon glyphicon-pencil"></span></a>
-                <a href="{% url 'gen:«EXPAND django_global::nombreMinus FOR this»_eliminar' object.pk %}"
-                   class="btn btn-danger" title="Eliminar"><span class="glyphicon glyphicon-trash"></span></a>
-            </div>
-        </div>
+        <h1 class="pull-left">«this.nombre.toFirstUpper()-» <small>Detalle</small></h1>
+        
         <div class="clearfix"></div>
     </div>
-    
-<div class="panel panel-default">
-    <div class="panel-heading">
-        <h3 class="panel-title">Datos</h3>
-    </div>
-    
-    <div class="table-responsive">
-        <table class="table table-condensed table-hover">
-            <tbody>
-                «EXPAND atributoTabla FOREACH this.atributos_clases»
-            </tbody>
-        </table>
-    </div>
-</div>
-
-«IF !this.asociaciones_contenidas.isEmpty»
-<div class="panel panel-default">
-    <div class="panel-heading">
-        <h3 class="panel-title">Relaciones</h3>
-    </div>
-    
-    <div class="table-responsive">
-        <table class="table table-condensed table-hover">
-            <thead>
-                <th>Nombre</th>
-                <th>Tipo</th>
-                <th>Acciones</th>
-            </thead>
-            <tbody>
-                «EXPAND asociacionTabla FOREACH this.asociaciones_contenidas»
-            </tbody>
-        </table>
-    </div>
-</div>
-«ENDIF»
-
+    <div class="row">
+	    <div class="col-xs-2">
+	        <ul class="nav nav-pills nav-stacked">
+	          «EXPAND app_index_module::navClase FOREACH this.pertenece.contiene-»
+	        </ul>        
+	    </div>
+	    <div class="col-xs-10 border-left">
+	    	<div class="bootom-space">
+	            <button type="button" class="btn btn-default volver">Volver</button>
+	            <div class="btn-group pull-right" role="group">
+	              «IF this.editar»
+	                <a href="{% url 'gen:«EXPAND django_global::nombreMinus FOR this»_editar' object.pk %}"
+	                   class="btn btn-primary" title="Editar"><span class="glyphicon glyphicon-pencil"></span></a>
+	               «ENDIF»
+	               «IF this.eliminar»
+	                <button type="button" class="modal-eliminar btn btn-danger" data-toggle="modal" data-target="#modal-eliminar" title="Eliminar">
+		                <span class="glyphicon glyphicon-trash"></span>
+	                </button>
+	               «ENDIF»
+	            </div>
+	        </div>
+			<div class="panel panel-default">
+			    <div class="panel-heading">
+			        <h3 class="panel-title"> «this.nombre.toFirstUpper()»</h3>
+			    </div>
+			    
+			    <div class="table-responsive">
+			        <table class="table table-condensed table-hover table-bordered">
+			            <tbody>
+			                «EXPAND atributoTabla FOREACH this.atributos_clases»
+			            </tbody>
+			        </table>
+			    </div>
+			</div>
+			
+			«EXPAND asociacionComposicion FOREACH this.asociaciones_contenidas.select(e|e.esComposicion)»
+			
+			«IF !this.asociaciones_contenidas.select(e|!e.esComposicion).isEmpty»
+			
+			<div class="panel panel-default">
+				<div class="panel-heading">
+			        <h3 class="panel-title">Asociaciones</h3>
+			    </div>
+			    <div class="table-responsive">
+			        <table class="table table-condensed table-hover table-bordered">
+			            <tbody>
+			                «EXPAND asociacionTabla FOREACH this.asociaciones_contenidas.select(e|!e.esComposicion)»
+			            </tbody>
+			        </table>
+			    </div>
+			</div>
+			«ENDIF-»
+		</div>
+	</div>
 «ENDDEFINE»
 
 
 «REM»Generación de modales de plantilla de la clase«ENDREM»
 «DEFINE bloqueModales FOR Clase»
+ «IF this.eliminar-»
 <div class="modal fade" id="modal-eliminar" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -111,53 +125,97 @@ Detalle de entidad: «EXPAND django_global::nombre FOR this-»
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-                <a href="{% url 'gen:«EXPAND django_global::nombreMinus FOR this-»_eliminar' 0 %}"
-                   id="confirmar-eliminar" class=" btn btn-primary" role="button">Aceptar
+                <a href="{% url 'gen:«EXPAND django_global::nombreMinus FOR this-»_eliminar' object.pk %}"
+                   id="confirmar-eliminar" class=" btn btn-danger" role="button">Aceptar
                 </a>
             </div>
         </div>
     </div>
 </div>
+ «ENDIF-»
 «ENDDEFINE»
 
 
 «REM»Fila de atributo de la clase en la tabla«ENDREM»
 «DEFINE atributoTabla FOR Atributo-»
-{% if object.«this.nombre.toFirstLower()» %}
-<tr>
-{% else %}
-<tr class='warning'>
-{% endif %}
-    <td><strong>«this.nombre.toFirstUpper()»</strong></td>
-    {% if object.«this.nombre.toFirstLower()» %}
-    <td>{{ object.«this.nombre.toFirstLower()» }}</td>
-    {% else %}
-    ---
-    {% endif %}
-</tr>
+							{% if object.«this.nombre_url.toFirstLower()» %}
+							<tr>
+							{% else %}
+							<tr class='warning'>
+							{% endif %}
+							    <td class="col-md-6"><strong>«this.nombre.toFirstUpper()»</strong></td>
+							    {% if object.«this.nombre_url.toFirstLower()» %}
+							    <td class="col-md-6">{{ object.«this.nombre_url.toFirstLower()» }}</td>
+							    {% else %}
+							    «IF this.tipo.toString()=='String' || this.tipo.toString()=='StringMiddle'»
+							    <td class="col-md-6">---</td>
+							    «ELSE»
+							    <td class="col-md-6">0</td>
+							    «ENDIF»
+							    {% endif %}
+							</tr>
 «ENDDEFINE»
 
+«DEFINE atributoTablaComposicion FOR Relacion-»
+	«FOREACH this.destino.atributos_clases AS attr»
+							<tr>
+							    <td class="col-md-6"><strong>«attr.nombre.toFirstUpper()»</strong></td>
+							    {% if object.«this.nombre_url.toLowerCase()».«attr.nombre_url.toLowerCase()» %}
+							    <td class="col-md-6">{{ object.«this.nombre_url.toLowerCase()».«attr.nombre_url.toLowerCase()» }}</td>
+							    {% else %}
+							    «IF attr.tipo.toString()=='String' || attr.tipo.toString()=='StringMiddle'»
+							    <td class="col-md-6">---</td>
+							    «ELSE»
+							    <td class="col-md-6">0</td>
+							    «ENDIF»
+							    {% endif %}
+							</tr>
+	«ENDFOREACH» 
+							
+«ENDDEFINE»
+
+«DEFINE asociacionComposicion FOR Relacion-»
+			<div class="panel panel-default">
+			    <div class="panel-heading">
+			        <h3 class="panel-title"> «this.destino.nombre.toFirstUpper()»</h3>
+			    </div>
+			    
+			    <div class="table-responsive">
+			        <table class="table table-condensed table-hover table-bordered">
+			            <tbody>
+			                «EXPAND atributoTablaComposicion FOR this»
+			            </tbody>
+			        </table>
+			    </div>
+			</div>
+«ENDDEFINE-»
 
 «REM»Fila de asociación de la clase en la tabla«ENDREM»
-«DEFINE asociacionTabla FOR Asociacion-»
+«DEFINE asociacionTabla FOR Relacion-»
 {% if object.«this.nombre.toFirstLower()» %}
 <tr>
 {% else %}
 <tr class='warning'>
 {% endif %}
-    <td>«this.nombre.toFirstUpper()»</td>
-    <td>«EXPAND django_global::nombre FOR this.destino»</td>
-    <td>
-        {% if object.«this.nombre.toFirstLower()» %}
-        <a href="{% url 'gen:«EXPAND django_global::nombreMinus FOR this.destino»_detallar' object.«this.nombre.toFirstLower()».pk %}"
-           class="btn btn-info" title="Ver"><span class="glyphicon glyphicon-eye-open"></span></a>
-        <a href="{% url 'gen:«EXPAND django_global::nombreMinus FOR this.destino»_editar' object.«this.nombre.toFirstLower()».pk %}"
-           class="btn btn-primary" title="Editar"><span class="glyphicon glyphicon-pencil"></span></a>
-        <a href="{% url 'gen:«EXPAND django_global::nombreMinus FOR this.destino»_eliminar' object.«this.nombre.toFirstLower()».pk %}"
-           class="btn btn-danger" title="Eliminar"><span class="glyphicon glyphicon-trash"></span></a>
-        {% else %}
-        <a href="{% url 'gen:«EXPAND django_global::nombreMinus FOR this.origen»_editar' object.pk %}"
-           class="btn btn-success" title="Crear"><span class="glyphicon glyphicon-plus"></span></a>
+    <td class="col-md-6"><strong>«this.nombre.toFirstUpper()»<strong></td>
+    <td class="col-md-6">
+        {% if object.«this.nombre_url.toFirstLower()» %}
+	        «IF this.destino.listar-»
+	        <a href="{% url 'gen:«EXPAND django_global::nombreMinus FOR this.destino»_detallar' object.«this.nombre_url.toFirstLower()».pk %}"
+	           class="btn btn-info" title="Ver"><span class="glyphicon glyphicon-eye-open"></span></a>
+	        «ELSE-»
+	        «IF this.destino.ver-»
+	        <a href="{% url 'gen:«EXPAND django_global::nombreMinus FOR this.destino»_detallar'%}"
+	           class="btn btn-info" title="Ver"><span class="glyphicon glyphicon-eye-open"></span></a>
+	       «ENDIF-»
+	       «ENDIF-»
+	       «IF this.destino.editar-»
+	        <a href="{% url 'gen:«EXPAND django_global::nombreMinus FOR this.destino»_editar' object.«this.nombre_url.toFirstLower()».pk %}"
+	           class="btn btn-primary" title="Editar"><span class="glyphicon glyphicon-pencil"></span></a>
+	        «ENDIF-»  
+	        {% else %}
+	        <a href="{% url 'gen:«EXPAND django_global::nombreMinus FOR this.origen»_crear' %}"
+	           class="btn btn-success" title="Crear"><span class="glyphicon glyphicon-plus"></span></a>
         {% endif %}
     </td>
 </tr>

@@ -1,0 +1,66 @@
+{% extends "gen/base.html" %}
+{% load staticfiles %}
+
+{% block title %}Formulario de entidad: Empresa{% endblock title %}
+
+{% block cssprivate %}
+<link href="{% static 'gen/css/index.css' %}" rel="stylesheet">
+<link href="{% static 'gen/css/empresa_form.css' %}" rel="stylesheet">
+{% endblock cssprivate %}
+{% block jsprivate %}
+<script src="{% static 'gen/js/empresa_form.js' %}"></script>
+{% endblock jsprivate %}
+
+{% block content %}
+    <div class="page-header">
+        {% if object %}
+            <h1 class="text-center">Empresa <small>Editar</small></h1>
+        {% else %}
+            <h1 class="text-center">Empresa <small>Crear</small></h1>
+        {% endif %}
+    </div>
+    <div class="row">
+	    <div class="col-xs-2">
+	        <ul class="nav nav-pills nav-stacked">
+			    <li role="presentation" class="box-shadow"><a href="{% url 'gen:empresa_detallar' %}">Empresa</a></li>
+	        </ul>        
+	    </div>
+	    <div class="col-xs-10 border-left">
+		
+		    <form action='' method='POST' class='form-horizontal ws-validate' role='form'>
+		    	{% csrf_token %}
+		    	<div class="bootom-space">
+		    	<button type="submit" class="btn btn-primary">Guardar</button>
+		       	<button type="button" class="btn btn-default volver">Volver</button>
+		        </div>
+		        <div class="panel panel-default">
+		            <div class="panel-heading">
+		                  <h3 class="panel-title">Datos: Empresa</h3>
+		            </div>
+		            <div class="panel-body">
+		                <ul>
+		                    {{ form.as_ul }}
+		                </ul>
+		            </div>
+		        </div>
+		        
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Relación: Domicilio</h3>
+            </div>
+            <div class="panel-body">
+                <ul>
+                    {{ EmpresaDomicilioFormset.as_ul }}
+                </ul>
+            </div>
+        </div>
+
+		        
+		        
+		        <button type="submit" class="btn btn-primary">Guardar</button>
+		        <button type="button" class="btn btn-default volver">Volver</button>
+		    </form>  
+		</div>
+	</div>
+{% endblock content %}
+    

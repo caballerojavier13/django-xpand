@@ -26,15 +26,30 @@ from .models import «EXPAND django_global::nombre FOREACH clases_del_Diagrama S
 «DEFINE formularioClase FOR Clase»
 # Clase: «EXPAND django_global::nombre FOR this»
 class «EXPAND django_global::nombreMinus FOR this»_form(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super(«EXPAND django_global::nombreMinus FOR this»_form, self).__init__(*args, **kwargs)
+        «EXPAND LabelFormulario FOREACH this.atributos_clases-»
     class Meta:
         model = «EXPAND django_global::nombre FOR this»
-        fields = [«EXPAND campoFormulario FOREACH this.atributos_clases SEPARATOR ', '»]
+        fields = [«EXPAND campoFormulario FOREACH this.atributos_clases SEPARATOR ', '»«EXPAND hayCampoFormularioAsociacion FOR this»]
 «ENDDEFINE»
 
+«DEFINE hayCampoFormularioAsociacion FOR Clase-»
+«IF this.asociaciones_contenidas.exists(e|!e.esComposicion)-»
+,«EXPAND campoFormularioAsociacion FOREACH this.asociaciones_contenidas.select(e|!e.esComposicion) SEPARATOR ', '-»
+«ENDIF-»
+«ENDDEFINE»
+
+«DEFINE LabelFormulario FOR Atributo-»
+        self.fields['«this.nombre_url.toLowerCase()»'].label = "«this.nombre.toFirstUpper()»"
+«ENDDEFINE»
 
 «REM»Campo de atributo de clase en el formulario«ENDREM»
 «DEFINE campoFormulario FOR Atributo-»
-'«this.nombre.toFirstLower()»'«ENDDEFINE»
+'«this.nombre_url.toFirstLower()»'«ENDDEFINE»
+
+«DEFINE campoFormularioAsociacion FOR Relacion-»
+«IF !this.esComposicion-»'«this.nombre_url.toFirstLower()»'«ENDIF»«ENDDEFINE»
 
 
 «REM»Formset por clase«ENDREM»
@@ -47,12 +62,14 @@ class «EXPAND django_global::nombreMinus FOR this»_form(forms.ModelForm):
 
 
 «REM»Formset de asociación entre clases«ENDREM»
-«DEFINE formsetAsociacion FOR Asociacion-»
+«DEFINE formsetAsociacion FOR Relacion-»
+«IF this.esComposicion-»
 «EXPAND django_global::nombreFormset FOR this» = modelformset_factory(«EXPAND django_global::nombre FOR this.destino», extra=1«EXPAND formsetCantidadLimite FOR this»)
+«ENDIF-»
 «ENDDEFINE»
 
 
 «REM»Cantidad límite de formset, dependiente de la cardinalidad«ENDREM»
-«DEFINE formsetCantidadLimite FOR Asociacion-»
+«DEFINE formsetCantidadLimite FOR Relacion-»
 «IF this.cardinalidadSuperior == 1-»
 , max_num=1«ENDIF»«ENDDEFINE»

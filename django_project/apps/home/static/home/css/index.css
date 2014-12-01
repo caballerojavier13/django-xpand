@@ -1,85 +1,253 @@
-.jumbotron {
-  text-align: center;
-  width: 100%;
+body{
+  background: darkgray;
+  background: white;
+}
+
+nav{
   position: relative;
-  margin: 0 auto;
-  padding-top: 40px;
-  margin-top: 30px;
-  padding-bottom: 30px;
-  border-radius: 0 !important;
-  background-color: #009CE7 !important;
+  width: 95%;
+  left: 2.5%;
+  padding: 20px;
+  padding-bottom: 0;
 }
 
-.jumbotron a{
-  width: 200px;
-}
-
-.jumbotron h1{
-  font-weight: bolder;
-  margin-bottom: 40px;
-}
-
-.jumbotron h2{
-  line-height: 40px;
-  color: white;
-}
-
-.grid{
+nav h1{
   position: relative;
-  text-align: center;
-  margin: 0 auto;
+  line-height: 50px;
+  font-size: 50px;
+  top: 0;
+  margin: 0;
+  width: 50%;
+  text-shadow: 0 0 2px black, 0 0 4px white;
+}
+
+nav img{
+  position: absolute;
+  left: 50%;
+  margin-left: -40px;
+  margin-top: -3px;
+  top: 20px;
+  z-index: 101;
+}
+
+nav > ul{
+  position: absolute;
+  right: 0;
+  top: 20px;
+  list-style: none;
+  height: 50px;
+  margin: 0;
+}
+nav > ul > a {
+  display: inline-block;
+  margin-right: 20px;
+  width: 100px;
+  height: 50px;
+  text-decoration: none;
+  border: solid 1px white;
+  border-bottom: solid 1px rgb(210, 210, 210);
+  line-height: 50px;
+  transition: all 0.5s linear;
   border-radius: 5px;
-  padding-top: 2px;
-  padding-bottom: 20px;
-  padding-left: 15px;
-  padding-right: 15px;
-}
-
-
-
-
-.listview .list div{
-  color: black;
-  border: 1px #eaeaea solid;
-  margin-bottom: 10px;
-  padding-top: 10px;
-  padding-bottom: 10px;
-}
-
-.listview .list :hover{
-  outline: 3px #ccc solid;
-  font-variant: none;
+  text-align: center;
 }
 
 .container{
   position: relative;
-  width: 90% !important;
+  margin: 0;
+  margin-top: 20px;
   background: white;
-  padding: 10px !important;
-  border-radius: 5px;
+  width: 100%;
+  box-shadow: inset 0 0 20px rgba(0,0,0,0.8);
+  margin-bottom: 50px;
+  background: rgb(194, 194, 194);
+}
+
+.inner-container{
+  background: white;
+  position: relative;
+  margin-top: 50px;
+  margin-bottom: 50px;
+  width: 90%;
+  left: 5%;
+  border-radius: 10px;
+  box-shadow: 0 0 44px rgb(65, 65, 65);
+  padding-bottom: 30px;
+}
+
+@media (max-width: 1200px) {
+    nav h1{
+      line-height: 40px;
+      font-size: 40px;
+    }
+    nav img{
+      top: 15px;
+    }
+    nav ul{
+      top: 10px;
+    }
+    nav ul a{
+      width: 80px;
+    }
+}
+@media (max-width: 1000px) {
+    nav h1{
+      line-height: 35px;
+      font-size: 35px;
+    }
+    nav ul{
+      display: none;
+    }
+    nav img{
+      top: 15px;
+    }
+}
+@media (max-width: 900px) {
+    nav h1{
+      line-height: 30px;
+      font-size: 30px;
+    }
+    nav img{
+      top: 10px;
+    }
+    .container{
+      padding:0 !important;
+    }
+    .inner-container{
+      left: 0;
+      width: 100%;
+      margin: 0 !important;
+      box-shadow: none;
+      border-radius: 0;
+      border: none;
+      border-top: solid gray 1px;
+    }
+    .container-fluid {
+      margin: 0 !important;
+    }
+}
+
+@media (max-width: 800px) {
+    nav h1{
+      left: 5%;
+      margin-left: 20px;
+      line-height: 36px;
+      font-size: 27px;
+      width: 100%;
+    }
+    nav img{
+      left: 0%;
+      margin: 0;
+      top:20px;
+      height: 36px !important;
+      width: auto !important;
+    }
+}
+
+@media (max-width: 600px) {
+    nav h1{
+      font-size: 20px;
+      text-shadow: none;
+      
+    }
+}
+nav > ul > a:hover{
+  text-decoration: none;
+  border-bottom: solid 1px white;
+  box-shadow: 0 0 5px rgba(50,50,50,0.6);
+  transition: all 0.5s linear;
+}
+nav > ul > a:active{
+  text-decoration: none;
+  border: solid 1px rgb(110, 110, 110);
+  background: rgb(236, 236, 236);
+  transition: all 0.5s linear;
 }
 
 
-/* Responsive: Portrait tablets and up */
-@media screen and (min-width: 768px) {
-  /* Remove the padding we set earlier */
-  .header,
-  .marketing,
-  .footer {
-    padding-right: 0;
-    padding-left: 0;
-  }
-  /* Space out the masthead */
-  .header {
-    margin-bottom: 30px;
-  }
-  /* Remove the bottom border on the jumbotron for visual effect */
-  .jumbotron {
-    border-bottom: 0;
-    width: 100%;
-  }
-  .container{
-    width: 100% !important;
-    padding: 0 !important;
-  }
+
+
+
+footer{
+  position: relative;
+  width: 90%;
+  left: 5%;
+  height: 80px;
+  border-top: solid 1px rgb(210, 210, 210);
+  padding: 20px;
+  color: rgb(166, 166, 166);
+}
+footer > a{
+  position: relative;
+  float: right;
+  line-height: 15px;
+  top: -15px;
+  margin-top: -15px;
+  color: rgb(166, 166, 166);
+}
+
+footer .dropup{
+  position: relative;
+  float: right;
+  top: -38px;
+}
+
+footer a:hover{
+  text-decoration: none;
+}
+footer a:active{
+  text-decoration: none;
+}
+
+.divisor{
+  position: relative;
+  left: 10%;
+  width: 80%;
+  height: 1px;
+  box-shadow: 0 0 1px black;
+  margin-top: 40px;
+  margin-bottom: 20px;
+}
+.divisor img{
+  position: absolute;
+  left: 50%;
+  margin-left: -40px;
+  top: -24px;
+}
+.img-grayscale{
+    filter: url(filters.svg#grayscale); /* Firefox 3.5+ */
+    filter: gray; /* IE6-9 */
+    -webkit-filter: grayscale(1); /* Google Chrome, Safari 6+ & Opera 15+ */
+}
+
+.inner-container > .row{
+  width: 90%;
+  margin-left: 5%;
+  margin-top: 70px;
+}
+
+
+
+
+
+div { word-break: break-all; }
+
+img { max-width:100%; }
+
+
+/* Container */
+.container-fluid {
+    margin: 40px auto 10px;
+    padding: 20px 0px;
+    max-width: 960px;
+}
+
+.item{
+  text-align: center;
+}
+
+.item img{
+  position: relative;
+  left: 0;
+  border-radius: 5px;
 }

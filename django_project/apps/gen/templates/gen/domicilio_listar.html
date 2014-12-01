@@ -4,6 +4,7 @@
 {% block title %}Listado de entidades: Domicilio{% endblock title %}
 
 {% block cssprivate %}
+<link href="{% static 'gen/css/index.css' %}" rel="stylesheet">
 <link href="{% static 'gen/css/domicilio_listar.css' %}" rel="stylesheet">
 {% endblock cssprivate %}
 {% block jsprivate %}
@@ -12,29 +13,39 @@
 {% endblock jsprivate %}
 
 {% block content %}
-<div class="container">
     <div class="page-header">
         <h1>Domicilio <small>Listado</small></h1>
     </div>
-    <a style="margin-bottom: 15px;" href="{% url 'gen:domicilio_crear' %}" type="button" id="domicilio_crear" class="btn btn-success">
-        <span class="glyphicon glyphicon-plus"></span> Crear nuevo
-    </a>
-    
-    <div class="table-responsive">
-        <table class="table table-bordered table-hover">
-            <thead>
-                <tr class="active">
-                    <th>ID</th>
+    <div class="row">
+	    <div class="col-xs-2">
+	        <ul class="nav nav-pills nav-stacked">
+	        </ul>        
+	    </div>
+	    <div class="col-xs-10 border-left">
+		<div class="bootom-space">
+			<button type="button" class="btn btn-default volver">Volver</button>
+			
+		    <a class="btn btn-success pull-right" href="{% url 'gen:domicilio_crear' %}" type="button" id="domicilio_crear">
+		        <span class="glyphicon glyphicon-plus"></span> Crear nuevo
+		    </a>	    
+	    </div>
+	    <div class="table-responsive">
+	        <table class="table table-bordered table-hover">
+	            <thead>
+	                <tr class="active">
+	                    <th>ID</th>
 <th>Calle</th>
-<th>Numero</th>
+<th>Número</th>
 <th>Localidad</th>
-                     
-                    <th>Operaciones</th>
-                </tr>
-            </thead>
-            <tbody>
-            </tbody>
-        </table>
+<th>Provincia</th>
+	                     
+	                    <th>Operaciones</th>
+	                </tr>
+	            </thead>
+	            <tbody>
+	            </tbody>
+	        </table>
+	    </div>
     </div>
 </div>
 {% endblock content %}
@@ -49,7 +60,7 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
                 <a href="{% url 'gen:domicilio_eliminar' 0 %}"
-                   id="confirmar-eliminar" class=" btn btn-primary" role="button">Aceptar
+                   id="confirmar-eliminar" class=" btn btn-danger" role="button">Aceptar
                 </a>
             </div>
         </div>

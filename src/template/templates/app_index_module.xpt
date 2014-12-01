@@ -1,0 +1,90 @@
+«IMPORT similuml»
+«IMPORT template»
+«EXTENSION template::GeneratorExtensions»
+
+«REM»
+Creación de archivos índice HTML de la aplicación Django
+Archivo generado: templates/gen/index.html
+«ENDREM»
+
+«REM»Creación del archivo índice HTML«ENDREM»
+«DEFINE main FOR DiagramaClases»
+    «EXPAND modulos FOREACH modulos_del_diagrama»
+«ENDDEFINE»
+«DEFINE modulos FOR Modulo»
+    «FILE 'templates/module/index_'+this.nombre_url.toLowerCase()+'.html'-»
+{% extends "gen/index.html" %}
+{% load staticfiles %}
+
+{% block title %}
+«this.nombre»
+{% endblock title %}
+
+{% block cssprivate %}
+<link href="{% static 'gen/css/index.css' %}" rel="stylesheet">
+<link href="{% static 'gen/css/index_«this.nombre.toLowerCase()».css' %}" rel="stylesheet">
+{% endblock cssprivate %}
+
+{% block jsprivate %}
+<script src="{% static 'gen/js/index_«this.nombre.toLowerCase()».js' %}"></script>
+{% endblock jsprivate %}
+
+{% block content %}«EXPAND bloqueContenido FOR this-»{% endblock content %}
+    «ENDFILE»
+«ENDDEFINE»
+
+«REM»Generación de contenido de plantilla«ENDREM»
+«DEFINE bloqueContenido FOR Modulo»
+<div class="page-header">
+    <h1>«this.nombre.toFirstUpper()»</h1>
+</div>
+<div class="row">
+    <div class="col-xs-2">
+        <ul class="nav nav-pills nav-stacked">
+          «EXPAND navClase FOREACH this.contiene-»
+        </ul>        
+    </div>
+    <div class="col-xs-10">
+	
+	</div>
+</div>
+«ENDDEFINE»
+
+«DEFINE navClase FOR Clase-»
+«IF this.listar || this.ver -»
+	«IF this.listar-»   
+				<li role="presentation" class="box-shadow"><a href="{% url 'gen:«EXPAND django_global::nombreMinus FOR this»_listar' %}" ">«this.nombre.toFirstUpper()-»</a></li>
+	«ELSE-»   
+			    <li role="presentation" class="box-shadow"><a href="{% url 'gen:«EXPAND django_global::nombreMinus FOR this»_detallar' %}">«this.nombre.toFirstUpper()-»</a></li>
+	«ENDIF-»   
+«ENDIF-»
+«ENDDEFINE-»
+
+«DEFINE panelClase FOR Clase»
+«IF this.listar || this.ver -»
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">«EXPAND django_global::nombre FOR this»</h3>
+    </div>
+    
+    <div class="panel-body">
+        <div class="btn-group">
+			«IF this.listar-»        	
+            <a class="btn btn-primary" href="{% url 'gen:«EXPAND django_global::nombreMinus FOR this»_listar' %}" role="button">
+                <span class="glyphicon glyphicon-list"></span> Ver listado
+            </a>
+            «ENDIF-»
+            «IF this.agregar-»
+            <a class="btn btn-success" href="{% url 'gen:«EXPAND django_global::nombreMinus FOR this»_crear' %}" role="button">
+                <span class="glyphicon glyphicon-plus"></span> Crear nuevo
+            </a>
+            «ELSE-»
+            <a class="btn btn-success" href="{% url 'gen:«EXPAND django_global::nombreMinus FOR this»_detallar' %}" role="button">
+                <span class="glyphicon glyphicon-plus"></span> Editar
+            </a>
+            «ENDIF-»
+        </div>
+    </div>
+</div>
+«ENDIF-»
+«ENDDEFINE»

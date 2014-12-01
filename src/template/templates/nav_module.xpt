@@ -1,0 +1,22 @@
+«IMPORT similuml»
+«IMPORT template»
+«EXTENSION template::GeneratorExtensions»
+
+«REM»
+Creación de archivos índice HTML de la aplicación Django
+Archivo generado: templates/gen/index.html
+«ENDREM»
+
+«REM»Creación del archivo índice HTML«ENDREM»
+«DEFINE main FOR DiagramaClases»
+    «FILE 'templates/gen/_nav_modules.html'-»
+    <ul class="nav nav-pills nav-justified">
+    		<li role="presentation"><a href="/configuracion/">Home</a></li>
+	    	«EXPAND panelModulo FOREACH this.modulos_del_diagrama»
+    </ul>
+    «ENDFILE»
+«ENDDEFINE»
+
+«DEFINE panelModulo FOR Modulo-»
+<li role="presentation"><a href="/configuracion/«this.nombre.toLowerCase()»/">«this.nombre.toFirstUpper()»</a></li>
+«ENDDEFINE-»

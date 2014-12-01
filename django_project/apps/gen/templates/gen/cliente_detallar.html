@@ -1,0 +1,201 @@
+{% extends "gen/base.html" %}
+{% load staticfiles %}
+
+{% block title %}Detalle de entidad: Cliente{% endblock title %}
+
+{% block cssprivate %}
+<link href="{% static 'gen/css/index.css' %}" rel="stylesheet">
+<link href="{% static 'gen/css/cliente_detallar.css' %}" rel="stylesheet">
+{% endblock cssprivate %}
+{% block jsprivate %}
+<script src="{% static 'gen/js/cliente_detallar.js' %}"></script>
+{% endblock jsprivate %}
+
+{% block content %}
+    <div class="page-header">
+        <h1 class="pull-left">Cliente <small>Detalle</small></h1>
+        
+        <div class="clearfix"></div>
+    </div>
+    <div class="row">
+	    <div class="col-xs-2">
+	        <ul class="nav nav-pills nav-stacked">
+				<li role="presentation" class="box-shadow"><a href="{% url 'gen:cliente_listar' %}" ">Cliente</a></li>
+	        </ul>        
+	    </div>
+	    <div class="col-xs-10 border-left">
+	    	<div class="bootom-space">
+	            <button type="button" class="btn btn-default volver">Volver</button>
+	            <div class="btn-group pull-right" role="group">
+	              
+	                <a href="{% url 'gen:cliente_editar' object.pk %}"
+	                   class="btn btn-primary" title="Editar"><span class="glyphicon glyphicon-pencil"></span></a>
+	               
+	               
+	                <button type="button" class="modal-eliminar btn btn-danger" data-toggle="modal" data-target="#modal-eliminar" title="Eliminar">
+		                <span class="glyphicon glyphicon-trash"></span>
+	                </button>
+	               
+	            </div>
+	        </div>
+			<div class="panel panel-default">
+			    <div class="panel-heading">
+			        <h3 class="panel-title"> Cliente</h3>
+			    </div>
+			    
+			    <div class="table-responsive">
+			        <table class="table table-condensed table-hover table-bordered">
+			            <tbody>
+							{% if object.nombre %}
+							<tr>
+							{% else %}
+							<tr class='warning'>
+							{% endif %}
+							    <td class="col-md-6"><strong>Nombre</strong></td>
+							    {% if object.nombre %}
+							    <td class="col-md-6">{{ object.nombre }}</td>
+							    {% else %}
+							    
+							    <td class="col-md-6">---</td>
+							    
+							    {% endif %}
+							</tr>
+							{% if object.apellido %}
+							<tr>
+							{% else %}
+							<tr class='warning'>
+							{% endif %}
+							    <td class="col-md-6"><strong>Apellido</strong></td>
+							    {% if object.apellido %}
+							    <td class="col-md-6">{{ object.apellido }}</td>
+							    {% else %}
+							    
+							    <td class="col-md-6">---</td>
+							    
+							    {% endif %}
+							</tr>
+							{% if object.telefono %}
+							<tr>
+							{% else %}
+							<tr class='warning'>
+							{% endif %}
+							    <td class="col-md-6"><strong>Teléfono</strong></td>
+							    {% if object.telefono %}
+							    <td class="col-md-6">{{ object.telefono }}</td>
+							    {% else %}
+							    
+							    <td class="col-md-6">0</td>
+							    
+							    {% endif %}
+							</tr>
+
+			            </tbody>
+			        </table>
+			    </div>
+			</div>
+			
+			<div class="panel panel-default">
+			    <div class="panel-heading">
+			        <h3 class="panel-title"> Domicilio</h3>
+			    </div>
+			    
+			    <div class="table-responsive">
+			        <table class="table table-condensed table-hover table-bordered">
+			            <tbody>
+	
+							<tr>
+							    <td class="col-md-6"><strong>Calle</strong></td>
+							    {% if object.domicilio.calle %}
+							    <td class="col-md-6">{{ object.domicilio.calle }}</td>
+							    {% else %}
+							    
+							    <td class="col-md-6">---</td>
+							    
+							    {% endif %}
+							</tr>
+	
+							<tr>
+							    <td class="col-md-6"><strong>Número</strong></td>
+							    {% if object.domicilio.numero %}
+							    <td class="col-md-6">{{ object.domicilio.numero }}</td>
+							    {% else %}
+							    
+							    <td class="col-md-6">0</td>
+							    
+							    {% endif %}
+							</tr>
+	
+							<tr>
+							    <td class="col-md-6"><strong>Piso</strong></td>
+							    {% if object.domicilio.piso %}
+							    <td class="col-md-6">{{ object.domicilio.piso }}</td>
+							    {% else %}
+							    
+							    <td class="col-md-6">0</td>
+							    
+							    {% endif %}
+							</tr>
+	
+							<tr>
+							    <td class="col-md-6"><strong>Departamento</strong></td>
+							    {% if object.domicilio.departamento %}
+							    <td class="col-md-6">{{ object.domicilio.departamento }}</td>
+							    {% else %}
+							    
+							    <td class="col-md-6">0</td>
+							    
+							    {% endif %}
+							</tr>
+	
+							<tr>
+							    <td class="col-md-6"><strong>Localidad</strong></td>
+							    {% if object.domicilio.localidad %}
+							    <td class="col-md-6">{{ object.domicilio.localidad }}</td>
+							    {% else %}
+							    
+							    <td class="col-md-6">---</td>
+							    
+							    {% endif %}
+							</tr>
+	
+							<tr>
+							    <td class="col-md-6"><strong>Provincia</strong></td>
+							    {% if object.domicilio.provincia %}
+							    <td class="col-md-6">{{ object.domicilio.provincia }}</td>
+							    {% else %}
+							    
+							    <td class="col-md-6">---</td>
+							    
+							    {% endif %}
+							</tr>
+	 
+							
+
+			            </tbody>
+			        </table>
+			    </div>
+			</div>
+
+			
+		</div>
+	</div>
+{% endblock content %}
+
+{% block modals %}
+<div class="modal fade" id="modal-eliminar" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+                <h2 align="center">¿Realmente desea eliminar este objeto?</h2>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                <a href="{% url 'gen:cliente_eliminar' object.pk %}"
+                   id="confirmar-eliminar" class=" btn btn-danger" role="button">Aceptar
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock modals %}
+    

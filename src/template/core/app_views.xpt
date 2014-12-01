@@ -16,6 +16,7 @@ from django.core import serializers
 from django.core.urlresolvers import reverse_lazy
 from django.template import RequestContext
 from django.views.generic import DetailView, CreateView, UpdateView
+from django.contrib.auth.decorators import login_required
 
 import json
 
@@ -24,13 +25,25 @@ from .forms import «EXPAND formularioClase FOREACH clases_del_Diagrama SEPARATO
 «EXPAND importacionFormset FOREACH clases_del_Diagrama»
 
 # Índice
+@login_required(login_url='/accounts/login')
 def index(request):
     return render_to_response('gen/index.html',
                               context_instance=RequestContext(request),
                               )
+                              
+«EXPAND vistasModulo FOREACH this.modulos_del_diagrama-»
 
 «EXPAND vistasClase FOREACH clases_del_Diagrama-»
     «ENDFILE»
+«ENDDEFINE»
+
+«DEFINE vistasModulo FOR Modulo»
+# Índice «this.nombre_url.toFirstUpper()»
+@login_required(login_url='/accounts/login')
+def index_modulo_«this.nombre_url.toLowerCase()»(request):
+    return render_to_response('module/index_«this.nombre_url.toLowerCase()».html',
+                              context_instance=RequestContext(request),
+                              )
 «ENDDEFINE»
 
 
@@ -38,12 +51,21 @@ def index(request):
 «DEFINE vistasClase FOR Clase»
 # Clase: «EXPAND django_global::nombre FOR this»
 ## Vistas genéricas
+«IF this.agregar-»
 «EXPAND vistaCrear FOR this»
+«ENDIF-»
+«IF this.editar-»
 «EXPAND vistaEditar FOR this»
+«ENDIF-»
+«IF this.eliminar-»
 «EXPAND vistaEliminar FOR this»
+«ENDIF-»
+«IF this.ver-»
 «EXPAND vistaDetallar FOR this»
+«ENDIF-»
+«IF this.listar-»
 «EXPAND vistaListar FOR this»
-
+«ENDIF-»
 ## Vistas JSON
 «EXPAND vistaDetallarJson FOR this»
 «EXPAND vistaListarJson FOR this»
@@ -58,7 +80,7 @@ class «EXPAND django_global::nombreMinus FOR this»_crear(CreateView):
     template_name_suffix = '_form'
     success_url = reverse_lazy('gen:«EXPAND django_global::nombreMinus FOR this»_listar')
     
-    «IF !this.asociaciones_contenidas.isEmpty-»
+    «IF this.asociaciones_contenidas.exists(e|e.esComposicion)-»
     «EXPAND administracionFormsetCrear FOR this-»
     
     «EXPAND formularioValido FOR this-»
@@ -72,9 +94,12 @@ class «EXPAND django_global::nombreMinus FOR this»_editar(UpdateView):
     model = «EXPAND django_global::nombre FOR this»
     form_class = «EXPAND django_global::nombreMinus FOR this»_form
     template_name_suffix = '_form'
+    «IF this.listar-»
     success_url = reverse_lazy('gen:«EXPAND django_global::nombreMinus FOR this»_listar')
-    
-    «IF !this.asociaciones_contenidas.isEmpty-»
+    «ELSE-»
+    success_url = reverse_lazy('gen:«EXPAND django_global::nombreMinus FOR this»_detallar')
+    «ENDIF-»
+    «IF this.asociaciones_contenidas.exists(e|e.esComposicion)-»
     «EXPAND administracionFormsetEditar FOR this-»
     
     «EXPAND formularioValido FOR this-»
@@ -84,6 +109,7 @@ class «EXPAND django_global::nombreMinus FOR this»_editar(UpdateView):
 
 «REM»Vista Eliminar de la clase«ENDREM»
 «DEFINE vistaEliminar FOR Clase»
+@login_required(login_url='/accounts/login')
 def «EXPAND django_global::nombreMinus FOR this»_eliminar(request, pk):
     instancia = «EXPAND django_global::nombre FOR this».objects.get(pk=pk)
     instancia.delete()
@@ -93,14 +119,25 @@ def «EXPAND django_global::nombreMinus FOR this»_eliminar(request, pk):
 
 «REM»Vista Detallar de la clase«ENDREM»
 «DEFINE vistaDetallar FOR Clase»
+«IF this.listar-»
 class «EXPAND django_global::nombreMinus FOR this»_detallar(DetailView):
     model = «EXPAND django_global::nombre FOR this»
     template_name_suffix = '_detallar'
+«ELSE-»
+@login_required(login_url='/accounts/login')
+def «EXPAND django_global::nombreMinus FOR this»_detallar(request):
+    model = «this.nombre_url.toFirstUpper()».objects.filter().first()  
+    return render_to_response('gen/«this.nombre_url.toLowerCase()»_detallar.html',
+                              {'object':model},
+                              context_instance=RequestContext(request),
+                              )
+«ENDIF-»
 «ENDDEFINE»
 
 
 «REM»Vista Listar de la clase«ENDREM»
 «DEFINE vistaListar FOR Clase»
+@login_required(login_url='/accounts/login')
 def «EXPAND django_global::nombreMinus FOR this»_listar(request):
     return render_to_response('gen/«EXPAND django_global::nombreMinus FOR this»_listar.html',
                               context_instance=RequestContext(request),
@@ -110,6 +147,7 @@ def «EXPAND django_global::nombreMinus FOR this»_listar(request):
 
 «REM»Vista Detallar de la clase, en JSON«ENDREM»
 «DEFINE vistaDetallarJson FOR Clase»
+@login_required(login_url='/accounts/login')
 def «EXPAND django_global::nombreMinus FOR this»_detallar_json(request, pk):
     object = get_object_or_404(«EXPAND django_global::nombre FOR this», pk=pk)
     data = serializers.serialize('json', [object])
@@ -119,6 +157,7 @@ def «EXPAND django_global::nombreMinus FOR this»_detallar_json(request, pk):
 
 «REM»Vista Listar de la clase, en JSON«ENDREM»
 «DEFINE vistaListarJson FOR Clase»
+@login_required(login_url='/accounts/login')
 def «EXPAND django_global::nombreMinus FOR this»_listar_json(request):
     data = serializers.serialize('json', «EXPAND django_global::nombre FOR this».objects.all())
     return HttpResponse(data, content_type='application/json; charset=utf-8')
@@ -132,14 +171,15 @@ def «EXPAND django_global::nombreMinus FOR this»_listar_json(request):
 
 «REM»Importación de formsets de la clase«ENDREM»
 «DEFINE importacionFormset FOR Clase-»
-«IF !this.asociaciones_contenidas.isEmpty-»
-from .forms import «EXPAND django_global::nombreFormset FOREACH this.asociaciones_contenidas SEPARATOR ', '-»
-«ENDIF»
-«ENDDEFINE»
+«IF this.asociaciones_contenidas.exists(e|e.esComposicion)-»
+from .forms import «EXPAND django_global::nombreFormset FOREACH this.asociaciones_contenidas»
+«ENDIF-»
+«ENDDEFINE-»
 
 
 «REM»Administración de formsets en el formulario de creación de la clase«ENDREM»
 «DEFINE administracionFormsetCrear FOR Clase»
+«IF this.asociaciones_contenidas.exists(e|e.esComposicion)-»
     def get_context_data(self, **kwargs):
         context = super(«EXPAND django_global::nombreMinus FOR this»_crear, self).get_context_data(**kwargs)
         if self.request.POST:
@@ -147,11 +187,13 @@ from .forms import «EXPAND django_global::nombreFormset FOREACH this.asociacion
         else:
             «EXPAND contextoFormsetGetCrear FOREACH this.asociaciones_contenidas»
         return context
+«ENDIF-»        
 «ENDDEFINE»
 
 
 «REM»Administración de formsets en el formulario de edición de la clase«ENDREM»
 «DEFINE administracionFormsetEditar FOR Clase»
+«IF this.asociaciones_contenidas.exists(e|e.esComposicion)-»
     def get_context_data(self, **kwargs):
         context = super(«EXPAND django_global::nombreMinus FOR this»_editar, self).get_context_data(**kwargs)
         if self.request.POST:
@@ -159,68 +201,86 @@ from .forms import «EXPAND django_global::nombreFormset FOREACH this.asociacion
         else:
             «EXPAND contextoFormsetGetEditar FOREACH this.asociaciones_contenidas»
         return context
+«ENDIF-»
 «ENDDEFINE»
 
 
 «REM»Generación de formsets en contexto para solicitud POST«ENDREM»
-«DEFINE contextoFormsetPost FOR Asociacion-»
-            context['«EXPAND django_global::nombreFormset FOR this»'] = «EXPAND django_global::nombreFormset FOR this»(self.request.POST)«ENDDEFINE»
+«DEFINE contextoFormsetPost FOR Relacion-»
+«IF this.esComposicion-»
+            context['«EXPAND django_global::nombreFormset FOR this-»'] = «EXPAND django_global::nombreFormset FOR this-»(self.request.POST)
+«ENDIF-»
+«ENDDEFINE-»
 
 
 «REM»Generación de formsets en contexto de formulario de creación, para solicitud GET«ENDREM»
-«DEFINE contextoFormsetGetCrear FOR Asociacion-»
-                context['«EXPAND django_global::nombreFormset FOR this»'] = «EXPAND django_global::nombreFormset FOR this»(
-                  queryset=«EXPAND django_global::nombre FOR this.destino».objects.none())«ENDDEFINE»
+«DEFINE contextoFormsetGetCrear FOR Relacion-»
+«IF this.esComposicion-»
+                context['«EXPAND django_global::nombreFormset FOR this-»'] = «EXPAND django_global::nombreFormset FOR this-»(
+                  queryset=«EXPAND django_global::nombre FOR this.destino-».objects.none())
+«ENDIF-»             
+«ENDDEFINE-»
 
 
 «REM»Generación de formsets en contexto de formulario de edición, para solicitud GET«ENDREM»
-«DEFINE contextoFormsetGetEditar FOR Asociacion-»
-            if (self.object.«this.nombre.toFirstLower()»):
+«DEFINE contextoFormsetGetEditar FOR Relacion-»
+«IF this.esComposicion-»
+            if (self.object.«this.nombre_url.toFirstLower()»):
                 context['«EXPAND django_global::nombreFormset FOR this»'] = «EXPAND django_global::nombreFormset FOR this»(
                   queryset=«EXPAND django_global::nombre FOR this.destino».objects.filter(pk=self.object.«this.nombre.toFirstLower()».pk))
             else:
                 context['«EXPAND django_global::nombreFormset FOR this»'] = «EXPAND django_global::nombreFormset FOR this»(
-                  queryset=«EXPAND django_global::nombre FOR this.destino».objects.none())«ENDDEFINE»
+                  queryset=«EXPAND django_global::nombre FOR this.destino».objects.none())
+«ENDIF-»
+«ENDDEFINE-»
 
 
 «REM»Persistencia de datos introducidos en formulario con formsets válidos«ENDREM»
 «DEFINE formularioValido FOR Clase-»
     def form_valid(self, form):
         context = self.get_context_data()
-        «EXPAND formsetContexto FOREACH this.asociaciones_contenidas»
-        if «EXPAND formsetValido FOREACH this.asociaciones_contenidas SEPARATOR ' and '»:
+        «EXPAND formsetContexto FOREACH this.asociaciones_contenidas.select(e|e.esComposicion)»
+        if «EXPAND formsetValido FOREACH this.asociaciones_contenidas.select(e|e.esComposicion) SEPARATOR ' and '»:
             self.object = form.save()
-            «EXPAND formsetInstancia FOREACH this.asociaciones_contenidas»
-            «EXPAND formsetGuardado FOREACH this.asociaciones_contenidas»
-            «EXPAND formsetAsociacion FOREACH this.asociaciones_contenidas»
+            «EXPAND formsetInstancia FOREACH this.asociaciones_contenidas.select(e|e.esComposicion)»
+            «EXPAND formsetGuardado FOREACH this.asociaciones_contenidas.select(e|e.esComposicion)»
+            «EXPAND formsetAsociacion FOREACH this.asociaciones_contenidas.select(e|e.esComposicion)»
             self.object.save()
-            return HttpResponseRedirect(reverse_lazy('gen:«EXPAND django_global::nombreMinus FOR this»_listar'))
+            «IF this.listar-»
+            success_url = reverse_lazy('gen:«EXPAND django_global::nombreMinus FOR this»_listar')
+		    «ELSE-»
+            return HttpResponseRedirect(reverse_lazy('gen:«EXPAND django_global::nombreMinus FOR this»_detallar'))
+		    «ENDIF-»
         else:
             return self.render_to_response(self.get_context_data(form=form))
 «ENDDEFINE»
 
 
 «REM»Obtención de formset desde el contexto de la solicitud«ENDREM»
-«DEFINE formsetContexto FOR Asociacion-»
-        «this.nombre.toFirstLower()»_form = context['«EXPAND django_global::nombreFormset FOR this»']«ENDDEFINE»
+«DEFINE formsetContexto FOR Relacion-»
+        «this.nombre_url.toFirstLower()»_form = context['«EXPAND django_global::nombreFormset FOR this»']
+«ENDDEFINE-»
 
 
 «REM»Validación del formset«ENDREM»
-«DEFINE formsetValido FOR Asociacion-»
-«this.nombre.toFirstLower()»_form.is_valid()«ENDDEFINE»
+«DEFINE formsetValido FOR Relacion-»
+«this.nombre_url.toFirstLower()»_form.is_valid()«ENDDEFINE»
 
 
 «REM»Instanciación del objeto relacionado al formset«ENDREM»
-«DEFINE formsetInstancia FOR Asociacion-»
-            «this.nombre.toFirstLower()»_form.instance = self.object«ENDDEFINE»
+«DEFINE formsetInstancia FOR Relacion-»
+            «this.nombre_url.toFirstLower()»_form.instance = self.object
+«ENDDEFINE-»
 
 
 «REM»Persistencia de la información del formset«ENDREM»
-«DEFINE formsetGuardado FOR Asociacion-»
-            «this.nombre.toFirstLower()»_list = «this.nombre.toFirstLower()»_form.save()«ENDDEFINE»
+«DEFINE formsetGuardado FOR Relacion-»
+            «this.nombre_url.toFirstLower()»_list = «this.nombre_url.toFirstLower()»_form.save()
+«ENDDEFINE-»
 
 
 «REM»Creación de la asociación entre clase del formset y clase del formulario«ENDREM»
-«DEFINE formsetAsociacion FOR Asociacion-»
-            if («this.nombre.toFirstLower()»_list):
-                self.object.«this.nombre.toFirstLower()» = «this.nombre.toFirstLower()»_list.pop()«ENDDEFINE»
+«DEFINE formsetAsociacion FOR Relacion-»
+            if («this.nombre_url.toFirstLower()»_list):
+                self.object.«this.nombre_url.toFirstLower()» = «this.nombre_url.toFirstLower()»_list.pop()
+«ENDDEFINE-»

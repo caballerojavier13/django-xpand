@@ -4,6 +4,7 @@
 {% block title %}Formulario de entidad: Domicilio{% endblock title %}
 
 {% block cssprivate %}
+<link href="{% static 'gen/css/index.css' %}" rel="stylesheet">
 <link href="{% static 'gen/css/domicilio_form.css' %}" rel="stylesheet">
 {% endblock cssprivate %}
 {% block jsprivate %}
@@ -11,7 +12,6 @@
 {% endblock jsprivate %}
 
 {% block content %}
-<div class="container">
     <div class="page-header">
         {% if object %}
             <h1 class="text-center">Domicilio <small>Editar</small></h1>
@@ -19,28 +19,35 @@
             <h1 class="text-center">Domicilio <small>Crear</small></h1>
         {% endif %}
     </div>
-    
-    <form action='' method='POST' class='form-horizontal ws-validate' role='form'>
-        {% csrf_token %}
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                  <h3 class="panel-title">Datos: Domicilio</h3>
-            </div>
-            <div class="panel-body">
-                <ul>
-                    {{ form.as_ul }}
-                </ul>
-            </div>
-        </div>
-        
-        
-        <button type="submit" class="btn btn-primary">
-            Guardar
-        </button>
-        <a href="{% url 'gen:domicilio_listar' %}" class="btn btn-default" role="button">
-            Atrás
-        </a>
-    </form>
-</div>
+    <div class="row">
+	    <div class="col-xs-2">
+	        <ul class="nav nav-pills nav-stacked">
+	        </ul>        
+	    </div>
+	    <div class="col-xs-10 border-left">
+		
+		    <form action='' method='POST' class='form-horizontal ws-validate' role='form'>
+		    	{% csrf_token %}
+		    	<div class="bootom-space">
+		    	<button type="submit" class="btn btn-primary">Guardar</button>
+		       	<button type="button" class="btn btn-default volver">Volver</button>
+		        </div>
+		        <div class="panel panel-default">
+		            <div class="panel-heading">
+		                  <h3 class="panel-title">Datos: Domicilio</h3>
+		            </div>
+		            <div class="panel-body">
+		                <ul>
+		                    {{ form.as_ul }}
+		                </ul>
+		            </div>
+		        </div>
+		        
+		        
+		        <button type="submit" class="btn btn-primary">Guardar</button>
+		        <button type="button" class="btn btn-default volver">Volver</button>
+		    </form>  
+		</div>
+	</div>
 {% endblock content %}
     

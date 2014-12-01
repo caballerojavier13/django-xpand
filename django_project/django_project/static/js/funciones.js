@@ -7,7 +7,11 @@ $(function() {
     $(".alert .close").on("click", function() {
         $(".alert").hide();
     });
+    $(".volver").on("click", function() {
+        window.history.back();
+    });
 });
+
 
 function getParameterByName(name) {
     name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");

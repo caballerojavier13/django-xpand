@@ -1,5 +1,6 @@
 «IMPORT similuml»
 «IMPORT template»
+«IMPORT app_index_module»
 «EXTENSION template::GeneratorExtensions»
 
 «REM»
@@ -15,7 +16,7 @@ Archivo generado: templates/gen/<clase>_form.html
 
 «REM»Creación de archivo HTML por clase«ENDREM»
 «DEFINE archivoClase FOR Clase»
-    «FILE 'templates/gen/'+this.nombre.toFirstLower()+'_form.html'-»
+    «FILE 'templates/gen/'+this.nombre_url.toLowerCase()+'_form.html'-»
 {% extends "gen/base.html" %}
 {% load staticfiles %}
 
@@ -37,6 +38,7 @@ Formulario de entidad: «EXPAND django_global::nombre FOR this-»
 
 «REM»Importación de archivos CSS de la clase«ENDREM»
 «DEFINE bloqueCSS FOR Clase»
+<link href="{% static 'gen/css/index.css' %}" rel="stylesheet">
 <link href="{% static 'gen/css/«EXPAND django_global::nombreMinus FOR this-»_form.css' %}" rel="stylesheet">
 «ENDDEFINE»
 
@@ -49,7 +51,6 @@ Formulario de entidad: «EXPAND django_global::nombre FOR this-»
 
 «REM»Generación de contenido de plantilla de la clase«ENDREM»
 «DEFINE bloqueContenido FOR Clase»
-<div class="container">
     <div class="page-header">
         {% if object %}
             <h1 class="text-center">«EXPAND django_global::nombre FOR this» <small>Editar</small></h1>
@@ -57,36 +58,45 @@ Formulario de entidad: «EXPAND django_global::nombre FOR this-»
             <h1 class="text-center">«EXPAND django_global::nombre FOR this» <small>Crear</small></h1>
         {% endif %}
     </div>
-    
-    <form action='' method='POST' class='form-horizontal ws-validate' role='form'>
-        {% csrf_token %}
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                  <h3 class="panel-title">Datos: «EXPAND django_global::nombre FOR this»</h3>
-            </div>
-            <div class="panel-body">
-                <ul>
-                    {{ form.as_ul }}
-                </ul>
-            </div>
-        </div>
-        «IF !this.asociaciones_contenidas.isEmpty»
-        «EXPAND formsetAsociacion FOREACH this.asociaciones_contenidas»
-        «ENDIF»
-        
-        <button type="submit" class="btn btn-primary">
-            Guardar
-        </button>
-        <a href="{% url 'gen:«EXPAND django_global::nombreMinus FOR this-»_listar' %}" class="btn btn-default" role="button">
-            Atrás
-        </a>
-    </form>
-</div>
+    <div class="row">
+	    <div class="col-xs-2">
+	        <ul class="nav nav-pills nav-stacked">
+	          «EXPAND app_index_module::navClase FOREACH this.pertenece.contiene-»
+	        </ul>        
+	    </div>
+	    <div class="col-xs-10 border-left">
+		
+		    <form action='' method='POST' class='form-horizontal ws-validate' role='form'>
+		    	{% csrf_token %}
+		    	<div class="bootom-space">
+		    	<button type="submit" class="btn btn-primary">Guardar</button>
+		       	<button type="button" class="btn btn-default volver">Volver</button>
+		        </div>
+		        <div class="panel panel-default">
+		            <div class="panel-heading">
+		                  <h3 class="panel-title">Datos: «EXPAND django_global::nombre FOR this»</h3>
+		            </div>
+		            <div class="panel-body">
+		                <ul>
+		                    {{ form.as_ul }}
+		                </ul>
+		            </div>
+		        </div>
+		        «IF !this.asociaciones_contenidas.isEmpty»
+		        «EXPAND formsetAsociacion FOREACH this.asociaciones_contenidas»
+		        «ENDIF»
+		        
+		        <button type="submit" class="btn btn-primary">Guardar</button>
+		        <button type="button" class="btn btn-default volver">Volver</button>
+		    </form>  
+		</div>
+	</div>
 «ENDDEFINE»
 
 
 «REM»Inserción de formset de asociación entre clases«ENDREM»
-«DEFINE formsetAsociacion FOR Asociacion»
+«DEFINE formsetAsociacion FOR Relacion-»
+	«IF this.esComposicion-»
         <div class="panel panel-default">
             <div class="panel-heading">
                 <h3 class="panel-title">Relación: «this.nombre.toFirstUpper()»</h3>
@@ -97,4 +107,5 @@ Formulario de entidad: «EXPAND django_global::nombre FOR this-»
                 </ul>
             </div>
         </div>
-«ENDDEFINE»
+    «ENDIF-»
+«ENDDEFINE-»

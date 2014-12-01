@@ -13,27 +13,28 @@ Archivo generado: templates/gen/base.html
 {% extends "base_project.html" %}
 
 {% block barranav %}
-<li>
-    <a href="{% url 'gen:index' %}">
-        <span class="glyphicon glyphicon-home"></span>
-    </a>
-</li>
+<ul class="nav navbar-nav">
+	<li>
+		<a href="{% url 'gen:index' %}">
+			Home
+		</a>
+	</li>
+	«EXPAND bloqueDesplegable FOR this-»
+</ul>
 {% endblock barranav %}
 
-{% block titulodesplegable %}Entidades{% endblock titulodesplegable %}
 
-{% block desplegable %}«EXPAND bloqueDesplegable FOR this»{% endblock desplegable %}
     «ENDFILE»
 «ENDDEFINE»
 
 
 «REM»Generación de lista desplegable de la aplicación«ENDREM»
 «DEFINE bloqueDesplegable FOR DiagramaClases-»
-    «EXPAND entidadLista FOREACH clases_del_Diagrama»
-«ENDDEFINE»
+    «EXPAND entidadLista FOREACH this.modulos_del_diagrama-»
+«ENDDEFINE-»
 
 
 «REM»Generación de elemento entidad en la lista desplegable«ENDREM»
-«DEFINE entidadLista FOR Clase-»
-    <li><a href="{% url 'gen:«EXPAND django_global::nombreMinus FOR this»_listar' %}">«EXPAND django_global::nombre FOR this»</a></li>
-«ENDDEFINE»
+«DEFINE entidadLista FOR Modulo-»
+	<li><a href="/configuracion/«this.nombre_url.toLowerCase()»/">«this.nombre.toFirstUpper()»</a></li>
+«ENDDEFINE-»

@@ -15,7 +15,7 @@ Archivo generado: templates/gen/<clase>_listar.html
 
 «REM»Creación de archivo HTML por clase«ENDREM»
 «DEFINE archivoClase FOR Clase»
-    «FILE 'templates/gen/'+this.nombre.toFirstLower()+'_listar.html'-»
+    «FILE 'templates/gen/'+this.nombre_url.toFirstLower()+'_listar.html'-»
 {% extends "gen/base.html" %}
 {% load staticfiles %}
 
@@ -33,12 +33,13 @@ Archivo generado: templates/gen/<clase>_listar.html
 
 «REM»Generación de título de plantilla de la clase«ENDREM»
 «DEFINE bloqueTitulo FOR Clase-»
-Listado de entidades: «EXPAND django_global::nombre FOR this-»
+Listado de entidades: «this.nombre.toFirstUpper()-»
 «ENDDEFINE»
 
 
 «REM»Importación de archivos CSS de la clase«ENDREM»
 «DEFINE bloqueCSS FOR Clase»
+<link href="{% static 'gen/css/index.css' %}" rel="stylesheet">
 <link href="{% static 'gen/css/«EXPAND django_global::nombreMinus FOR this-»_listar.css' %}" rel="stylesheet">
 «ENDDEFINE»
 
@@ -52,33 +53,52 @@ Listado de entidades: «EXPAND django_global::nombre FOR this-»
 
 «REM»Generación de contenido de plantilla de la clase«ENDREM»
 «DEFINE bloqueContenido FOR Clase»
-<div class="container">
     <div class="page-header">
-        <h1>«EXPAND django_global::nombre FOR this-» <small>Listado</small></h1>
+        <h1>«this.nombre.toFirstUpper()-» <small>Listado</small></h1>
     </div>
-    <a style="margin-bottom: 15px;" href="{% url 'gen:«EXPAND django_global::nombreMinus FOR this-»_crear' %}" type="button" id="«EXPAND django_global::nombreMinus FOR this-»_crear" class="btn btn-success">
-        <span class="glyphicon glyphicon-plus"></span> Crear nuevo
-    </a>
-    
-    <div class="table-responsive">
-        <table class="table table-bordered table-hover">
-            <thead>
-                <tr class="active">
-                    <th>ID</th>
-                    «EXPAND atributoTabla FOREACH this.atributos_clases-»
-                     «IF !this.asociaciones_contenidas.isEmpty-»
-                    <th>Relaciones</th>
-                    «ENDIF»
-                    <th>Operaciones</th>
-                </tr>
-            </thead>
-            <tbody>
-            </tbody>
-        </table>
+    <div class="row">
+	    <div class="col-xs-2">
+	        <ul class="nav nav-pills nav-stacked">
+				«EXPAND navClase FOREACH this.pertenece.contiene-»
+	        </ul>        
+	    </div>
+	    <div class="col-xs-10 border-left">
+		<div class="bootom-space">
+			<button type="button" class="btn btn-default volver">Volver</button>
+			
+		    <a class="btn btn-success pull-right" href="{% url 'gen:«EXPAND django_global::nombreMinus FOR this-»_crear' %}" type="button" id="«EXPAND django_global::nombreMinus FOR this-»_crear">
+		        <span class="glyphicon glyphicon-plus"></span> Crear nuevo
+		    </a>	    
+	    </div>
+	    <div class="table-responsive">
+	        <table class="table table-bordered table-hover">
+	            <thead>
+	                <tr class="active">
+	                    <th>ID</th>
+	                    «EXPAND atributoTabla FOREACH this.atributos_clases.select(e|e.to_string)-»
+	                     «IF !this.asociaciones_contenidas.isEmpty-»
+	                    <th>Relaciones</th>
+	                    «ENDIF»
+	                    <th>Operaciones</th>
+	                </tr>
+	            </thead>
+	            <tbody>
+	            </tbody>
+	        </table>
+	    </div>
     </div>
 </div>
 «ENDDEFINE»
 
+«DEFINE navClase FOR Clase-»
+«IF this.listar || this.ver -»
+	«IF this.listar-»   
+				<li role="presentation" class="box-shadow"><a href="{% url 'gen:«EXPAND django_global::nombreMinus FOR this»_listar' %}" ">«this.nombre.toFirstUpper()-»</a></li>
+	«ELSE-»   
+			    <li role="presentation" class="box-shadow"><a href="{% url 'gen:«EXPAND django_global::nombreMinus FOR this»_detallar' %}">«this.nombre.toFirstUpper()-»</a></li>
+	«ENDIF-»   
+«ENDIF-»
+«ENDDEFINE-»
 
 «REM»Generación de modales de plantilla de la clase«ENDREM»
 «DEFINE bloqueModales FOR Clase»
@@ -91,7 +111,7 @@ Listado de entidades: «EXPAND django_global::nombre FOR this-»
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
                 <a href="{% url 'gen:«EXPAND django_global::nombreMinus FOR this-»_eliminar' 0 %}"
-                   id="confirmar-eliminar" class=" btn btn-primary" role="button">Aceptar
+                   id="confirmar-eliminar" class=" btn btn-danger" role="button">Aceptar
                 </a>
             </div>
         </div>
