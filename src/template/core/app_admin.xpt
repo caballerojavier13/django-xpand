@@ -12,9 +12,9 @@ Archivo generado: admin.py
     «FILE 'admin.py'-»
 from django.contrib import admin
 
-from .models import «EXPAND django_global::nombre FOREACH clases_del_Diagrama SEPARATOR ', '»
+from .models import «EXPAND django_global::nombre FOREACH clases_del_Diagrama.select(e|e.Tipo.toString() == 'Normal') SEPARATOR ', '»
 
-«EXPAND registroAdminClase FOREACH clases_del_Diagrama-»
+«EXPAND registroAdminClase FOREACH clases_del_Diagrama.select(e|e.Tipo.toString() == 'Normal')-»
     «ENDFILE»
 «ENDDEFINE»
 

@@ -10,7 +10,8 @@
       editar="true"
       ver="true"
       pertenece="//@modulos_del_diagrama.3"
-      nombre_url="empresa">
+      nombre_url="empresa"
+      Tipo="Normal">
     <atributos_clases
         nombre="nombre"
         tipo="String"
@@ -41,7 +42,8 @@
       ver="true"
       eliminar="true"
       pertenece="//@modulos_del_diagrama.0"
-      nombre_url="producto">
+      nombre_url="producto"
+      Tipo="Normal">
     <atributos_clases
         nombre="nombre"
         tipo="String"
@@ -51,17 +53,11 @@
         nombre="Descripci&#xf3;n"
         tipo="StringLarge"
         nombre_url="descripcion"/>
-    <asociaciones_contenidas
-        nombre="Categor&#xed;a"
-        cardinalidadInferior="1"
-        cardinalidadSuperior="1"
-        origen="//@clases_del_Diagrama.1"
-        destino="//@clases_del_Diagrama.6"
-        nombre_url="categoria"/>
   </clases_del_Diagrama>
   <clases_del_Diagrama
       nombre="AlmacenProducto"
-      nombre_url="almacen_producto">
+      nombre_url="almacen_producto"
+      Tipo="Stock">
     <atributos_clases
         nombre="cantidad"
         nombre_url="cantidad"/>
@@ -86,7 +82,8 @@
       ver="true"
       eliminar="true"
       pertenece="//@modulos_del_diagrama.1"
-      nombre_url="almacen">
+      nombre_url="almacen"
+      Tipo="Stock">
     <atributos_clases
         nombre="nombre"
         tipo="String"
@@ -109,7 +106,8 @@
   </clases_del_Diagrama>
   <clases_del_Diagrama
       nombre="Domicilio"
-      nombre_url="domicilio">
+      nombre_url="domicilio"
+      Tipo="Normal">
     <atributos_clases
         nombre="calle"
         tipo="String"
@@ -144,7 +142,8 @@
       ver="true"
       eliminar="true"
       pertenece="//@modulos_del_diagrama.2"
-      nombre_url="cliente">
+      nombre_url="cliente"
+      Tipo="Normal">
     <atributos_clases
         nombre="Nombre"
         tipo="String"
@@ -157,11 +156,10 @@
         nombre_url="apellido"/>
     <atributos_clases
         nombre="Tel&#xe9;fono"
-        tipo="double"
+        tipo="Telefono"
         nombre_url="telefono"/>
     <asociaciones_contenidas
         nombre="Domicilio"
-        cardinalidadInferior="1"
         cardinalidadSuperior="1"
         origen="//@clases_del_Diagrama.5"
         destino="//@clases_del_Diagrama.4"
@@ -169,23 +167,60 @@
         nombre_url="domicilio"/>
   </clases_del_Diagrama>
   <clases_del_Diagrama
-      nombre="Categor&#xed;a"
+      nombre="Pedido de Venta"
       listar="true"
       agregar="true"
       editar="true"
       ver="true"
       eliminar="true"
-      pertenece="//@modulos_del_diagrama.0"
-      nombre_url="categoria">
+      pertenece="//@modulos_del_diagrama.2"
+      nombre_url="pedido"
+      Tipo="Encabezado">
     <atributos_clases
-        nombre="nombre"
-        tipo="String"
-        to_string="true"
-        nombre_url="nombre"/>
+        nombre="Fecha"
+        tipo="Date"
+        nombre_url="fecha"/>
   </clases_del_Diagrama>
+  <clases_del_Diagrama
+      nombre="Detalle Pedido"
+      listar="true"
+      agregar="true"
+      eliminar="true"
+      nombre_url="detalle_pedido"
+      Tipo="Detalle"/>
+  <clases_del_Diagrama
+      nombre="Venta"
+      listar="true"
+      agregar="true"
+      editar="true"
+      ver="true"
+      eliminar="true"
+      pertenece="//@modulos_del_diagrama.2"
+      nombre_url="venta"
+      Tipo="Normal">
+    <atributos_clases
+        nombre="fecha"
+        tipo="Date"
+        nombre_url="fecha"/>
+    <asociaciones_contenidas
+        nombre="Cliente"
+        cardinalidadSuperior="1"
+        origen="//@clases_del_Diagrama.8"
+        destino="//@clases_del_Diagrama.5"
+        nombre_url="cliente"/>
+  </clases_del_Diagrama>
+  <clases_del_Diagrama
+      nombre="Detalle Venta"
+      listar="true"
+      agregar="true"
+      editar="true"
+      eliminar="true"
+      pertenece="//@modulos_del_diagrama.2"
+      nombre_url="detalle_venta"
+      Tipo="Detalle"/>
   <modulos_del_diagrama
       nombre="Productos"
-      contiene="//@clases_del_Diagrama.1 //@clases_del_Diagrama.6"
+      contiene="//@clases_del_Diagrama.1"
       nombre_url="productos"/>
   <modulos_del_diagrama
       nombre="Almac&#xe9;n"
@@ -193,7 +228,7 @@
       nombre_url="almacen"/>
   <modulos_del_diagrama
       nombre="Ventas"
-      contiene="//@clases_del_Diagrama.5"
+      contiene="//@clases_del_Diagrama.5 //@clases_del_Diagrama.6 //@clases_del_Diagrama.8"
       nombre_url="ventas"/>
   <modulos_del_diagrama
       nombre="Opciones"

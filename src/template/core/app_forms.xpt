@@ -29,6 +29,7 @@ class «EXPAND django_global::nombreMinus FOR this»_form(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(«EXPAND django_global::nombreMinus FOR this»_form, self).__init__(*args, **kwargs)
         «EXPAND LabelFormulario FOREACH this.atributos_clases-»
+        «EXPAND FieldFormulario FOREACH this.atributos_clases-»
     class Meta:
         model = «EXPAND django_global::nombre FOR this»
         fields = [«EXPAND campoFormulario FOREACH this.atributos_clases SEPARATOR ', '»«EXPAND hayCampoFormularioAsociacion FOR this»]
@@ -43,6 +44,16 @@ class «EXPAND django_global::nombreMinus FOR this»_form(forms.ModelForm):
 «DEFINE LabelFormulario FOR Atributo-»
         self.fields['«this.nombre_url.toLowerCase()»'].label = "«this.nombre.toFirstUpper()»"
 «ENDDEFINE»
+
+«DEFINE FieldFormulario FOR Atributo-»
+	«IF this.tipo.toString() == 'Date'-»
+        self.fields['«this.nombre_url.toLowerCase()»'].widget.attrs['class'] = "form-control datepicker"
+	«ELSE-»
+        self.fields['«this.nombre_url.toLowerCase()»'].widget.attrs['class'] = "form-control"
+    «ENDIF-»
+«ENDDEFINE»
+
+
 
 «REM»Campo de atributo de clase en el formulario«ENDREM»
 «DEFINE campoFormulario FOR Atributo-»

@@ -1,0 +1,32 @@
+{% extends "backend/index.html" %}
+{% load staticfiles %}
+
+{% block title %}
+Productos
+{% endblock title %}
+
+{% block cssprivate %}
+<link href="{% static 'gen/css/index.css' %}" rel="stylesheet">
+<link href="{% static 'gen/css/index_productos.css' %}" rel="stylesheet">
+{% endblock cssprivate %}
+
+{% block jsprivate %}
+<script src="{% static 'gen/js/index_productos.js' %}"></script>
+{% endblock jsprivate %}
+
+{% block content %}
+<div class="page-header">
+    <h1>Productos</h1>
+</div>
+<div class="row">
+    <div class="col-xs-2">
+        <ul class="nav nav-pills nav-stacked">
+				<li role="presentation" class="box-shadow"><a href="{% url 'gen:producto_listar' %}" ">Producto</a></li>
+        </ul>        
+    </div>
+    <div class="col-xs-10">
+	
+	</div>
+</div>
+{% endblock content %}
+    

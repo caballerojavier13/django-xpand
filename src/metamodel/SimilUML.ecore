@@ -36,6 +36,8 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="eliminar" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="pertenece" eType="#//Modulo"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="nombre_url" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Tipo" eType="#//TipoClase"
+        defaultValueLiteral="0"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Relacion">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="nombre" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
@@ -84,8 +86,10 @@
     <eLiterals name="boolean" value="3"/>
     <eLiterals name="String" value="4"/>
     <eLiterals name="double" value="5"/>
-    <eLiterals name="StringLarge"/>
-    <eLiterals name="StringMiddle"/>
+    <eLiterals name="StringLarge" value="6"/>
+    <eLiterals name="StringMiddle" value="7"/>
+    <eLiterals name="Date" value="8"/>
+    <eLiterals name="Telefono" value="9"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Parametro">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="nombre" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
@@ -101,5 +105,11 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="contiene" upperBound="-1"
         eType="#//Clase"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="nombre_url" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="TipoClase">
+    <eLiterals name="Normal"/>
+    <eLiterals name="Encabezado" value="1"/>
+    <eLiterals name="Detalle" value="2"/>
+    <eLiterals name="Stock" value="3"/>
   </eClassifiers>
 </ecore:EPackage>

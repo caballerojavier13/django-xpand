@@ -1,0 +1,22 @@
+{% extends "backend/base.html" %}
+{% load staticfiles %}
+
+{% block title %}
+Configuraciones
+{% endblock title %}
+
+{% block cssprivate %}
+<link href="{% static 'gen/css/index.css' %}" rel="stylesheet">
+{% endblock cssprivate %}
+
+{% block jsprivate %}
+<script src="{% static 'gen/js/index.js' %}"></script>
+{% endblock jsprivate %}
+
+{% block content %}
+    <div class="page-header">
+        <h1>Configuración</h1>
+    </div>
+    <img src="/static/img/icon/configuration.png" class="img-responsive center-block" alt="Responsive image">
+{% endblock content %}
+    

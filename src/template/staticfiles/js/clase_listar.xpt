@@ -15,7 +15,7 @@ Archivo generado: static/gen/js/<clase>_listar.js
 
 «REM»Creación de archivo JavaScript por clase«ENDREM»
 «DEFINE archivoClase FOR Clase»
-    «FILE 'static/gen/js/'+this.nombre_url.toFirstLower()+'_listar.js'-»
+    «FILE 'static/backend/js/'+this.nombre_url.toFirstLower()+'_listar.js'-»
 «EXPAND generarTabla FOR this-»
 
 «EXPAND armarFilaTabla FOR this-»
@@ -40,13 +40,16 @@ $(function() {
 function armarFila(index, instancia) {
     fila = '<tr>'
     
-    «IF !this.atributos_clases.isEmpty-»
+    «IF this.atributos_clases.exists(e|e.to_string) -»
     // Atributos
     fila += '<td>' + instancia.pk + '</td>' +
             «EXPAND atributoTabla FOREACH this.atributos_clases.select(e|e.to_string) SEPARATOR ' + '-»;
+    «ELSE»
+    // Atributos
+    fila += '<td>' + instancia.pk + '</td>';	        
     «ENDIF»
     
-    «IF !this.asociaciones_contenidas.isEmpty-»
+    «IF this.asociaciones_contenidas.exists(e|!e.esComposicion)-»
     // Asociaciones
     fila += '<td>' +
             '<div class="dropdown">' +

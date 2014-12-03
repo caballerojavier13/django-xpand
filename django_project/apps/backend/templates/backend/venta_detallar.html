@@ -1,0 +1,126 @@
+{% extends "backend/base.html" %}
+{% load staticfiles %}
+
+{% block title %}Detalle - Venta{% endblock title %}
+
+{% block cssprivate %}
+<link href="{% static 'gen/css/index.css' %}" rel="stylesheet">
+<link href="{% static 'gen/css/venta_detallar.css' %}" rel="stylesheet">
+{% endblock cssprivate %}
+{% block jsprivate %}
+<script src="{% static 'gen/js/venta_detallar.js' %}"></script>
+{% endblock jsprivate %}
+
+{% block content %}
+    <div class="page-header">
+        <h1 class="pull-left">Venta <small>Detalle</small></h1>
+        
+        <div class="clearfix"></div>
+    </div>
+    <div class="row">
+	    <div class="col-xs-2">
+	        <ul class="nav nav-pills nav-stacked">
+				<li role="presentation" class="box-shadow"><a href="{% url 'gen:cliente_listar' %}" ">Cliente</a></li>
+				<li role="presentation" class="box-shadow"><a href="{% url 'gen:pedido_listar' %}" ">Pedido de Venta</a></li>
+				<li role="presentation" class="box-shadow"><a href="{% url 'gen:venta_listar' %}" ">Venta</a></li>
+	        </ul>        
+	    </div>
+	    <div class="col-xs-10 border-left">
+	    	<div class="bootom-space">
+	            <button type="button" class="btn btn-default volver">Volver</button>
+	            <div class="btn-group pull-right" role="group">
+	              
+	                <a href="{% url 'gen:venta_editar' object.pk %}"
+	                   class="btn btn-primary" title="Editar"><span class="glyphicon glyphicon-pencil"></span></a>
+	               
+	               
+	                <button type="button" class="modal-eliminar btn btn-danger" data-toggle="modal" data-target="#modal-eliminar" title="Eliminar">
+		                <span class="glyphicon glyphicon-trash"></span>
+	                </button>
+	               
+	            </div>
+	        </div>
+			<div class="panel panel-primary">
+			    <div class="panel-heading">
+			        <h3 class="panel-title"> Venta</h3>
+			    </div>
+			    
+			    <div class="table-responsive">
+			        <table class="table table-condensed table-hover table-bordered">
+			            <tbody>
+							{% if object.fecha %}
+							<tr>
+							{% else %}
+							<tr class='warning'>
+							{% endif %}
+							    <td class="col-md-6"><strong>Fecha</strong></td>
+							    {% if object.fecha %}
+							    <td class="col-md-6">{{ object.fecha }}</td>
+							    {% else %}
+							    
+							    <td class="col-md-6">0</td>
+							    
+							    {% endif %}
+							</tr>
+
+			            </tbody>
+			        </table>
+			    </div>
+			</div>
+			
+			
+			
+			
+<div class="panel panel-primary">
+	<div class="panel-heading">
+        <h3 class="panel-title">Cliente</h3>
+    </div>
+    <div class="table-responsive">
+        <table class="table table-condensed table-hover table-bordered">
+            <tbody>
+                {% if object.cliente %}
+				<tr>
+				{% else %}
+				<tr class='warning'>
+				{% endif %}  
+				    <td class="col-md-6"><strong>{{ object.cliente }}<strong></td>
+				    <td class="col-md-6">
+				        {% if object.cliente %}
+					        <a href="{% url 'gen:cliente_detallar' object.cliente.pk %}"
+					           class="btn btn-info" title="Ver"><span class="glyphicon glyphicon-eye-open"></span></a>
+					        <a href="{% url 'gen:cliente_editar' object.cliente.pk %}"
+					           class="btn btn-primary" title="Editar"><span class="glyphicon glyphicon-pencil"></span></a>
+					        {% else %}
+					        <a href="{% url 'gen:venta_crear' %}"
+					           class="btn btn-success" title="Crear"><span class="glyphicon glyphicon-plus"></span></a>
+				        {% endif %}
+				    </td>
+				</tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+		</div>
+	</div>
+{% endblock content %}
+
+{% block modals %}
+<div class="modal fade" id="modal-eliminar" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+                <h2 align="center">¿Realmente desea eliminar este objeto?</h2>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                <a href="{% url 'gen:venta_eliminar' object.pk %}"
+                   id="confirmar-eliminar" class=" btn btn-danger" role="button">Aceptar
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock modals %}
+    

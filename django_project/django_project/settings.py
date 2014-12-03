@@ -38,7 +38,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     # Aplicaciones del proyecto Django
     'apps.home',
-    'apps.gen',
+    'apps.backend',
     'apps.account',
 )
 

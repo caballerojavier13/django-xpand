@@ -16,8 +16,8 @@ Archivo generado: templates/gen/<clase>_form.html
 
 «REM»Creación de archivo HTML por clase«ENDREM»
 «DEFINE archivoClase FOR Clase»
-    «FILE 'templates/gen/'+this.nombre_url.toLowerCase()+'_form.html'-»
-{% extends "gen/base.html" %}
+    «FILE 'templates/backend/'+this.nombre_url.toLowerCase()+'_form.html'-»
+{% extends "backend/base.html" %}
 {% load staticfiles %}
 
 {% block title %}«EXPAND bloqueTitulo FOR this»{% endblock title %}
@@ -32,20 +32,24 @@ Archivo generado: templates/gen/<clase>_form.html
 
 «REM»Generación de título de plantilla de la clase«ENDREM»
 «DEFINE bloqueTitulo FOR Clase-»
-Formulario de entidad: «EXPAND django_global::nombre FOR this-»
+Formulario: «this.nombre.toFirstUpper()»
 «ENDDEFINE»
 
 
 «REM»Importación de archivos CSS de la clase«ENDREM»
 «DEFINE bloqueCSS FOR Clase»
-<link href="{% static 'gen/css/index.css' %}" rel="stylesheet">
-<link href="{% static 'gen/css/«EXPAND django_global::nombreMinus FOR this-»_form.css' %}" rel="stylesheet">
+<link href="{% static 'backend/css/index.css' %}" rel="stylesheet">
+<link href="{% static 'backend/css/«EXPAND django_global::nombreMinus FOR this-»_form.css' %}" rel="stylesheet">
+<link href="{% static 'css/datepicker3.css' %}" rel="stylesheet">
 «ENDDEFINE»
 
 
 «REM»Importación de archivos JS de la clase«ENDREM»
 «DEFINE bloqueJS FOR Clase»
-<script src="{% static 'gen/js/«EXPAND django_global::nombreMinus FOR this-»_form.js' %}"></script>
+<script src="{% static 'backend/js/«EXPAND django_global::nombreMinus FOR this-»_form.js' %}"></script>
+<script src="{% static 'js/bootstrap-datepicker.js' %}"></script>
+<script src="{% static 'js/locales/bootstrap-datepicker.es.js' %}"></script>
+<script src="{% static 'js/form.js' %}"></script>
 «ENDDEFINE»
 
 
@@ -53,9 +57,9 @@ Formulario de entidad: «EXPAND django_global::nombre FOR this-»
 «DEFINE bloqueContenido FOR Clase»
     <div class="page-header">
         {% if object %}
-            <h1 class="text-center">«EXPAND django_global::nombre FOR this» <small>Editar</small></h1>
+            <h1 class="text-center">«this.nombre.toFirstUpper()» <small>Editar</small></h1>
         {% else %}
-            <h1 class="text-center">«EXPAND django_global::nombre FOR this» <small>Crear</small></h1>
+            <h1 class="text-center">«this.nombre.toFirstUpper()» <small>Crear</small></h1>
         {% endif %}
     </div>
     <div class="row">
@@ -72,14 +76,20 @@ Formulario de entidad: «EXPAND django_global::nombre FOR this-»
 		    	<button type="submit" class="btn btn-primary">Guardar</button>
 		       	<button type="button" class="btn btn-default volver">Volver</button>
 		        </div>
-		        <div class="panel panel-default">
+		        <div class="panel panel-primary">
 		            <div class="panel-heading">
-		                  <h3 class="panel-title">Datos: «EXPAND django_global::nombre FOR this»</h3>
+		                  <h3 class="panel-title">Datos: «this.nombre.toFirstUpper()»</h3>
 		            </div>
 		            <div class="panel-body">
-		                <ul>
-		                    {{ form.as_ul }}
-		                </ul>
+	                    {% for field in form %}
+					    <div class="form-group">
+					        {{ field.label_tag }}
+					        <div class="col-xs-12 col-sm-9 col-md-8"> 
+					        {{ field }}
+					        </div>
+					        {{ field.errors }}
+					    </div>
+						{% endfor %}
 		            </div>
 		        </div>
 		        «IF !this.asociaciones_contenidas.isEmpty»
@@ -97,13 +107,14 @@ Formulario de entidad: «EXPAND django_global::nombre FOR this-»
 «REM»Inserción de formset de asociación entre clases«ENDREM»
 «DEFINE formsetAsociacion FOR Relacion-»
 	«IF this.esComposicion-»
-        <div class="panel panel-default">
+        <div class="panel panel-primary">
             <div class="panel-heading">
                 <h3 class="panel-title">Relación: «this.nombre.toFirstUpper()»</h3>
             </div>
             <div class="panel-body">
-                <ul>
+                <ul class="form-group">
                     {{ «EXPAND django_global::nombreFormset FOR this».as_ul }}
+                        
                 </ul>
             </div>
         </div>

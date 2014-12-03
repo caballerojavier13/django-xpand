@@ -9,7 +9,7 @@ Archivo generado: templates/gen/index.html
 
 «REM»Creación del archivo índice HTML«ENDREM»
 «DEFINE main FOR DiagramaClases»
-    «FILE 'templates/gen/_nav_modules.html'-»
+    «FILE 'templates/backend/_nav_modules.html'-»
     <ul class="nav nav-pills nav-justified">
     		<li role="presentation"><a href="/configuracion/">Home</a></li>
 	    	«EXPAND panelModulo FOREACH this.modulos_del_diagrama»

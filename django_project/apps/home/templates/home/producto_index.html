@@ -1,0 +1,23 @@
+{% extends "home/index.html" %}
+
+
+{% block container %}
+<div class="page-header page-header-me">
+  <h1>Nuestros Productos</h1>
+</div>
+<div class="divisor"><img src="/static/img/logo.png" class="img-thumbnail img-rounded img-grayscale"></div>
+<div class="row">
+  {% for producto in productos %}
+  <div class="col-sm-6 col-md-4">
+    <div class="thumbnail">
+      <img src="/static/img/picture/300x300.gif">
+      <div class="caption">
+        <h3>Thumbnail label</h3>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent sollicitudin venenatis purus. Fusce bibendum id nisi non ullamcorper. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Donec euismod, nulla eu interdum suscipit, ex arcu imperdiet velit, vel ornare ligula velit eu dui. Sed commodo sem vel orci lacinia, vitae iaculis purus consequat. Vivamus posuere, dolor ac tincidunt pretium, ipsum quam imperdiet ligula, eu placerat urna tortor a quam. Nunc leo ipsum, vulputate et semper id, fermentum at dolor. Duis consectetur id est id hendrerit. Sed iaculis enim convallis, euismod sapien sodales, lacinia libero. Cras placerat diam sit amet justo congue efficitur non a neque. Cras non venenatis nibh.</p>
+        <p><a href="#" class="btn btn-default" role="button">Ver Más >></a></p>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+{% endblock container %}

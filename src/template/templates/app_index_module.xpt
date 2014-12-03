@@ -13,7 +13,7 @@ Archivo generado: templates/gen/index.html
 «ENDDEFINE»
 «DEFINE modulos FOR Modulo»
     «FILE 'templates/module/index_'+this.nombre_url.toLowerCase()+'.html'-»
-{% extends "gen/index.html" %}
+{% extends "backend/index.html" %}
 {% load staticfiles %}
 
 {% block title %}

@@ -10,6 +10,9 @@ $(function() {
     $(".volver").on("click", function() {
         window.history.back();
     });
+    $("label").addClass("col-xs-3 col-sm-3 col-md-2 control-label");
+    $(".form-group div select").addClass("form-control");
+    $(".form-group li input").addClass("col-xs-12 col-sm-9 col-md-8");
 });
 
 
@@ -34,7 +37,7 @@ function hideMiniLoading() {
     if(miniLoading) {
         setTimeout(
             function() {
-                $(".spinner").remove();  
+                $(".spinner").remove();
             }, 2000);
     }
 }

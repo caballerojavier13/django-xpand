@@ -1,0 +1,69 @@
+{% extends "backend/base.html" %}
+{% load staticfiles %}
+
+{% block title %}Listado - Pedido de Venta{% endblock title %}
+
+{% block cssprivate %}
+<link href="{% static 'gen/css/index.css' %}" rel="stylesheet">
+<link href="{% static 'gen/css/pedido_listar.css' %}" rel="stylesheet">
+{% endblock cssprivate %}
+{% block jsprivate %}
+<script src="{% static 'backend/js/pedido_listar.js' %}"></script>
+<script src="{% static 'js/funciones_tabla.js' %}"></script>
+{% endblock jsprivate %}
+
+{% block content %}
+    <div class="page-header">
+        <h1>Pedido de Venta <small>Listado</small></h1>
+    </div>
+    <div class="row">
+	    <div class="col-xs-2">
+	        <ul class="nav nav-pills nav-stacked">
+				<li role="presentation" class="box-shadow"><a href="{% url 'gen:cliente_listar' %}" ">Cliente</a></li>
+				<li role="presentation" class="box-shadow"><a href="{% url 'gen:pedido_listar' %}" ">Pedido de Venta</a></li>
+				<li role="presentation" class="box-shadow"><a href="{% url 'gen:venta_listar' %}" ">Venta</a></li>
+	        </ul>        
+	    </div>
+	    <div class="col-xs-10 border-left">
+		<div class="bootom-space">
+			<button type="button" class="btn btn-default volver">Volver</button>
+			
+		    <a class="btn btn-success pull-right" href="{% url 'gen:pedido_crear' %}" type="button" id="pedido_crear">
+		        <span class="glyphicon glyphicon-plus"></span> Crear nuevo
+		    </a>	    
+	    </div>
+	    <div class="table-responsive">
+	        <table class="table table-bordered table-hover">
+	            <thead>
+	                <tr class="active">
+	                    <th>ID</th>
+	                     
+	                    <th>Operaciones</th>
+	                </tr>
+	            </thead>
+	            <tbody>
+	            </tbody>
+	        </table>
+	    </div>
+    </div>
+</div>
+{% endblock content %}
+
+{% block modals %}
+<div class="modal fade" id="modal-eliminar" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+                <h2 align="center">¿Realmente desea eliminar este objeto?</h2>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                <a href="{% url 'gen:pedido_eliminar' 0 %}"
+                   id="confirmar-eliminar" class=" btn btn-danger" role="button">Aceptar
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock modals %}
+    

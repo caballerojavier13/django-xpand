@@ -56,6 +56,10 @@
         <element xmi:type="ecore:EAttribute" href="SimilUML.ecore#//Clase/nombre_url"/>
         <layoutConstraint xmi:type="notation:Location" xmi:id="_wtogkXWrEeSnPOGHe54OrQ"/>
       </children>
+      <children xmi:type="notation:Node" xmi:id="_yqA6EHpTEeSfrfVI8BBGGQ" type="3001">
+        <element xmi:type="ecore:EAttribute" href="SimilUML.ecore#//Clase/Tipo"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_yqA6EXpTEeSfrfVI8BBGGQ"/>
+      </children>
       <styles xmi:type="notation:SortingStyle" xmi:id="_5xRepDfOEeS4-_Q43qvrLQ"/>
       <styles xmi:type="notation:FilteringStyle" xmi:id="_5xRepTfOEeS4-_Q43qvrLQ"/>
     </children>
@@ -222,6 +226,14 @@
         <element xmi:type="ecore:EEnumLiteral" href="SimilUML.ecore#//Tipo_Predefinido/StringMiddle"/>
         <layoutConstraint xmi:type="notation:Location" xmi:id="_G_nk0HXAEeSnPOGHe54OrQ"/>
       </children>
+      <children xmi:type="notation:Node" xmi:id="_cq-QwHlfEeS2crfuyk-zJQ" type="3009">
+        <element xmi:type="ecore:EEnumLiteral" href="SimilUML.ecore#//Tipo_Predefinido/Date"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_cq-QwXlfEeS2crfuyk-zJQ"/>
+      </children>
+      <children xmi:type="notation:Node" xmi:id="_vUvoIHrnEeSq4PFm22742w" type="3009">
+        <element xmi:type="ecore:EEnumLiteral" href="SimilUML.ecore#//Tipo_Predefinido/Telefono"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_vUvoIXrnEeSq4PFm22742w"/>
+      </children>
       <styles xmi:type="notation:SortingStyle" xmi:id="_5xh9VDfOEeS4-_Q43qvrLQ"/>
       <styles xmi:type="notation:FilteringStyle" xmi:id="_5xh9VTfOEeS4-_Q43qvrLQ"/>
     </children>
@@ -307,6 +319,35 @@
     </children>
     <element xmi:type="ecore:EClass" href="SimilUML.ecore#//Modulo"/>
     <layoutConstraint xmi:type="notation:Bounds" xmi:id="_iB7lgXNYEeSOWI-zcmEPZQ" x="545" y="236"/>
+  </children>
+  <children xmi:type="notation:Shape" xmi:id="_sGQ5MHpTEeSfrfVI8BBGGQ" type="2005" fontName="Sans">
+    <children xmi:type="notation:DecorationNode" xmi:id="_sGRgQHpTEeSfrfVI8BBGGQ" type="5005"/>
+    <children xmi:type="notation:BasicCompartment" xmi:id="_sGRgQXpTEeSfrfVI8BBGGQ" type="7011">
+      <children xmi:type="notation:Node" xmi:id="_t8cXsHpTEeSfrfVI8BBGGQ" type="3009">
+        <element xmi:type="ecore:EEnumLiteral" href="SimilUML.ecore#//TipoClase/Normal"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_t8cXsXpTEeSfrfVI8BBGGQ"/>
+      </children>
+      <children xmi:type="notation:Node" xmi:id="_vE9e8HpTEeSfrfVI8BBGGQ" type="3009">
+        <element xmi:type="ecore:EEnumLiteral" href="SimilUML.ecore#//TipoClase/Encabezado"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_vE9e8XpTEeSfrfVI8BBGGQ"/>
+      </children>
+      <children xmi:type="notation:Node" xmi:id="_wy0H4HpTEeSfrfVI8BBGGQ" type="3009">
+        <element xmi:type="ecore:EEnumLiteral" href="SimilUML.ecore#//TipoClase/Detalle"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_wy0H4XpTEeSfrfVI8BBGGQ"/>
+      </children>
+      <children xmi:type="notation:Node" xmi:id="_xjEgIHpTEeSfrfVI8BBGGQ" type="3009">
+        <element xmi:type="ecore:EEnumLiteral" href="SimilUML.ecore#//TipoClase/Stock"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_xjEgIXpTEeSfrfVI8BBGGQ"/>
+      </children>
+      <styles xmi:type="notation:SortingStyle" xmi:id="_sGRgQnpTEeSfrfVI8BBGGQ"/>
+      <styles xmi:type="notation:FilteringStyle" xmi:id="_sGRgQ3pTEeSfrfVI8BBGGQ"/>
+    </children>
+    <children xmi:type="notation:BasicCompartment" xmi:id="_sGRgRHpTEeSfrfVI8BBGGQ" type="7012">
+      <styles xmi:type="notation:SortingStyle" xmi:id="_sGRgRXpTEeSfrfVI8BBGGQ"/>
+      <styles xmi:type="notation:FilteringStyle" xmi:id="_sGRgRnpTEeSfrfVI8BBGGQ"/>
+    </children>
+    <element xmi:type="ecore:EEnum" href="SimilUML.ecore#//TipoClase"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_sGQ5MXpTEeSfrfVI8BBGGQ" x="58" y="456"/>
   </children>
   <styles xmi:type="notation:DiagramStyle" xmi:id="_5vumgTfOEeS4-_Q43qvrLQ"/>
   <element xmi:type="ecore:EPackage" href="SimilUML.ecore#/"/>

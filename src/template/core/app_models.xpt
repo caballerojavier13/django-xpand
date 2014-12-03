@@ -10,8 +10,10 @@ Archivo generado: models.py
 «REM»Creación del archivo de modelos«ENDREM»
 «DEFINE main FOR DiagramaClases»
     «FILE 'models.py'-»
+import datetime
 from django.db import models
 from django.db.models.base import Model
+from localflavor.us.models import PhoneNumberField
 
 «EXPAND claseDjango FOREACH clases_del_Diagrama-»
     «ENDFILE»
@@ -30,14 +32,14 @@ class «EXPAND django_global::nombre FOR this»(Model):
     «IF this.atributos_clases.exists(e|e.to_string)-»
     	return "«EXPAND unicode_format_index FOR this-»".format( «EXPAND unicode_format_value FOREACH this.atributos_clases.select(e|e.to_string) SEPARATOR ","-»)
 	«ELSE-»
-    	return "«this.nombre_url.toFirstUpper()-»"
+    	return "«this.nombre.toFirstUpper()-»"
 	«ENDIF-»
 «ENDDEFINE-»
 
 
 «REM»Atributos de clase«ENDREM»
 «DEFINE atributoClase FOR Atributo-»
-    «this.nombre_url.toFirstLower()» = models.«EXPAND campoTipoDato FOR this.tipo»(«EXPAND opcionesCampo FOR this.tipo»)
+    «this.nombre_url.toFirstLower()» = «EXPAND campoTipoDato FOR this.tipo»(«EXPAND opcionesCampo FOR this.tipo»)
 «ENDDEFINE»
 
 
@@ -50,19 +52,21 @@ class «EXPAND django_global::nombre FOR this»(Model):
 «FOREACH 0.upTo(this.atributos_clases.select(e|e.to_string).size - 1) AS i-» 
 {«i-»} «ENDFOREACH-»«ENDDEFINE-»
 «DEFINE unicode_format_value FOR Atributo-»
-self.«this.nombre-»
+self.«this.nombre_url.toLowerCase()»
 «ENDDEFINE-»
 
 «REM»Campo asociado al tipo de dato del atributo de clase«ENDREM»
 «DEFINE campoTipoDato FOR Tipo_Predefinido-»
 «IF this.toString()=='int'-»
-IntegerField«ELSEIF this.toString()=='float'-»
-FloatField«ELSEIF this.toString()=='char'-»
-CharField«ELSEIF this.toString()=='boolean'-»
-BooleanField«ELSEIF this.toString()=='String' || this.toString()=='StringMiddle'-»
-CharField«ELSEIF this.toString()=='double'-»
-DecimalField«ELSEIF this.toString()=='StringLarge'-»
-TextField«ENDIF-»
+models.IntegerField«ELSEIF this.toString()=='float'-»
+models.FloatField«ELSEIF this.toString()=='char'-»
+models.CharField«ELSEIF this.toString()=='boolean'-»
+models.BooleanField«ELSEIF this.toString()=='String' || this.toString()=='StringMiddle'-»
+models.CharField«ELSEIF this.toString()=='double'-»
+models.DecimalField«ELSEIF this.toString()=='StringLarge'-»
+models.TextField«ELSEIF this.toString()=='Date'-»
+models.DateField«ELSEIF this.toString()=='Telefono'-»
+PhoneNumberField«ENDIF-»
 «ENDDEFINE»
 
 
@@ -76,8 +80,9 @@ max_length=1«ELSEIF this.toString()=='boolean'-»
 max_length=50«ELSEIF this.toString()=='StringMiddle'-»
 max_length=250«ELSEIF this.toString()=='StringLarge'-»
 «ELSEIF this.toString()=='double'-»
-max_digits=12, decimal_places=3«ENDIF-»
-«ENDDEFINE»
+max_digits=12, decimal_places=3«ELSEIF this.toString()=='Date'-»
+«ENDIF-»
+«ENDDEFINE-»
 
 
 «REM»Campo asociado al tipo de asociación entre clases«ENDREM»

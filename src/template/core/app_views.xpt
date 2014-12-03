@@ -27,7 +27,7 @@ from .forms import «EXPAND formularioClase FOREACH clases_del_Diagrama SEPARATO
 # Índice
 @login_required(login_url='/accounts/login')
 def index(request):
-    return render_to_response('gen/index.html',
+    return render_to_response('backend/index.html',
                               context_instance=RequestContext(request),
                               )
                               
@@ -78,7 +78,11 @@ class «EXPAND django_global::nombreMinus FOR this»_crear(CreateView):
     model = «EXPAND django_global::nombre FOR this»
     form_class = «EXPAND django_global::nombreMinus FOR this»_form
     template_name_suffix = '_form'
+    «IF this.listar-»
     success_url = reverse_lazy('gen:«EXPAND django_global::nombreMinus FOR this»_listar')
+    «ELSE-»
+    success_url = reverse_lazy('gen:«EXPAND django_global::nombreMinus FOR this»_detallar')
+    «ENDIF-»
     
     «IF this.asociaciones_contenidas.exists(e|e.esComposicion)-»
     «EXPAND administracionFormsetCrear FOR this-»
@@ -99,6 +103,7 @@ class «EXPAND django_global::nombreMinus FOR this»_editar(UpdateView):
     «ELSE-»
     success_url = reverse_lazy('gen:«EXPAND django_global::nombreMinus FOR this»_detallar')
     «ENDIF-»
+    
     «IF this.asociaciones_contenidas.exists(e|e.esComposicion)-»
     «EXPAND administracionFormsetEditar FOR this-»
     
@@ -127,7 +132,7 @@ class «EXPAND django_global::nombreMinus FOR this»_detallar(DetailView):
 @login_required(login_url='/accounts/login')
 def «EXPAND django_global::nombreMinus FOR this»_detallar(request):
     model = «this.nombre_url.toFirstUpper()».objects.filter().first()  
-    return render_to_response('gen/«this.nombre_url.toLowerCase()»_detallar.html',
+    return render_to_response('backend/«this.nombre_url.toLowerCase()»_detallar.html',
                               {'object':model},
                               context_instance=RequestContext(request),
                               )
@@ -139,7 +144,7 @@ def «EXPAND django_global::nombreMinus FOR this»_detallar(request):
 «DEFINE vistaListar FOR Clase»
 @login_required(login_url='/accounts/login')
 def «EXPAND django_global::nombreMinus FOR this»_listar(request):
-    return render_to_response('gen/«EXPAND django_global::nombreMinus FOR this»_listar.html',
+    return render_to_response('backend/«EXPAND django_global::nombreMinus FOR this»_listar.html',
                               context_instance=RequestContext(request),
                               )
 «ENDDEFINE»
@@ -247,7 +252,7 @@ from .forms import «EXPAND django_global::nombreFormset FOREACH this.asociacion
             «EXPAND formsetAsociacion FOREACH this.asociaciones_contenidas.select(e|e.esComposicion)»
             self.object.save()
             «IF this.listar-»
-            success_url = reverse_lazy('gen:«EXPAND django_global::nombreMinus FOR this»_listar')
+            return HttpResponseRedirect(reverse_lazy('gen:«EXPAND django_global::nombreMinus FOR this»_listar'))
 		    «ELSE-»
             return HttpResponseRedirect(reverse_lazy('gen:«EXPAND django_global::nombreMinus FOR this»_detallar'))
 		    «ENDIF-»
@@ -275,7 +280,11 @@ from .forms import «EXPAND django_global::nombreFormset FOREACH this.asociacion
 
 «REM»Persistencia de la información del formset«ENDREM»
 «DEFINE formsetGuardado FOR Relacion-»
+			«IF this.cardinalidadSuperior > 1 || this.cardinalidadSuperior < 0»
             «this.nombre_url.toFirstLower()»_list = «this.nombre_url.toFirstLower()»_form.save()
+            «ELSE»
+            «this.nombre_url.toFirstLower()»_list = «this.nombre_url.toFirstLower()»_form.save()
+            «ENDIF»
 «ENDDEFINE-»
 
 

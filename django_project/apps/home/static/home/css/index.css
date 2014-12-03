@@ -1,10 +1,10 @@
 body{
-  background: darkgray;
-  background: white;
+  background: dd
+  background: dd
 }
 
 nav{
-  position: relative;
+  position: dd
   width: 95%;
   left: 2.5%;
   padding: 20px;
@@ -18,7 +18,9 @@ nav h1{
   top: 0;
   margin: 0;
   width: 50%;
-  text-shadow: 0 0 2px black, 0 0 4px white;
+  text-shadow: 0 0 2px white, 0 0 3px black;
+  font-weight: 800;
+
 }
 
 nav img{
@@ -148,7 +150,7 @@ nav > ul > a {
     nav h1{
       font-size: 20px;
       text-shadow: none;
-      
+
     }
 }
 nav > ul > a:hover{
@@ -250,4 +252,17 @@ img { max-width:100%; }
   position: relative;
   left: 0;
   border-radius: 5px;
+}
+
+.page-header-me{
+  border:none;
+}
+.page-header-me h1{
+  position: relative;
+  line-height: 100px;
+  font-size: 90px;
+  top: 20px;
+  font-weight: 800;
+  text-align: center;
+  font-family: serif;
 }

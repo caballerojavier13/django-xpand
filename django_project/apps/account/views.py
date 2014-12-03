@@ -5,7 +5,7 @@ from django.shortcuts import render_to_response, get_object_or_404
 from django.http import HttpResponse, HttpResponseRedirect
 from django.template import RequestContext
 from django.views.decorators.debug import sensitive_post_parameters
-from ..gen.models import Empresa
+from ..backend.models import Empresa
 
 def user_login(request):
     context = RequestContext(request)
@@ -31,11 +31,13 @@ def user_login(request):
                     return HttpResponseRedirect("/")
             else:
                 # An inactive account was used - no logging in!
-                return HttpResponse("Your Rango account is disabled.")
+                empresa = Empresa.objects.filter().first()
+                return render_to_response('account/login.html', {'empresa':empresa}, context)
         else:
             # Bad login details were provided. So we can't log the user in.
 #            print "Invalid login details: {0}, {1}".format(username, password)
-            return HttpResponse("Invalid login details supplied.")
+            empresa = Empresa.objects.filter().first()
+            return render_to_response('account/login.html', {'empresa':empresa}, context)
 
     # The request is not a HTTP POST, so display the login form.
     # This scenario would most likely be a HTTP GET.

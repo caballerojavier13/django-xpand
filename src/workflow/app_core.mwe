@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <workflow>
 	<property name="model" value="django-xpand/src/metamodel/Model.xmi" />
-	<property name="src-gen" value="django_project/apps/gen" />
+	<property name="src-gen" value="django_project/apps/backend" />
 
 	<!-- set up EMF for standalone execution -->
 	<bean class="org.eclipse.emf.mwe.utils.StandaloneSetup" >

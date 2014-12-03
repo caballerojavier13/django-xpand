@@ -15,8 +15,8 @@ Archivo generado: templates/gen/<clase>_listar.html
 
 «REM»Creación de archivo HTML por clase«ENDREM»
 «DEFINE archivoClase FOR Clase»
-    «FILE 'templates/gen/'+this.nombre_url.toFirstLower()+'_listar.html'-»
-{% extends "gen/base.html" %}
+    «FILE 'templates/backend/'+this.nombre_url.toFirstLower()+'_listar.html'-»
+{% extends "backend/base.html" %}
 {% load staticfiles %}
 
 {% block title %}«EXPAND bloqueTitulo FOR this»{% endblock title %}
@@ -33,7 +33,7 @@ Archivo generado: templates/gen/<clase>_listar.html
 
 «REM»Generación de título de plantilla de la clase«ENDREM»
 «DEFINE bloqueTitulo FOR Clase-»
-Listado de entidades: «this.nombre.toFirstUpper()-»
+Listado - «this.nombre.toFirstUpper()-»
 «ENDDEFINE»
 
 
@@ -46,7 +46,7 @@ Listado de entidades: «this.nombre.toFirstUpper()-»
 
 «REM»Importación de archivos JS de la clase«ENDREM»
 «DEFINE bloqueJS FOR Clase»
-<script src="{% static 'gen/js/«EXPAND django_global::nombreMinus FOR this-»_listar.js' %}"></script>
+<script src="{% static 'backend/js/«EXPAND django_global::nombreMinus FOR this-»_listar.js' %}"></script>
 <script src="{% static 'js/funciones_tabla.js' %}"></script>
 «ENDDEFINE»
 
@@ -76,7 +76,7 @@ Listado de entidades: «this.nombre.toFirstUpper()-»
 	                <tr class="active">
 	                    <th>ID</th>
 	                    «EXPAND atributoTabla FOREACH this.atributos_clases.select(e|e.to_string)-»
-	                     «IF !this.asociaciones_contenidas.isEmpty-»
+	                     «IF this.asociaciones_contenidas.exists(e|!e.esComposicion)-»
 	                    <th>Relaciones</th>
 	                    «ENDIF»
 	                    <th>Operaciones</th>

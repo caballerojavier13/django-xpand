@@ -15,8 +15,8 @@ Archivo generado: templates/gen/<clase>_detallar.html
 
 «REM»Creación de archivo HTML por clase«ENDREM»
 «DEFINE archivoClase FOR Clase»
-    «FILE 'templates/gen/'+this.nombre_url.toFirstLower()+'_detallar.html'-»
-{% extends "gen/base.html" %}
+    «FILE 'templates/backend/'+this.nombre_url.toFirstLower()+'_detallar.html'-»
+{% extends "backend/base.html" %}
 {% load staticfiles %}
 
 {% block title %}«EXPAND bloqueTitulo FOR this»{% endblock title %}
@@ -33,7 +33,7 @@ Archivo generado: templates/gen/<clase>_detallar.html
 
 «REM»Generación de título de plantilla de la clase«ENDREM»
 «DEFINE bloqueTitulo FOR Clase-»
-Detalle de entidad: «this.nombre.toFirstUpper()-»
+Detalle - «this.nombre.toFirstUpper()-»
 «ENDDEFINE»
 
 
@@ -78,7 +78,7 @@ Detalle de entidad: «this.nombre.toFirstUpper()-»
 	               «ENDIF»
 	            </div>
 	        </div>
-			<div class="panel panel-default">
+			<div class="panel panel-primary">
 			    <div class="panel-heading">
 			        <h3 class="panel-title"> «this.nombre.toFirstUpper()»</h3>
 			    </div>
@@ -95,19 +95,7 @@ Detalle de entidad: «this.nombre.toFirstUpper()-»
 			«EXPAND asociacionComposicion FOREACH this.asociaciones_contenidas.select(e|e.esComposicion)»
 			
 			«IF !this.asociaciones_contenidas.select(e|!e.esComposicion).isEmpty»
-			
-			<div class="panel panel-default">
-				<div class="panel-heading">
-			        <h3 class="panel-title">Asociaciones</h3>
-			    </div>
-			    <div class="table-responsive">
-			        <table class="table table-condensed table-hover table-bordered">
-			            <tbody>
-			                «EXPAND asociacionTabla FOREACH this.asociaciones_contenidas.select(e|!e.esComposicion)»
-			            </tbody>
-			        </table>
-			    </div>
-			</div>
+			«EXPAND asociacionTabla FOREACH this.asociaciones_contenidas.select(e|!e.esComposicion)»
 			«ENDIF-»
 		</div>
 	</div>
@@ -175,7 +163,7 @@ Detalle de entidad: «this.nombre.toFirstUpper()-»
 «ENDDEFINE»
 
 «DEFINE asociacionComposicion FOR Relacion-»
-			<div class="panel panel-default">
+			<div class="panel panel-primary">
 			    <div class="panel-heading">
 			        <h3 class="panel-title"> «this.destino.nombre.toFirstUpper()»</h3>
 			    </div>
@@ -192,31 +180,43 @@ Detalle de entidad: «this.nombre.toFirstUpper()-»
 
 «REM»Fila de asociación de la clase en la tabla«ENDREM»
 «DEFINE asociacionTabla FOR Relacion-»
-{% if object.«this.nombre.toFirstLower()» %}
-<tr>
-{% else %}
-<tr class='warning'>
-{% endif %}
-    <td class="col-md-6"><strong>«this.nombre.toFirstUpper()»<strong></td>
-    <td class="col-md-6">
-        {% if object.«this.nombre_url.toFirstLower()» %}
-	        «IF this.destino.listar-»
-	        <a href="{% url 'gen:«EXPAND django_global::nombreMinus FOR this.destino»_detallar' object.«this.nombre_url.toFirstLower()».pk %}"
-	           class="btn btn-info" title="Ver"><span class="glyphicon glyphicon-eye-open"></span></a>
-	        «ELSE-»
-	        «IF this.destino.ver-»
-	        <a href="{% url 'gen:«EXPAND django_global::nombreMinus FOR this.destino»_detallar'%}"
-	           class="btn btn-info" title="Ver"><span class="glyphicon glyphicon-eye-open"></span></a>
-	       «ENDIF-»
-	       «ENDIF-»
-	       «IF this.destino.editar-»
-	        <a href="{% url 'gen:«EXPAND django_global::nombreMinus FOR this.destino»_editar' object.«this.nombre_url.toFirstLower()».pk %}"
-	           class="btn btn-primary" title="Editar"><span class="glyphicon glyphicon-pencil"></span></a>
-	        «ENDIF-»  
-	        {% else %}
-	        <a href="{% url 'gen:«EXPAND django_global::nombreMinus FOR this.origen»_crear' %}"
-	           class="btn btn-success" title="Crear"><span class="glyphicon glyphicon-plus"></span></a>
-        {% endif %}
-    </td>
-</tr>
+<div class="panel panel-primary">
+	<div class="panel-heading">
+        <h3 class="panel-title">«this.nombre.toFirstUpper()»</h3>
+    </div>
+    <div class="table-responsive">
+        <table class="table table-condensed table-hover table-bordered">
+            <tbody>
+                {% if object.«this.nombre_url.toFirstLower()» %}
+				<tr>
+				{% else %}
+				<tr class='warning'>
+				{% endif %}  
+				    <td class="col-md-6"><strong>{{ object.«this.nombre_url.toLowerCase()» }}<strong></td>
+				    <td class="col-md-6">
+				        {% if object.«this.nombre_url.toFirstLower()» %}
+					        «IF this.destino.listar-»
+					        <a href="{% url 'gen:«EXPAND django_global::nombreMinus FOR this.destino»_detallar' object.«this.nombre_url.toFirstLower()».pk %}"
+					           class="btn btn-info" title="Ver"><span class="glyphicon glyphicon-eye-open"></span></a>
+					        «ELSE-»
+					        «IF this.destino.ver-»
+					        <a href="{% url 'gen:«EXPAND django_global::nombreMinus FOR this.destino»_detallar'%}"
+					           class="btn btn-info" title="Ver"><span class="glyphicon glyphicon-eye-open"></span></a>
+					       «ENDIF-»
+					       «ENDIF-»
+					       «IF this.destino.editar-»
+					        <a href="{% url 'gen:«EXPAND django_global::nombreMinus FOR this.destino»_editar' object.«this.nombre_url.toFirstLower()».pk %}"
+					           class="btn btn-primary" title="Editar"><span class="glyphicon glyphicon-pencil"></span></a>
+					        «ENDIF-»  
+					        {% else %}
+					        <a href="{% url 'gen:«EXPAND django_global::nombreMinus FOR this.origen»_crear' %}"
+					           class="btn btn-success" title="Crear"><span class="glyphicon glyphicon-plus"></span></a>
+				        {% endif %}
+				    </td>
+				</tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
 «ENDDEFINE»

@@ -9,12 +9,12 @@ Archivo generado: templates/gen/index.html
 
 «REM»Creación del archivo índice HTML«ENDREM»
 «DEFINE main FOR DiagramaClases»
-    «FILE 'templates/gen/index.html'-»
-{% extends "gen/base.html" %}
+    «FILE 'templates/backend/index.html'-»
+{% extends "backend/base.html" %}
 {% load staticfiles %}
 
 {% block title %}
-Índice
+Configuraciones
 {% endblock title %}
 
 {% block cssprivate %}
