@@ -9,7 +9,7 @@ function armarFila(index, instancia) {
     
     
     // Atributos
-    fila += '<td> Detalle de Pedido Nº : ' + (index + 1) + '</td>';	        
+    fila += '<td> Detalle de Pedido Nº : ' + instancia.pk + '</td>';	        
     
     if(false){
 		fila += '<td><strong> Entregado </strong></td>';    	

@@ -4,11 +4,11 @@
 {% block title %}Detalle - Empresa{% endblock title %}
 
 {% block cssprivate %}
-<link href="{% static 'gen/css/index.css' %}" rel="stylesheet">
-<link href="{% static 'gen/css/empresa_detallar.css' %}" rel="stylesheet">
+<link href="{% static 'backend/css/index.css' %}" rel="stylesheet">
+<link href="{% static 'backend/css/empresa_detallar.css' %}" rel="stylesheet">
 {% endblock cssprivate %}
 {% block jsprivate %}
-<script src="{% static 'gen/js/empresa_detallar.js' %}"></script>
+<script src="{% static 'backend/js/empresa_detallar.js' %}"></script>
 {% endblock jsprivate %}
 
 {% block content %}
@@ -78,6 +78,34 @@
 							    <td class="col-md-6"><strong>Descripción</strong></td>
 							    {% if object.descripcion %}
 							    <td class="col-md-6">{{ object.descripcion }}</td>
+							    {% else %}
+							    
+							    <td class="col-md-6">0</td>
+							    
+							    {% endif %}
+							</tr>
+							{% if object.teleono %}
+							<tr>
+							{% else %}
+							<tr class='warning'>
+							{% endif %}
+							    <td class="col-md-6"><strong>Telefono</strong></td>
+							    {% if object.teleono %}
+							    <td class="col-md-6">{{ object.teleono }}</td>
+							    {% else %}
+							    
+							    <td class="col-md-6">0</td>
+							    
+							    {% endif %}
+							</tr>
+							{% if object.email %}
+							<tr>
+							{% else %}
+							<tr class='warning'>
+							{% endif %}
+							    <td class="col-md-6"><strong>E-mail</strong></td>
+							    {% if object.email %}
+							    <td class="col-md-6">{{ object.email }}</td>
 							    {% else %}
 							    
 							    <td class="col-md-6">0</td>

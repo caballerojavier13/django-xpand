@@ -4,17 +4,17 @@
 {% block title %}Detalle - Venta{% endblock title %}
 
 {% block cssprivate %}
-<link href="{% static 'gen/css/index.css' %}" rel="stylesheet">
-<link href="{% static 'gen/css/venta_detallar.css' %}" rel="stylesheet">
+<link href="{% static 'backend/css/index.css' %}" rel="stylesheet">
+<link href="{% static 'backend/css/venta_detallar.css' %}" rel="stylesheet">
 {% endblock cssprivate %}
 {% block jsprivate %}
-<script src="{% static 'gen/js/venta_detallar.js' %}"></script>
+<script src="{% static 'backend/js/venta_detallar.js' %}"></script>
 {% endblock jsprivate %}
 
 {% block content %}
     <div class="page-header">
         <h1 class="pull-left">Venta <small>Detalle</small></h1>
-
+        
         <div class="clearfix"></div>
     </div>
     <div class="row">
@@ -23,27 +23,30 @@
 				<li role="presentation" class="box-shadow"><a href="{% url 'gen:cliente_listar' %}" ">Clientes</a></li>
 				<li role="presentation" class="box-shadow"><a href="{% url 'gen:pedido_listar' %}" ">Pedidos de Ventas</a></li>
 				<li role="presentation" class="box-shadow"><a href="{% url 'gen:venta_listar' %}" ">Ventas</a></li>
-	        </ul>
+	        </ul>        
 	    </div>
 	    <div class="col-xs-10 border-left">
+    	
+		
 
-		<div class="row">
-		  <div class="col-md-6">
-        <div class="row">
-          <img src="/static/img/logo.png" class="img-thumbnail img-rounded col-md-2">
-          <div class="col-md-10" style="top: -24px">
-            <h1> {{empresa.nombre}} </h1>
-            <h5> {{ empresa.lema }} </h5>
-          </div>
-        </div>
+    		<div class="row border-bottom">
+    		  <div class="col-md-6">
+            <div class="row">
+              <img src="/static/img/logo.png" class="img-thumbnail img-rounded col-md-2">
+              <div class="col-md-10" style="top: -24px">
+                <h1> {{empresa.nombre}} </h1>
+                <h5 class="text-center"> {{ empresa.lema }} </h5>
+              </div>
+            </div>
+    		  </div>
+          <div class="col-md-2"><span class="tipo-factura">X</span></div>
+    		  <div class="col-md-4 text-center">
+      			<h3 style="margin-top: 0;">Remito</h3>
+      			<p>Nº 0001 - <span id="numero_factura">{{object.pk}}</span></p>
+            	<p class="fecha">Fecha: <span class="fecha_day">{{object.fecha.day}}</span><span class="fecha_month">{{object.fecha.month}}</span><span class="fecha_year">{{object.fecha.year}}</span></p>
+    		  </div>
 		  </div>
-      <div class="col-md-2"><span class="tipo-factura">C</span></div>
-		  <div class="col-md-4" style="text-align:center">
-  			<h3 style="margin-top: 0;">Remito</h3>
-  			<p>Nº 0001 - 000001</p>
-		  </div>
-		</div>
-
+		
 		</div>
 	</div>
 {% endblock content %}
@@ -65,3 +68,4 @@
     </div>
 </div>
 {% endblock modals %}
+    
