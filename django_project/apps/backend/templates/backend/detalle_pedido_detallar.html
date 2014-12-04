@@ -1,7 +1,7 @@
 {% extends "backend/base.html" %}
 {% load staticfiles %}
 
-{% block title %}Detalle - Detalle Pedido{% endblock title %}
+{% block title %}Detalle - Detalle de Pedido{% endblock title %}
 
 {% block cssprivate %}
 <link href="{% static 'gen/css/index.css' %}" rel="stylesheet">
@@ -13,7 +13,7 @@
 
 {% block content %}
     <div class="page-header">
-        <h1 class="pull-left">Detalle Pedido <small>Detalle</small></h1>
+        <h1 class="pull-left">Detalle de Pedido <small>Detalle</small></h1>
         
         <div class="clearfix"></div>
     </div>
@@ -23,33 +23,17 @@
 	        </ul>        
 	    </div>
 	    <div class="col-xs-10 border-left">
-	    	<div class="bootom-space">
-	            <button type="button" class="btn btn-default volver">Volver</button>
-	            <div class="btn-group pull-right" role="group">
-	              
-	               
-	                <button type="button" class="modal-eliminar btn btn-danger" data-toggle="modal" data-target="#modal-eliminar" title="Eliminar">
-		                <span class="glyphicon glyphicon-trash"></span>
-	                </button>
-	               
-	            </div>
-	        </div>
-			<div class="panel panel-primary">
-			    <div class="panel-heading">
-			        <h3 class="panel-title"> Detalle Pedido</h3>
-			    </div>
-			    
-			    <div class="table-responsive">
-			        <table class="table table-condensed table-hover table-bordered">
-			            <tbody>
-			                
-			            </tbody>
-			        </table>
-			    </div>
-			</div>
-			
-			
-			
+    	
+		<div class="row">
+		  <div class="col-md-7">
+		  	
+		  </div>
+		  <div class="col-md-5">.
+			<h1>Remito</h1>
+			<p>Nº 0001 - 000001</p>
+		  </div>
+		</div>
+		
 		</div>
 	</div>
 {% endblock content %}

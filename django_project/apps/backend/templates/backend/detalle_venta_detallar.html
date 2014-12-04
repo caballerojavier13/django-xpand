@@ -1,7 +1,7 @@
 {% extends "backend/base.html" %}
 {% load staticfiles %}
 
-{% block title %}Detalle - Detalle Venta{% endblock title %}
+{% block title %}Detalle - Detalle de Venta{% endblock title %}
 
 {% block cssprivate %}
 <link href="{% static 'gen/css/index.css' %}" rel="stylesheet">
@@ -13,49 +13,30 @@
 
 {% block content %}
     <div class="page-header">
-        <h1 class="pull-left">Detalle Venta <small>Detalle</small></h1>
+        <h1 class="pull-left">Detalle de Venta <small>Detalle</small></h1>
         
         <div class="clearfix"></div>
     </div>
     <div class="row">
 	    <div class="col-xs-2">
 	        <ul class="nav nav-pills nav-stacked">
-				<li role="presentation" class="box-shadow"><a href="{% url 'gen:cliente_listar' %}" ">Cliente</a></li>
-				<li role="presentation" class="box-shadow"><a href="{% url 'gen:pedido_listar' %}" ">Pedido de Venta</a></li>
-				<li role="presentation" class="box-shadow"><a href="{% url 'gen:venta_listar' %}" ">Venta</a></li>
+				<li role="presentation" class="box-shadow"><a href="{% url 'gen:cliente_listar' %}" ">Clientes</a></li>
+				<li role="presentation" class="box-shadow"><a href="{% url 'gen:pedido_listar' %}" ">Pedidos de Ventas</a></li>
+				<li role="presentation" class="box-shadow"><a href="{% url 'gen:venta_listar' %}" ">Ventas</a></li>
 	        </ul>        
 	    </div>
 	    <div class="col-xs-10 border-left">
-	    	<div class="bootom-space">
-	            <button type="button" class="btn btn-default volver">Volver</button>
-	            <div class="btn-group pull-right" role="group">
-	              
-	                <a href="{% url 'gen:detalle_venta_editar' object.pk %}"
-	                   class="btn btn-primary" title="Editar"><span class="glyphicon glyphicon-pencil"></span></a>
-	               
-	               
-	                <button type="button" class="modal-eliminar btn btn-danger" data-toggle="modal" data-target="#modal-eliminar" title="Eliminar">
-		                <span class="glyphicon glyphicon-trash"></span>
-	                </button>
-	               
-	            </div>
-	        </div>
-			<div class="panel panel-primary">
-			    <div class="panel-heading">
-			        <h3 class="panel-title"> Detalle Venta</h3>
-			    </div>
-			    
-			    <div class="table-responsive">
-			        <table class="table table-condensed table-hover table-bordered">
-			            <tbody>
-			                
-			            </tbody>
-			        </table>
-			    </div>
-			</div>
-			
-			
-			
+    	
+		<div class="row">
+		  <div class="col-md-7">
+		  	
+		  </div>
+		  <div class="col-md-5">.
+			<h1>Remito</h1>
+			<p>Nº 0001 - 000001</p>
+		  </div>
+		</div>
+		
 		</div>
 	</div>
 {% endblock content %}

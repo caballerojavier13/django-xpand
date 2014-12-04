@@ -12,30 +12,11 @@ function armarFila(index, instancia) {
 '<td>' + instancia.fields.nombre + '</td>'
 ;
     
-    
-    // Asociaciones
-    fila += '<td>' +
-            '<div class="dropdown">' +
-            '<button class="btn btn-info" type="button" data-toggle="dropdown" aria-haspopup="true" role="button" aria-expanded="false">' +
-            'Relaciones <span class="caret"></span>' +
-            '</button>' +
-            '<ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">';
-    
-if (instancia.fields.empresa != null) {
-    fila += '<li role="presentation"><a role="menuitem" tabindex="-1" href="/configuracion/opciones/empresa/' + instancia.fields.empresa +
-'">Empresa</a></li>'
-;
-}
-else {
-    fila += '<li class="disabled" role="presentation"><a role="menuitem" tabindex="-1" href="#">Sin empresa</a></li>'
-;
-}
-    
-    fila += '</ul>' +
-            '</div>' +
-            '</td>';
-    
-    
+    if(false){
+		fila += '<td><strong> Entregado </strong></td>';    	
+    }else{
+    	fila += '<td> <button type="button" class="btn btn-default">Marcar como Entregado</button> </td>';
+    }
     // Botones 'Editar' y 'Eliminar'
     fila += '<td>' +
             ' <a href="/configuracion/almacen/almacen/' + instancia.pk + '/' +

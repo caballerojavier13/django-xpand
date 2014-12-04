@@ -1,7 +1,7 @@
 {% extends "backend/base.html" %}
 {% load staticfiles %}
 
-{% block title %}Listado - Cliente{% endblock title %}
+{% block title %}Listado de Clientes{% endblock title %}
 
 {% block cssprivate %}
 <link href="{% static 'gen/css/index.css' %}" rel="stylesheet">
@@ -19,9 +19,9 @@
     <div class="row">
 	    <div class="col-xs-2">
 	        <ul class="nav nav-pills nav-stacked">
-				<li role="presentation" class="box-shadow"><a href="{% url 'gen:cliente_listar' %}" ">Cliente</a></li>
-				<li role="presentation" class="box-shadow"><a href="{% url 'gen:pedido_listar' %}" ">Pedido de Venta</a></li>
-				<li role="presentation" class="box-shadow"><a href="{% url 'gen:venta_listar' %}" ">Venta</a></li>
+				<li role="presentation" class="box-shadow"><a href="{% url 'gen:cliente_listar' %}" ">Clientes</a></li>
+				<li role="presentation" class="box-shadow"><a href="{% url 'gen:pedido_listar' %}" ">Pedidos de Ventas</a></li>
+				<li role="presentation" class="box-shadow"><a href="{% url 'gen:venta_listar' %}" ">Ventas</a></li>
 	        </ul>        
 	    </div>
 	    <div class="col-xs-10 border-left">
@@ -36,7 +36,7 @@
 	        <table class="table table-bordered table-hover">
 	            <thead>
 	                <tr class="active">
-	                    <th>ID</th>
+	                    <th>Id</th>
 <th>Nombre</th>
 <th>Apellido</th>
 	                     

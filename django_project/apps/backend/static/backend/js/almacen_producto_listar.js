@@ -9,41 +9,13 @@ function armarFila(index, instancia) {
     
     
     // Atributos
-    fila += '<td>' + instancia.pk + '</td>';	        
+    fila += '<td> AlmacenProducto Nº : ' + (index + 1) + '</td>';	        
     
-    
-    // Asociaciones
-    fila += '<td>' +
-            '<div class="dropdown">' +
-            '<button class="btn btn-info" type="button" data-toggle="dropdown" aria-haspopup="true" role="button" aria-expanded="false">' +
-            'Relaciones <span class="caret"></span>' +
-            '</button>' +
-            '<ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">';
-    
-if (instancia.fields.producto != null) {
-    fila += '<li role="presentation"><a role="menuitem" tabindex="-1" href="/configuracion/productos/producto/' + instancia.fields.producto +
-'">RefProducto</a></li>'
-;
-}
-else {
-    fila += '<li class="disabled" role="presentation"><a role="menuitem" tabindex="-1" href="#">Sin refProducto</a></li>'
-;
-}
-if (instancia.fields.almacen != null) {
-    fila += '<li role="presentation"><a role="menuitem" tabindex="-1" href="/configuracion/almacen/almacen/' + instancia.fields.almacen +
-'">RefAlmacen</a></li>'
-;
-}
-else {
-    fila += '<li class="disabled" role="presentation"><a role="menuitem" tabindex="-1" href="#">Sin refAlmacen</a></li>'
-;
-}
-    
-    fila += '</ul>' +
-            '</div>' +
-            '</td>';
-    
-    
+    if(false){
+		fila += '<td><strong> Entregado </strong></td>';    	
+    }else{
+    	fila += '<td> <button type="button" class="btn btn-default">Marcar como Entregado</button> </td>';
+    }
     // Botones 'Editar' y 'Eliminar'
     fila += '<td>' +
             ' <a href="/configuracion//almacen_producto/' + instancia.pk + '/' +

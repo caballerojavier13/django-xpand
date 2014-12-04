@@ -62,6 +62,7 @@ class empresa_editar(UpdateView):
     success_url = reverse_lazy('gen:empresa_detallar')
     
     
+    
     def get_context_data(self, **kwargs):
         context = super(empresa_editar, self).get_context_data(**kwargs)
         if self.request.POST:
@@ -131,6 +132,7 @@ class producto_crear(CreateView):
     template_name_suffix = '_form'
     success_url = reverse_lazy('gen:producto_listar')
     
+    
         
 
 
@@ -139,6 +141,7 @@ class producto_editar(UpdateView):
     form_class = producto_form
     template_name_suffix = '_form'
     success_url = reverse_lazy('gen:producto_listar')
+    
     
      
 
@@ -153,6 +156,8 @@ def producto_eliminar(request, pk):
 class producto_detallar(DetailView):
     model = Producto
     template_name_suffix = '_detallar'
+    
+    
 
 
 @login_required(login_url='/accounts/login')
@@ -203,6 +208,7 @@ class almacen_crear(CreateView):
     success_url = reverse_lazy('gen:almacen_listar')
     
     
+    
     def get_context_data(self, **kwargs):
         context = super(almacen_crear, self).get_context_data(**kwargs)
         if self.request.POST:
@@ -241,6 +247,7 @@ class almacen_editar(UpdateView):
     form_class = almacen_form
     template_name_suffix = '_form'
     success_url = reverse_lazy('gen:almacen_listar')
+    
     
     
     def get_context_data(self, **kwargs):
@@ -290,6 +297,8 @@ def almacen_eliminar(request, pk):
 class almacen_detallar(DetailView):
     model = Almacen
     template_name_suffix = '_detallar'
+    
+    
 
 
 @login_required(login_url='/accounts/login')
@@ -340,6 +349,7 @@ class cliente_crear(CreateView):
     success_url = reverse_lazy('gen:cliente_listar')
     
     
+    
     def get_context_data(self, **kwargs):
         context = super(cliente_crear, self).get_context_data(**kwargs)
         if self.request.POST:
@@ -378,6 +388,7 @@ class cliente_editar(UpdateView):
     form_class = cliente_form
     template_name_suffix = '_form'
     success_url = reverse_lazy('gen:cliente_listar')
+    
     
     
     def get_context_data(self, **kwargs):
@@ -427,6 +438,8 @@ def cliente_eliminar(request, pk):
 class cliente_detallar(DetailView):
     model = Cliente
     template_name_suffix = '_detallar'
+    
+    
 
 
 @login_required(login_url='/accounts/login')
@@ -459,6 +472,11 @@ class pedido_crear(CreateView):
     template_name_suffix = '_form'
     success_url = reverse_lazy('gen:pedido_listar')
     
+    def get_context_data(self, **kwargs):
+        context = super(pedido_crear, self).get_context_data(**kwargs)
+        context['empresa'] = Empresa.objects.filter().first()
+        return context
+    
         
 
 
@@ -467,6 +485,11 @@ class pedido_editar(UpdateView):
     form_class = pedido_form
     template_name_suffix = '_form'
     success_url = reverse_lazy('gen:pedido_listar')
+    
+    def get_context_data(self, **kwargs):
+        context = super(pedido_editar, self).get_context_data(**kwargs)
+        context['empresa'] = Empresa.objects.filter().first()
+        return context
     
      
 
@@ -481,6 +504,12 @@ def pedido_eliminar(request, pk):
 class pedido_detallar(DetailView):
     model = Pedido
     template_name_suffix = '_detallar'
+    
+    def get_context_data(self, **kwargs):
+        context = super(pedido_detallar, self).get_context_data(**kwargs)
+        context['empresa'] = Empresa.objects.filter().first()
+        return context
+    
 
 
 @login_required(login_url='/accounts/login')
@@ -512,6 +541,7 @@ class detalle_pedido_crear(CreateView):
     form_class = detalle_pedido_form
     template_name_suffix = '_form'
     success_url = reverse_lazy('gen:detalle_pedido_listar')
+    
     
         
 
@@ -553,6 +583,11 @@ class venta_crear(CreateView):
     template_name_suffix = '_form'
     success_url = reverse_lazy('gen:venta_listar')
     
+    def get_context_data(self, **kwargs):
+        context = super(venta_crear, self).get_context_data(**kwargs)
+        context['empresa'] = Empresa.objects.filter().first()
+        return context
+    
         
 
 
@@ -561,6 +596,11 @@ class venta_editar(UpdateView):
     form_class = venta_form
     template_name_suffix = '_form'
     success_url = reverse_lazy('gen:venta_listar')
+    
+    def get_context_data(self, **kwargs):
+        context = super(venta_editar, self).get_context_data(**kwargs)
+        context['empresa'] = Empresa.objects.filter().first()
+        return context
     
      
 
@@ -575,6 +615,12 @@ def venta_eliminar(request, pk):
 class venta_detallar(DetailView):
     model = Venta
     template_name_suffix = '_detallar'
+    
+    def get_context_data(self, **kwargs):
+        context = super(venta_detallar, self).get_context_data(**kwargs)
+        context['empresa'] = Empresa.objects.filter().first()
+        return context
+    
 
 
 @login_required(login_url='/accounts/login')
@@ -607,6 +653,7 @@ class detalle_venta_crear(CreateView):
     template_name_suffix = '_form'
     success_url = reverse_lazy('gen:detalle_venta_listar')
     
+    
         
 
 
@@ -615,6 +662,7 @@ class detalle_venta_editar(UpdateView):
     form_class = detalle_venta_form
     template_name_suffix = '_form'
     success_url = reverse_lazy('gen:detalle_venta_listar')
+    
     
      
 

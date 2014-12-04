@@ -9,11 +9,13 @@ function armarFila(index, instancia) {
     
     
     // Atributos
-    fila += '<td>' + instancia.pk + '</td>';	        
+    fila += '<td> Pedido de Venta Nº : ' + (index + 1) + '</td>';	        
     
-    
-    
-    
+    if(false){
+		fila += '<td><strong> Entregado </strong></td>';    	
+    }else{
+    	fila += '<td> <button type="button" class="btn btn-default">Marcar como Entregado</button> </td>';
+    }
     // Botones 'Editar' y 'Eliminar'
     fila += '<td>' +
             ' <a href="/configuracion/ventas/pedido/' + instancia.pk + '/' +

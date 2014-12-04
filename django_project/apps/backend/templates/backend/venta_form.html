@@ -27,42 +27,15 @@
     <div class="row">
 	    <div class="col-xs-2">
 	        <ul class="nav nav-pills nav-stacked">
-				<li role="presentation" class="box-shadow"><a href="{% url 'gen:cliente_listar' %}" ">Cliente</a></li>
-				<li role="presentation" class="box-shadow"><a href="{% url 'gen:pedido_listar' %}" ">Pedido de Venta</a></li>
-				<li role="presentation" class="box-shadow"><a href="{% url 'gen:venta_listar' %}" ">Venta</a></li>
+				<li role="presentation" class="box-shadow"><a href="{% url 'gen:cliente_listar' %}" ">Clientes</a></li>
+				<li role="presentation" class="box-shadow"><a href="{% url 'gen:pedido_listar' %}" ">Pedidos de Ventas</a></li>
+				<li role="presentation" class="box-shadow"><a href="{% url 'gen:venta_listar' %}" ">Ventas</a></li>
 	        </ul>        
 	    </div>
 	    <div class="col-xs-10 border-left">
 		
-		    <form action='' method='POST' class='form-horizontal ws-validate' role='form'>
-		    	{% csrf_token %}
-		    	<div class="bootom-space">
-		    	<button type="submit" class="btn btn-primary">Guardar</button>
-		       	<button type="button" class="btn btn-default volver">Volver</button>
-		        </div>
-		        <div class="panel panel-primary">
-		            <div class="panel-heading">
-		                  <h3 class="panel-title">Datos: Venta</h3>
-		            </div>
-		            <div class="panel-body">
-	                    {% for field in form %}
-					    <div class="form-group">
-					        {{ field.label_tag }}
-					        <div class="col-xs-12 col-sm-9 col-md-8"> 
-					        {{ field }}
-					        </div>
-					        {{ field.errors }}
-					    </div>
-						{% endfor %}
-		            </div>
-		        </div>
-		        
-
-		        
-		        
-		        <button type="submit" class="btn btn-primary">Guardar</button>
-		        <button type="button" class="btn btn-default volver">Volver</button>
-		    </form>  
+	     {{empresa}}
+	    
 		</div>
 	</div>
 {% endblock content %}

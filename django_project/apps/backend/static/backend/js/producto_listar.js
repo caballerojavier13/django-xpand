@@ -12,9 +12,6 @@ function armarFila(index, instancia) {
 '<td>' + instancia.fields.nombre + '</td>'
 ;
     
-    
-    
-    
     // Botones 'Editar' y 'Eliminar'
     fila += '<td>' +
             ' <a href="/configuracion/productos/producto/' + instancia.pk + '/' +

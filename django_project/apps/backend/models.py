@@ -90,7 +90,7 @@ class Detalle_pedido(Model):
     # Relaciones
     # String Representación
     def __str__( self ):
-    	return "Detalle Pedido"
+    	return "Detalle de Pedido"
 
 class Venta(Model):
     # Atributos
@@ -106,5 +106,5 @@ class Detalle_venta(Model):
     # Relaciones
     # String Representación
     def __str__( self ):
-    	return "Detalle Venta"
+    	return "Detalle de Venta"
     
