@@ -84,14 +84,14 @@
 							    
 							    {% endif %}
 							</tr>
-							{% if object.teleono %}
+							{% if object.telefono %}
 							<tr>
 							{% else %}
 							<tr class='warning'>
 							{% endif %}
-							    <td class="col-md-6"><strong>Telefono</strong></td>
-							    {% if object.teleono %}
-							    <td class="col-md-6">{{ object.teleono }}</td>
+							    <td class="col-md-6"><strong>Teléfono</strong></td>
+							    {% if object.telefono %}
+							    <td class="col-md-6">{{ object.telefono }}</td>
 							    {% else %}
 							    
 							    <td class="col-md-6">0</td>
@@ -201,7 +201,6 @@
 			</div>
 
 			
-		
 		</div>
 	</div>
 {% endblock content %}

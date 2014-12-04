@@ -9,7 +9,7 @@ class Empresa(Model):
     nombre = models.CharField(max_length=50)
     lema = models.CharField(max_length=250)
     descripcion = models.TextField()
-    teleono = PhoneNumberField()
+    telefono = PhoneNumberField()
     email = models.EmailField(max_length=254
 )
     # Relaciones

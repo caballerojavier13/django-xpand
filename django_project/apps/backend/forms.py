@@ -11,16 +11,16 @@ class empresa_form(forms.ModelForm):
         self.fields['nombre'].label = "Nombre"
         self.fields['lema'].label = "Lema"
         self.fields['descripcion'].label = "Descripción"
-        self.fields['teleono'].label = "Telefono"
+        self.fields['telefono'].label = "Teléfono"
         self.fields['email'].label = "E-mail"
         self.fields['nombre'].widget.attrs['class'] = "form-control"
         self.fields['lema'].widget.attrs['class'] = "form-control"
         self.fields['descripcion'].widget.attrs['class'] = "form-control"
-        self.fields['teleono'].widget.attrs['class'] = "form-control"
+        self.fields['telefono'].widget.attrs['class'] = "form-control"
         self.fields['email'].widget.attrs['class'] = "form-control"
     class Meta:
         model = Empresa
-        fields = ['nombre', 'lema', 'descripcion', 'teleono', 'email']
+        fields = ['nombre', 'lema', 'descripcion', 'telefono', 'email']
 
 # Clase: Producto
 class producto_form(forms.ModelForm):

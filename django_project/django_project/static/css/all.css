@@ -71,9 +71,7 @@ footer{
 .border-bottom{
     border-bottom: solid 1px rgba(216, 216, 216, 0.6);
 }
-.text-center{
-  text-align: center;
-}
+
 .show_white{
   background: white !important;
   color: black !important;

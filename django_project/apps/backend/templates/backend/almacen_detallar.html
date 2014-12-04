@@ -20,31 +20,32 @@
     <div class="row">
 	    <div class="col-xs-2">
 	        <ul class="nav nav-pills nav-stacked">
-				<li role="presentation" class="box-shadow"><a href="{% url 'gen:almacen_listar' %}" ">Almacenes</a></li>
+				<li role="presentation" class="box-shadow"><a href="{% url 'gen:almacen_listar' %}">Almacenes</a></li>
 	        </ul>        
 	    </div>
 	    <div class="col-xs-10 border-left">
-    	
-		
-
     		<div class="row border-bottom">
-    		  <div class="col-md-6">
+    		  <div class="col-md-6 col-sm-6 col-xs-6">
             <div class="row">
-              <img src="/static/img/logo.png" class="img-thumbnail img-rounded col-md-2">
-              <div class="col-md-10" style="top: -24px">
-                <h1> {{empresa.nombre}} </h1>
-                <h5 class="text-center"> {{ empresa.lema }} </h5>
+              <img src="/static/img/logo.png" class="img-thumbnail img-rounded col-md-2 hidden-sm hidden-xs">
+              <div class="col-md-10 col-sm-12 col-xs-12" style="margin-top: -24px">
+                <h1 class="center-xs small-h1"> {{empresa.nombre}} </h1>
+                <h6 class="hidden-xs text-center lema"> "{{ empresa.lema }}" </h6>
               </div>
             </div>
+            <div class"row">
+              <div class="col-md-5 col-sm-5 col-xs-12 text-right center-xs"><small>Telefono: {{empresa.telefono}}</small></div>
+              <div class="col-md-2 col-sm-2 hidden-xs text-center"> - </div>
+              <div class="col-md-5 col-sm-5 hidden-xs text-left center-xs"><small>E-Mail: {{empresa.email}}</small></div>
+            </div>
     		  </div>
-          <div class="col-md-2"><span class="tipo-factura">X</span></div>
-    		  <div class="col-md-4 text-center">
+          <div class="col-md-2 col-sm-2 col-xs-2"><span class="tipo-factura">X</span></div>
+    		  <div class="col-md-4 col-sm-4 col-xs-4 text-center">
       			<h3 style="margin-top: 0;">Remito</h3>
       			<p>Nº 0001 - <span id="numero_factura">{{object.pk}}</span></p>
-            	<p class="fecha">Fecha: <span class="fecha_day">{{object.fecha.day}}</span><span class="fecha_month">{{object.fecha.month}}</span><span class="fecha_year">{{object.fecha.year}}</span></p>
+            <p class="fecha">Fecha: <span class="fecha_day">{{object.fecha.day}}</span><span class="fecha_month">{{object.fecha.month}}</span><span class="fecha_year">{{object.fecha.year}}</span></p>
     		  </div>
 		  </div>
-		
 		</div>
 	</div>
 {% endblock content %}
