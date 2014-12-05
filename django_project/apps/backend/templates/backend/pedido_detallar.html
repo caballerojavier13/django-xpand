@@ -26,10 +26,10 @@
 	        </ul>        
 	    </div>
 	    <div class="col-xs-10 border-left">
-    		<div class="row border-bottom">
+    		<div class="row">
     		  <div class="col-md-6 col-sm-6 col-xs-6">
             <div class="row">
-              <img src="/static/img/logo.png" class="img-thumbnail img-rounded col-md-2 hidden-sm hidden-xs">
+              <img src="/static/img/logo.png" class="img-thumbnail img-rounded col-md-2 hidden-sm hidden-xs" style="left: 10px;">
               <div class="col-md-10 col-sm-12 col-xs-12" style="margin-top: -24px">
                 <h1 class="center-xs small-h1"> {{empresa.nombre}} </h1>
                 <h6 class="hidden-xs text-center lema"> "{{ empresa.lema }}" </h6>
@@ -48,6 +48,132 @@
             <p class="fecha">Fecha: <span class="fecha_day">{{object.fecha.day}}</span><span class="fecha_month">{{object.fecha.month}}</span><span class="fecha_year">{{object.fecha.year}}</span></p>
     		  </div>
 		  </div>
+		  <div class="divisor"></div>
+	      <div class="row descripcion">
+	        <div class="panel panel-default descripcion_contenido">
+	          <div class="panel-heading">
+	            <h3 class="panel-title">Cliente</h3>
+	          </div>
+	          <div class="panel-body">
+	            <div class="row">
+	              <div class="col-md-3 col-sm-3 col-xs-6">
+	                <strong>Nombre:</strong>
+	              </div>
+	              <div class="col-md-3 col-sm-3 col-xs-6">
+	                {{object.cliente.nombre}}
+	              </div>
+	              <div class="col-md-3 col-sm-3 col-xs-6">
+	                <strong>Apellido:</strong>
+	              </div>
+	              <div class="col-md-3 col-sm-3 col-xs-6">
+	                {{object.cliente.apellido}}
+	              </div>
+	            </div>
+	            <div class="row descipcion_elemento">
+	              <div class="col-md-3 col-sm-3 col-xs-6">
+	                <strong>Telefono:</strong>
+	              </div>
+	              <div class="col-md-3 col-sm-3 col-xs-6">
+	                {{object.cliente.telefono}}
+	              </div>
+	              <div class="col-md-3 col-sm-3 col-xs-6"></div>
+	              <div class="col-md-3 col-sm-3 col-xs-6"></div>
+	            </div>
+	          </div>
+	        </div>
+	      </div>
+	      <div class="divisor"></div>
+	      <div class="row descripcion">
+	        <div class="panel panel-default descripcion_contenido">
+	          <div class="panel-heading">
+	            <h3 class="panel-title">Domicilio</h3>
+	          </div>
+	          <div class="panel-body">
+	            <div class="row">
+	              <div class="col-md-3 col-sm-3 col-xs-6">
+	                <strong>Calle:</strong>
+	              </div>
+	              <div class="col-md-3 col-sm-3 col-xs-6">
+	                {{object.domicilio.calle}}
+	              </div>
+	              <div class="col-md-3 col-sm-3 col-xs-6">
+	                <strong>Número:</strong>
+	              </div>
+	              <div class="col-md-3 col-sm-3 col-xs-6">
+	                {{object.domicilio.numero}}
+	              </div>
+	            </div>
+	            {% if object.domicilio.piso > 0 %}
+	            <div class="row descipcion_elemento">
+	              <div class="col-md-3 col-sm-3 col-xs-6">
+	                <strong>Piso:</strong>
+	              </div>
+	              <div class="col-md-3 col-sm-3 col-xs-6">
+	                {{object.domicilio.piso}}
+	              </div>
+	              <div class="col-md-3 col-sm-3 col-xs-6">
+	                <strong>Departamento:</strong>
+	              </div>
+	              <div class="col-md-3 col-sm-3 col-xs-6">
+	                {{object.domicilio.departamento}}
+	              </div>
+	            </div>
+	            {% endif %}
+	            <div class="row descipcion_elemento">
+	              <div class="col-md-3 col-sm-3 col-xs-6">
+	                <strong>Localidad:</strong>
+	              </div>
+	              <div class="col-md-3 col-sm-3 col-xs-6">
+	                {{object.domicilio.localidad}}
+	              </div>
+	              <div class="col-md-3 col-sm-3 col-xs-6">
+	                <strong>Provincia:</strong>
+	              </div>
+	              <div class="col-md-3 col-sm-3 col-xs-6">
+	                {{object.domicilio.provincia}}
+	              </div>
+	            </div>
+	          </div>
+	        </div>
+	      </div>
+	      <div class="divisor"></div>
+	      <div class="row descripcion">
+          <div class="table-responsive col-md-12 col-sm-12 col-xs-12">
+            <table class="table table-bordered table-hover table-detalle">
+              <thead>
+                <tr class="active">
+                  <th>Cantidad</th>
+                  <th>Producto</th>
+                  <th>Precion Unitario</th>
+                  <th>Precio</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% if detalles %}
+                {% for detalle in detalles %}
+                <tr>
+                  <td>{{detalle.cantidad}}</td>
+                  <td>{{detalle.producto}}</td>
+                  <td>{{detalle.precio.precio}}</td>
+                  <td></td>
+                </tr>
+                {% endfor %}
+                {% else %}
+                  <tr><td colspan="4" class="text-center">No hay registros</td></tr>
+                {% endif %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="divisor"></div>
+        <div class="row last-descripcion">
+          <div class="col-md-3 col-md-offset-6 col-sm-3 col-sm-offset-6 col-xs-3 col-xs-offset-6 text-right">
+            <h5><strong>Total:</strong></h5>
+          </div>
+          <div class="col-md-3 col-sm-3 col-xs-3">
+            <h5 id="total">$ 00.00</h5>
+          </div>
+        </div>
 		</div>
 	</div>
 {% endblock content %}

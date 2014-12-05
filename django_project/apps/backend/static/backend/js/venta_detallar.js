@@ -1,8 +1,10 @@
+var total = 0;
 
 $(function(){
   fecha_day();
   fecha_month();
   numero_factura();
+  precio_detalle(total);
 });
 
 
@@ -54,4 +56,21 @@ function numero_factura(){
 }
 
 
+function precio_detalle(){
+  $(".table-detalle tbody tr").each(function(index,item){
+    $(item).find("td:nth-child(3)").text("$ " + parseFloat($(item).find("td:nth-child(3)").text().replace(',', '.')).toFixed(2));
+    var valor = parseFloat($(item).find("td:nth-child(3)").text().slice(2) * $(item).find("td:nth-child(1)").text()).toFixed(2);
+    $(item).find("td:nth-child(4)").text("$ " + valor);
+    total = parseFloat(valor) + parseFloat(total);
+  });
+  fn_total();
+}
+
+function fn_total(){
+  if(isNaN(tal)) {
+    $("#total").text("$ 00.00");
+  }else{
+    $("#total").text("$ " + parseFloat(total).toFixed(2));
+  }
+}
     

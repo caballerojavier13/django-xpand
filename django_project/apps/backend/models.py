@@ -84,6 +84,8 @@ class Pedido(Model):
     # Atributos
     fecha = models.DateField()
     # Relaciones
+    cliente = models.ForeignKey('Cliente', null=True, blank=True, on_delete=models.SET_NULL)
+    domicilio = models.ForeignKey('Domicilio', null=True, blank=True, on_delete=models.SET_NULL)
     # String Representación
     def __str__( self ):
     	return "Pedido de Venta"
@@ -100,14 +102,29 @@ class Venta(Model):
     fecha = models.DateField()
     # Relaciones
     cliente = models.ForeignKey('Cliente', null=True, blank=True, on_delete=models.SET_NULL)
+    domicilio = models.ForeignKey('Domicilio', null=True, blank=True, on_delete=models.SET_NULL)
     # String Representación
     def __str__( self ):
     	return "Venta"
 
 class Detalle_venta(Model):
     # Atributos
+    cantidad = models.IntegerField()
     # Relaciones
+    producto = models.ForeignKey('Producto', null=True, blank=True, on_delete=models.SET_NULL)
+    venta = models.ForeignKey('Venta', null=True, blank=True, on_delete=models.SET_NULL)
+    precio = models.ForeignKey('Historico_precio', null=True, blank=True, on_delete=models.SET_NULL)
     # String Representación
     def __str__( self ):
     	return "Detalle de Venta"
+
+class Historico_precio(Model):
+    # Atributos
+    fecha = models.DateField()
+    precio = models.FloatField()
+    # Relaciones
+    producto = models.ForeignKey('Producto', null=True, blank=True, on_delete=models.SET_NULL)
+    # String Representación
+    def __str__( self ):
+    	return "Histórico Precio"
     

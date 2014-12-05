@@ -11,7 +11,8 @@
       ver="true"
       pertenece="//@modulos_del_diagrama.3"
       nombre_url="empresa"
-      Tipo="Normal">
+      Tipo="Normal"
+      nombre_plural="Emlpresas">
     <atributos_clases
         nombre="nombre"
         tipo="String"
@@ -25,6 +26,14 @@
         nombre="Descripci&#xf3;n"
         tipo="StringLarge"
         nombre_url="descripcion"/>
+    <atributos_clases
+        nombre="Tel&#xe9;fono"
+        tipo="Telefono"
+        nombre_url="telefono"/>
+    <atributos_clases
+        nombre="E-mail"
+        tipo="Email"
+        nombre_url="email"/>
     <asociaciones_contenidas
         nombre="Domicilio"
         cardinalidadInferior="1"
@@ -43,7 +52,8 @@
       eliminar="true"
       pertenece="//@modulos_del_diagrama.0"
       nombre_url="producto"
-      Tipo="Normal">
+      Tipo="Normal"
+      nombre_plural="Productos">
     <atributos_clases
         nombre="nombre"
         tipo="String"
@@ -57,7 +67,8 @@
   <clases_del_Diagrama
       nombre="AlmacenProducto"
       nombre_url="almacen_producto"
-      Tipo="Stock">
+      Tipo="Stock"
+      nombre_plural="AlmacenProducto">
     <atributos_clases
         nombre="cantidad"
         nombre_url="cantidad"/>
@@ -83,7 +94,8 @@
       eliminar="true"
       pertenece="//@modulos_del_diagrama.1"
       nombre_url="almacen"
-      Tipo="Stock">
+      Tipo="Stock"
+      nombre_plural="Almacenes">
     <atributos_clases
         nombre="nombre"
         tipo="String"
@@ -107,7 +119,8 @@
   <clases_del_Diagrama
       nombre="Domicilio"
       nombre_url="domicilio"
-      Tipo="Normal">
+      Tipo="Normal"
+      nombre_plural="Domicilios">
     <atributos_clases
         nombre="calle"
         tipo="String"
@@ -143,7 +156,8 @@
       eliminar="true"
       pertenece="//@modulos_del_diagrama.2"
       nombre_url="cliente"
-      Tipo="Normal">
+      Tipo="Normal"
+      nombre_plural="Clientes">
     <atributos_clases
         nombre="Nombre"
         tipo="String"
@@ -175,19 +189,33 @@
       eliminar="true"
       pertenece="//@modulos_del_diagrama.2"
       nombre_url="pedido"
-      Tipo="Encabezado">
+      Tipo="Encabezado"
+      nombre_plural="Pedidos de Ventas">
     <atributos_clases
         nombre="Fecha"
         tipo="Date"
         nombre_url="fecha"/>
+    <asociaciones_contenidas
+        nombre="Cliente"
+        cardinalidadSuperior="1"
+        origen="//@clases_del_Diagrama.6"
+        destino="//@clases_del_Diagrama.5"
+        nombre_url="cliente"/>
+    <asociaciones_contenidas
+        nombre="Domicilio"
+        cardinalidadSuperior="1"
+        origen="//@clases_del_Diagrama.6"
+        destino="//@clases_del_Diagrama.4"
+        nombre_url="domicilio"/>
   </clases_del_Diagrama>
   <clases_del_Diagrama
-      nombre="Detalle Pedido"
+      nombre="Detalle de Pedido"
       listar="true"
       agregar="true"
       eliminar="true"
       nombre_url="detalle_pedido"
-      Tipo="Detalle"/>
+      Tipo="Detalle"
+      nombre_plural="Detalles de Pedidos"/>
   <clases_del_Diagrama
       nombre="Venta"
       listar="true"
@@ -197,7 +225,8 @@
       eliminar="true"
       pertenece="//@modulos_del_diagrama.2"
       nombre_url="venta"
-      Tipo="Normal">
+      Tipo="Encabezado"
+      nombre_plural="Ventas">
     <atributos_clases
         nombre="fecha"
         tipo="Date"
@@ -208,16 +237,64 @@
         origen="//@clases_del_Diagrama.8"
         destino="//@clases_del_Diagrama.5"
         nombre_url="cliente"/>
+    <asociaciones_contenidas
+        nombre="Domicilio"
+        cardinalidadSuperior="1"
+        origen="//@clases_del_Diagrama.8"
+        destino="//@clases_del_Diagrama.4"
+        nombre_url="domicilio"/>
   </clases_del_Diagrama>
   <clases_del_Diagrama
-      nombre="Detalle Venta"
+      nombre="Detalle de Venta"
       listar="true"
       agregar="true"
       editar="true"
       eliminar="true"
       pertenece="//@modulos_del_diagrama.2"
       nombre_url="detalle_venta"
-      Tipo="Detalle"/>
+      Tipo="Detalle"
+      nombre_plural="Detalles de Ventas">
+    <atributos_clases
+        nombre="cantidad"
+        nombre_url="cantidad"/>
+    <asociaciones_contenidas
+        nombre="Producto"
+        cardinalidadSuperior="1"
+        origen="//@clases_del_Diagrama.9"
+        destino="//@clases_del_Diagrama.1"
+        nombre_url="producto"/>
+    <asociaciones_contenidas
+        nombre="Venta"
+        cardinalidadSuperior="1"
+        origen="//@clases_del_Diagrama.9"
+        destino="//@clases_del_Diagrama.8"
+        nombre_url="venta"/>
+    <asociaciones_contenidas
+        nombre="Precio"
+        cardinalidadSuperior="1"
+        origen="//@clases_del_Diagrama.9"
+        destino="//@clases_del_Diagrama.10"
+        nombre_url="precio"/>
+  </clases_del_Diagrama>
+  <clases_del_Diagrama
+      nombre="Hist&#xf3;rico Precio"
+      nombre_url="historico_precio"
+      nombre_plural="Hist&#xf3;ricos de Precios">
+    <atributos_clases
+        nombre="Fecha Desde"
+        tipo="Date"
+        nombre_url="fecha"/>
+    <atributos_clases
+        nombre="precio"
+        tipo="float"
+        nombre_url="precio"/>
+    <asociaciones_contenidas
+        nombre="Producto"
+        cardinalidadSuperior="1"
+        origen="//@clases_del_Diagrama.10"
+        destino="//@clases_del_Diagrama.1"
+        nombre_url="producto"/>
+  </clases_del_Diagrama>
   <modulos_del_diagrama
       nombre="Productos"
       contiene="//@clases_del_Diagrama.1"

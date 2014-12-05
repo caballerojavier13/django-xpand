@@ -33,7 +33,7 @@ Archivo generado: templates/gen/<clase>_listar.html
 
 «REM»Generación de título de plantilla de la clase«ENDREM»
 «DEFINE bloqueTitulo FOR Clase-»
-Listado - «this.nombre.toFirstUpper()-»
+Listado de «this.nombre_plural.toFirstUpper()-»
 «ENDDEFINE»
 
 
@@ -71,14 +71,18 @@ Listado - «this.nombre.toFirstUpper()-»
 		    </a>	    
 	    </div>
 	    <div class="table-responsive">
-	        <table class="table table-bordered table-hover">
+	        <table class="table table-bordered table-hover table-big">
 	            <thead>
 	                <tr class="active">
-	                    <th>ID</th>
+	                    <th>Id</th>
 	                    «EXPAND atributoTabla FOREACH this.atributos_clases.select(e|e.to_string)-»
+	                    «IF this.Tipo.toString() == "Normal"-»
 	                     «IF this.asociaciones_contenidas.exists(e|!e.esComposicion)-»
 	                    <th>Relaciones</th>
 	                    «ENDIF»
+	                    «ELSE-»
+	                    <th>Estado</th>
+	                    «ENDIF-»
 	                    <th>Operaciones</th>
 	                </tr>
 	            </thead>
@@ -93,7 +97,7 @@ Listado - «this.nombre.toFirstUpper()-»
 «DEFINE navClase FOR Clase-»
 «IF this.listar || this.ver -»
 	«IF this.listar-»   
-				<li role="presentation" class="box-shadow"><a href="{% url 'gen:«EXPAND django_global::nombreMinus FOR this»_listar' %}" ">«this.nombre.toFirstUpper()-»</a></li>
+				<li role="presentation" class="box-shadow"><a href="{% url 'gen:«EXPAND django_global::nombreMinus FOR this»_listar' %}" ">«this.nombre_plural.toFirstUpper()-»</a></li>
 	«ELSE-»   
 			    <li role="presentation" class="box-shadow"><a href="{% url 'gen:«EXPAND django_global::nombreMinus FOR this»_detallar' %}">«this.nombre.toFirstUpper()-»</a></li>
 	«ENDIF-»   

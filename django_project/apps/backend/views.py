@@ -8,8 +8,8 @@ from django.contrib.auth.decorators import login_required
 
 import json
 
-from .models import Empresa, Producto, Almacen_producto, Almacen, Domicilio, Cliente, Pedido, Detalle_pedido, Venta, Detalle_venta
-from .forms import empresa_form, producto_form, almacen_producto_form, almacen_form, domicilio_form, cliente_form, pedido_form, detalle_pedido_form, venta_form, detalle_venta_form
+from .models import Empresa, Producto, Almacen_producto, Almacen, Domicilio, Cliente, Pedido, Detalle_pedido, Venta, Detalle_venta, Historico_precio
+from .forms import empresa_form, producto_form, almacen_producto_form, almacen_form, domicilio_form, cliente_form, pedido_form, detalle_pedido_form, venta_form, detalle_venta_form, historico_precio_form
 from .forms import EmpresaDomicilioFormset
 from .forms import AlmacenDomicilioFormset
 from .forms import ClienteDomicilioFormset
@@ -102,7 +102,7 @@ class empresa_editar(UpdateView):
 
 @login_required(login_url='/accounts/login')
 def empresa_detallar(request):
-    model = Empresa.objects.filter().first()  
+    model = Empresa.objects.filter().first()
     return render_to_response('backend/empresa_detallar.html',
                               {'object':model},
                               context_instance=RequestContext(request),
@@ -508,6 +508,7 @@ class pedido_detallar(DetailView):
     def get_context_data(self, **kwargs):
         context = super(pedido_detallar, self).get_context_data(**kwargs)
         context['empresa'] = Empresa.objects.filter().first()
+        context['detalles'] = Detalle_pedido.objects.filter(pedido = self.object)
         return context
     
 
@@ -619,6 +620,7 @@ class venta_detallar(DetailView):
     def get_context_data(self, **kwargs):
         context = super(venta_detallar, self).get_context_data(**kwargs)
         context['empresa'] = Empresa.objects.filter().first()
+        context['detalles'] = Detalle_venta.objects.filter(venta = self.object)
         return context
     
 
@@ -692,6 +694,23 @@ def detalle_venta_detallar_json(request, pk):
 @login_required(login_url='/accounts/login')
 def detalle_venta_listar_json(request):
     data = serializers.serialize('json', Detalle_venta.objects.all())
+    return HttpResponse(data, content_type='application/json; charset=utf-8')
+
+
+# Clase: Historico_precio
+## Vistas genéricas
+## Vistas JSON
+
+@login_required(login_url='/accounts/login')
+def historico_precio_detallar_json(request, pk):
+    object = get_object_or_404(Historico_precio, pk=pk)
+    data = serializers.serialize('json', [object])
+    return HttpResponse(data, content_type='application/json; charset=utf-8')
+
+
+@login_required(login_url='/accounts/login')
+def historico_precio_listar_json(request):
+    data = serializers.serialize('json', Historico_precio.objects.all())
     return HttpResponse(data, content_type='application/json; charset=utf-8')
 
     

@@ -60,6 +60,10 @@
         <element xmi:type="ecore:EAttribute" href="SimilUML.ecore#//Clase/Tipo"/>
         <layoutConstraint xmi:type="notation:Location" xmi:id="_yqA6EXpTEeSfrfVI8BBGGQ"/>
       </children>
+      <children xmi:type="notation:Node" xmi:id="_ZY_yoHsgEeSxx8TDGR2g-g" type="3001">
+        <element xmi:type="ecore:EAttribute" href="SimilUML.ecore#//Clase/nombre_plural"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_ZZAZsHsgEeSxx8TDGR2g-g"/>
+      </children>
       <styles xmi:type="notation:SortingStyle" xmi:id="_5xRepDfOEeS4-_Q43qvrLQ"/>
       <styles xmi:type="notation:FilteringStyle" xmi:id="_5xRepTfOEeS4-_Q43qvrLQ"/>
     </children>
@@ -233,6 +237,10 @@
       <children xmi:type="notation:Node" xmi:id="_vUvoIHrnEeSq4PFm22742w" type="3009">
         <element xmi:type="ecore:EEnumLiteral" href="SimilUML.ecore#//Tipo_Predefinido/Telefono"/>
         <layoutConstraint xmi:type="notation:Location" xmi:id="_vUvoIXrnEeSq4PFm22742w"/>
+      </children>
+      <children xmi:type="notation:Node" xmi:id="_m6OGQHvAEeSO8-APLtiUIg" type="3009">
+        <element xmi:type="ecore:EEnumLiteral" href="SimilUML.ecore#//Tipo_Predefinido/Email"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_m6OGQXvAEeSO8-APLtiUIg"/>
       </children>
       <styles xmi:type="notation:SortingStyle" xmi:id="_5xh9VDfOEeS4-_Q43qvrLQ"/>
       <styles xmi:type="notation:FilteringStyle" xmi:id="_5xh9VTfOEeS4-_Q43qvrLQ"/>

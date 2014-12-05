@@ -21,8 +21,8 @@ Archivo generado: templates/gen/index.html
 {% endblock title %}
 
 {% block cssprivate %}
-<link href="{% static 'gen/css/index.css' %}" rel="stylesheet">
-<link href="{% static 'gen/css/index_«this.nombre.toLowerCase()».css' %}" rel="stylesheet">
+<link href="{% static 'backend/css/index.css' %}" rel="stylesheet">
+<link href="{% static 'backend/css/module/index_«this.nombre.toLowerCase()».css' %}" rel="stylesheet">
 {% endblock cssprivate %}
 
 {% block jsprivate %}
@@ -53,7 +53,7 @@ Archivo generado: templates/gen/index.html
 «DEFINE navClase FOR Clase-»
 «IF this.listar || this.ver -»
 	«IF this.listar-»   
-				<li role="presentation" class="box-shadow"><a href="{% url 'gen:«EXPAND django_global::nombreMinus FOR this»_listar' %}" ">«this.nombre.toFirstUpper()-»</a></li>
+				<li role="presentation" class="box-shadow"><a href="{% url 'gen:«EXPAND django_global::nombreMinus FOR this»_listar' %}">«this.nombre_plural.toFirstUpper()-»</a></li>
 	«ELSE-»   
 			    <li role="presentation" class="box-shadow"><a href="{% url 'gen:«EXPAND django_global::nombreMinus FOR this»_detallar' %}">«this.nombre.toFirstUpper()-»</a></li>
 	«ENDIF-»   

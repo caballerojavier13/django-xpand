@@ -483,5 +483,25 @@ urlpatterns = patterns('',
     ),
 
 
+
+# Clase: Historico_precio
+## URLs genéricas
+
+## URLs JSON
+
+    url(
+        regex = r'^/historico_precio/json/(?P<pk>\d+)/$',
+        view  = views.historico_precio_detallar_json,
+        name  = 'historico_precio_detallar_json'
+    ),
+
+
+    url(
+        regex = r'^/historico_precio/json/$',
+        view  = views.historico_precio_listar_json,
+        name  = 'historico_precio_listar_json'
+    ),
+
+
 )
     

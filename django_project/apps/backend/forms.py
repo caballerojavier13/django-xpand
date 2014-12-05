@@ -1,7 +1,7 @@
 from django import forms
 from django.forms.models import modelformset_factory
 
-from .models import Empresa, Producto, Almacen_producto, Almacen, Domicilio, Cliente, Pedido, Detalle_pedido, Venta, Detalle_venta
+from .models import Empresa, Producto, Almacen_producto, Almacen, Domicilio, Cliente, Pedido, Detalle_pedido, Venta, Detalle_venta, Historico_precio
 
 
 # Clase: Empresa
@@ -96,7 +96,7 @@ class pedido_form(forms.ModelForm):
         self.fields['fecha'].widget.attrs['class'] = "form-control datepicker"
     class Meta:
         model = Pedido
-        fields = ['fecha']
+        fields = ['fecha','cliente', 'domicilio']
 
 # Clase: Detalle_pedido
 class detalle_pedido_form(forms.ModelForm):
@@ -114,15 +114,29 @@ class venta_form(forms.ModelForm):
         self.fields['fecha'].widget.attrs['class'] = "form-control datepicker"
     class Meta:
         model = Venta
-        fields = ['fecha','cliente']
+        fields = ['fecha','cliente', 'domicilio']
 
 # Clase: Detalle_venta
 class detalle_venta_form(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(detalle_venta_form, self).__init__(*args, **kwargs)
+        self.fields['cantidad'].label = "Cantidad"
+        self.fields['cantidad'].widget.attrs['class'] = "form-control"
     class Meta:
         model = Detalle_venta
-        fields = []
+        fields = ['cantidad','producto', 'venta', 'precio']
+
+# Clase: Historico_precio
+class historico_precio_form(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super(historico_precio_form, self).__init__(*args, **kwargs)
+        self.fields['fecha'].label = "Fecha Desde"
+        self.fields['precio'].label = "Precio"
+        self.fields['fecha'].widget.attrs['class'] = "form-control datepicker"
+        self.fields['precio'].widget.attrs['class'] = "form-control"
+    class Meta:
+        model = Historico_precio
+        fields = ['fecha', 'precio','producto']
 
 # Formsets generados por la clase: Empresa
 EmpresaDomicilioFormset = modelformset_factory(Domicilio, extra=1, max_num=1)
@@ -137,9 +151,13 @@ AlmacenDomicilioFormset = modelformset_factory(Domicilio, extra=1, max_num=1)
 # Formsets generados por la clase: Cliente
 ClienteDomicilioFormset = modelformset_factory(Domicilio, extra=1, max_num=1)
 
+# Formsets generados por la clase: Pedido
 
 
 # Formsets generados por la clase: Venta
 
+# Formsets generados por la clase: Detalle_venta
+
+# Formsets generados por la clase: Historico_precio
 
     

@@ -1,16 +1,16 @@
 {% extends "backend/base.html" %}
 {% load staticfiles %}
 
-{% block title %}Formulario: Pedido de Venta
+{% block title %}Formulario: Histórico Precio
 {% endblock title %}
 
 {% block cssprivate %}
 <link href="{% static 'backend/css/index.css' %}" rel="stylesheet">
-<link href="{% static 'backend/css/pedido_form.css' %}" rel="stylesheet">
+<link href="{% static 'backend/css/historico_precio_form.css' %}" rel="stylesheet">
 <link href="{% static 'css/datepicker3.css' %}" rel="stylesheet">
 {% endblock cssprivate %}
 {% block jsprivate %}
-<script src="{% static 'backend/js/pedido_form.js' %}"></script>
+<script src="{% static 'backend/js/historico_precio_form.js' %}"></script>
 <script src="{% static 'js/bootstrap-datepicker.js' %}"></script>
 <script src="{% static 'js/locales/bootstrap-datepicker.es.js' %}"></script>
 <script src="{% static 'js/form.js' %}"></script>
@@ -19,17 +19,14 @@
 {% block content %}
     <div class="page-header">
         {% if object %}
-            <h1 class="text-center">Pedido de Venta <small>Editar</small></h1>
+            <h1 class="text-center">Histórico Precio <small>Editar</small></h1>
         {% else %}
-            <h1 class="text-center">Pedido de Venta <small>Crear</small></h1>
+            <h1 class="text-center">Histórico Precio <small>Crear</small></h1>
         {% endif %}
     </div>
     <div class="row">
 	    <div class="col-xs-2">
 	        <ul class="nav nav-pills nav-stacked">
-				<li role="presentation" class="box-shadow"><a href="{% url 'gen:cliente_listar' %}">Clientes</a></li>
-				<li role="presentation" class="box-shadow"><a href="{% url 'gen:pedido_listar' %}">Pedidos de Ventas</a></li>
-				<li role="presentation" class="box-shadow"><a href="{% url 'gen:venta_listar' %}">Ventas</a></li>
 	        </ul>        
 	    </div>
 	    <div class="col-xs-10 border-left">
@@ -41,7 +38,7 @@
 		        </div>
 		        <div class="panel panel-primary">
 		            <div class="panel-heading">
-		                  <h3 class="panel-title">Datos: Pedido de Venta</h3>
+		                  <h3 class="panel-title">Datos: Histórico Precio</h3>
 		            </div>
 		            <div class="panel-body">
 	                    {% for field in form %}

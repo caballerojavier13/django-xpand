@@ -46,9 +46,9 @@ function armarFila(index, instancia) {
             «EXPAND atributoTabla FOREACH this.atributos_clases.select(e|e.to_string) SEPARATOR ' + '-»;
     «ELSE»
     // Atributos
-    fila += '<td>' + instancia.pk + '</td>';	        
+    fila += '<td> «this.nombre.toFirstUpper()-» Nº : ' + instancia.pk + '</td>';	        
     «ENDIF»
-    
+    «IF this.Tipo.toString() == "Normal"-»
     «IF this.asociaciones_contenidas.exists(e|!e.esComposicion)-»
     // Asociaciones
     fila += '<td>' +
@@ -63,8 +63,14 @@ function armarFila(index, instancia) {
     fila += '</ul>' +
             '</div>' +
             '</td>';
-    «ENDIF»
-    
+    «ENDIF-»
+    «ELSE-»
+    if(false){
+		fila += '<td><strong> Entregado </strong></td>';    	
+    }else{
+    	fila += '<td> <button type="button" class="btn btn-default">Marcar como Entregado</button> </td>';
+    }
+    «ENDIF-»
     // Botones 'Editar' y 'Eliminar'
     fila += '<td>' +
             ' <a href="/configuracion/«this.pertenece.nombre_url.toLowerCase()»/«this.nombre_url.toLowerCase()»/' + instancia.pk + '/' +

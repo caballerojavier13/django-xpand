@@ -1,3 +1,21 @@
+«IMPORT similuml»
+«IMPORT template»
+«EXTENSION template::GeneratorExtensions»
+
+«REM»
+Creación de archivos estáticos JavaScript de la página de listado para las clases de la aplicación Django
+Archivo generado: static/gen/js/<clase>_listar.js
+«ENDREM»
+
+«REM»Creación del archivo estático JavaScript de la página de listado de cada clase«ENDREM»
+«DEFINE main FOR DiagramaClases»
+    «EXPAND archivoClase FOREACH clases_del_Diagrama.select(e|e.Tipo.toString() == "Encabezado")»
+«ENDDEFINE»
+
+
+«REM»Creación de archivo JavaScript por clase«ENDREM»
+«DEFINE archivoClase FOR Clase»
+    «FILE 'static/backend/css/'+this.nombre_url.toFirstLower()+'_detallar.css'-»
 .lema{
   font-style: oblique;
 }
@@ -64,4 +82,5 @@
     font-weight: bold;
   }
 }
-    
+    «ENDFILE»
+«ENDDEFINE»

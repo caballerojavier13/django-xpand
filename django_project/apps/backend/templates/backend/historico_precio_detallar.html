@@ -1,28 +1,25 @@
 {% extends "backend/base.html" %}
 {% load staticfiles %}
 
-{% block title %}Detalle - Detalle de Venta{% endblock title %}
+{% block title %}Detalle - Histórico Precio{% endblock title %}
 
 {% block cssprivate %}
 <link href="{% static 'backend/css/index.css' %}" rel="stylesheet">
-<link href="{% static 'backend/css/detalle_venta_detallar.css' %}" rel="stylesheet">
+<link href="{% static 'backend/css/historico_precio_detallar.css' %}" rel="stylesheet">
 {% endblock cssprivate %}
 {% block jsprivate %}
-<script src="{% static 'backend/js/detalle_venta_detallar.js' %}"></script>
+<script src="{% static 'backend/js/historico_precio_detallar.js' %}"></script>
 {% endblock jsprivate %}
 
 {% block content %}
     <div class="page-header">
-        <h1 class="pull-left">Detalle de Venta <small>Detalle</small></h1>
+        <h1 class="pull-left">Histórico Precio <small>Detalle</small></h1>
         
         <div class="clearfix"></div>
     </div>
     <div class="row">
 	    <div class="col-xs-2">
 	        <ul class="nav nav-pills nav-stacked">
-				<li role="presentation" class="box-shadow"><a href="{% url 'gen:cliente_listar' %}">Clientes</a></li>
-				<li role="presentation" class="box-shadow"><a href="{% url 'gen:pedido_listar' %}">Pedidos de Ventas</a></li>
-				<li role="presentation" class="box-shadow"><a href="{% url 'gen:venta_listar' %}">Ventas</a></li>
 	        </ul>        
 	    </div>
 	    <div class="col-xs-10 border-left">
@@ -179,20 +176,5 @@
 {% endblock content %}
 
 {% block modals %}
-<div class="modal fade" id="modal-eliminar" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-body">
-                <h2 align="center">¿Realmente desea eliminar este objeto?</h2>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-                <a href="{% url 'gen:detalle_venta_eliminar' object.pk %}"
-                   id="confirmar-eliminar" class=" btn btn-danger" role="button">Aceptar
-                </a>
-            </div>
-        </div>
-    </div>
-</div>
 {% endblock modals %}
     

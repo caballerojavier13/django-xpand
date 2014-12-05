@@ -66,7 +66,8 @@ models.CharField«ELSEIF this.toString()=='double'-»
 models.DecimalField«ELSEIF this.toString()=='StringLarge'-»
 models.TextField«ELSEIF this.toString()=='Date'-»
 models.DateField«ELSEIF this.toString()=='Telefono'-»
-PhoneNumberField«ENDIF-»
+PhoneNumberField«ELSEIF this.toString()=='Email'-»
+models.EmailField«ENDIF-»
 «ENDDEFINE»
 
 
@@ -81,6 +82,8 @@ max_length=50«ELSEIF this.toString()=='StringMiddle'-»
 max_length=250«ELSEIF this.toString()=='StringLarge'-»
 «ELSEIF this.toString()=='double'-»
 max_digits=12, decimal_places=3«ELSEIF this.toString()=='Date'-»
+«ELSEIF this.toString()=='Email'-»
+max_length=254
 «ENDIF-»
 «ENDDEFINE-»
 
