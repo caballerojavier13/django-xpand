@@ -195,6 +195,10 @@
         nombre="Fecha"
         tipo="Date"
         nombre_url="fecha"/>
+    <atributos_clases
+        nombre="Total"
+        tipo="float"
+        nombre_url="total"/>
     <asociaciones_contenidas
         nombre="Cliente"
         cardinalidadSuperior="1"
@@ -231,6 +235,10 @@
         nombre="fecha"
         tipo="Date"
         nombre_url="fecha"/>
+    <atributos_clases
+        nombre="Total"
+        tipo="float"
+        nombre_url="total"/>
     <asociaciones_contenidas
         nombre="Cliente"
         cardinalidadSuperior="1"

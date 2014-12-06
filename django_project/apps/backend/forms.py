@@ -93,10 +93,12 @@ class pedido_form(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(pedido_form, self).__init__(*args, **kwargs)
         self.fields['fecha'].label = "Fecha"
+        self.fields['total'].label = "Total"
         self.fields['fecha'].widget.attrs['class'] = "form-control datepicker"
+        self.fields['total'].widget.attrs['class'] = "form-control"
     class Meta:
         model = Pedido
-        fields = ['fecha','cliente', 'domicilio']
+        fields = ['fecha', 'total','cliente', 'domicilio']
 
 # Clase: Detalle_pedido
 class detalle_pedido_form(forms.ModelForm):
@@ -111,10 +113,12 @@ class venta_form(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(venta_form, self).__init__(*args, **kwargs)
         self.fields['fecha'].label = "Fecha"
+        self.fields['total'].label = "Total"
         self.fields['fecha'].widget.attrs['class'] = "form-control datepicker"
+        self.fields['total'].widget.attrs['class'] = "form-control"
     class Meta:
         model = Venta
-        fields = ['fecha','cliente', 'domicilio']
+        fields = ['fecha', 'total','cliente', 'domicilio']
 
 # Clase: Detalle_venta
 class detalle_venta_form(forms.ModelForm):

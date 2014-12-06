@@ -83,6 +83,7 @@ class Cliente(Model):
 class Pedido(Model):
     # Atributos
     fecha = models.DateField()
+    total = models.FloatField()
     # Relaciones
     cliente = models.ForeignKey('Cliente', null=True, blank=True, on_delete=models.SET_NULL)
     domicilio = models.ForeignKey('Domicilio', null=True, blank=True, on_delete=models.SET_NULL)
@@ -100,6 +101,7 @@ class Detalle_pedido(Model):
 class Venta(Model):
     # Atributos
     fecha = models.DateField()
+    total = models.FloatField()
     # Relaciones
     cliente = models.ForeignKey('Cliente', null=True, blank=True, on_delete=models.SET_NULL)
     domicilio = models.ForeignKey('Domicilio', null=True, blank=True, on_delete=models.SET_NULL)

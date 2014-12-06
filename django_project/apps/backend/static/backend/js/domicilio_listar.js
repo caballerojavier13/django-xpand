@@ -8,7 +8,7 @@ function armarFila(index, instancia) {
     fila = '<tr>'
     
     // Atributos
-    fila += '<td>' + instancia.pk + '</td>' +
+    fila += '<td>' + (index + 1)+ '</td>' +
 '<td>' + instancia.fields.calle + '</td>'
  + '<td>' + instancia.fields.numero + '</td>'
  + '<td>' + instancia.fields.localidad + '</td>'

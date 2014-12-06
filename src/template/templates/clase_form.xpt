@@ -26,6 +26,9 @@ Archivo generado: templates/gen/<clase>_form.html
 {% block jsprivate %}«EXPAND bloqueJS FOR this»{% endblock jsprivate %}
 
 {% block content %}«EXPAND bloqueContenido FOR this-»{% endblock content %}
+
+{% block modals %}«EXPAND bloqueModal FOR this-»{% endblock modals %}
+
     «ENDFILE»
 «ENDDEFINE»
 
@@ -69,7 +72,7 @@ Formulario: «this.nombre.toFirstUpper()»
 	        </ul>        
 	    </div>
 	    <div class="col-xs-10 border-left">
-		«IF true || this.Tipo.toString() == "Normal"-»
+		«IF this.Tipo.toString() == "Normal"-»
 		    <form action='' method='POST' class='form-horizontal ws-validate' role='form'>
 		    	{% csrf_token %}
 		    	<div class="bootom-space">
@@ -100,7 +103,172 @@ Formulario: «this.nombre.toFirstUpper()»
 		        <button type="button" class="btn btn-default volver">Volver</button>
 		    </form>
 	    «ELSEIF this.Tipo.toString() == "Encabezado"»
-	     {{empresa}}
+	    	<div class="bootom-space">
+	            <button type="button" class="btn btn-default volver">Volver</button>
+	        </div>
+    		<div class="row" style="margin-bottom: 15px;">
+    		  <div class="col-md-6 col-sm-6 col-xs-6">
+            <div class="row">
+              <img src="/static/img/logo.png" class="img-thumbnail img-rounded col-md-2 hidden-sm hidden-xs" style="left: 10px;">
+              <div class="col-md-10 col-sm-12 col-xs-12" style="margin-top: -24px">
+                <h1 class="center-xs small-h1"> {{empresa.nombre}} </h1>
+                <h6 class="hidden-xs text-center lema"> "{{ empresa.lema }}" </h6>
+              </div>
+            </div>
+            <div class"row">
+              <div class="col-md-5 col-sm-5 col-xs-12 text-right center-xs"><small>Telefono: {{empresa.telefono}}</small></div>
+              <div class="col-md-2 col-sm-2 hidden-xs text-center"> - </div>
+              <div class="col-md-5 col-sm-5 hidden-xs text-left center-xs"><small>E-Mail: {{empresa.email}}</small></div>
+            </div>
+    		  </div>
+          <div class="col-md-2 col-sm-2 col-xs-2"><span class="tipo-factura">X</span></div>
+    		  <div class="col-md-4 col-sm-4 col-xs-4 text-center">
+      			<h3 style="margin-top: 0;">Remito</h3>
+      			<p>Nº 0001 - <span id="numero_factura">{{object.pk}}</span></p>
+	            <div class"row">
+	              <div class="col-md-4 col-sm-12 col-xs-12">
+	                <h3 class="label_fecha"><strong>Fecha:</strong></h3>
+	              </div>
+	              <div class="col-md-8 col-sm-12 col-xs-12 text-right">
+	                {{form.fecha}}
+	              </div>
+	            </div>
+    		  </div>
+		  </div>
+		  <div class="divisor"></div>
+	      <div class="row descripcion">
+	        <div class="panel panel-default descripcion_contenido">
+	          <div class="panel-heading">
+	            <h3 class="panel-title">Cliente</h3>
+	            <div class="btn-group pull-right" role="group" style="top: -25px">
+	                <button type="button" class="modal-select-cliente btn btn-default" data-toggle="modal" data-target="#modal-select-cliente" title="Seleccionar Cliente">
+		                <span class="glyphicon glyphicon-search"></span> Seleccionar
+	                </button>
+	            </div>
+	          </div>
+	          <div class="panel-body">
+	            <div class="row">
+	              <div class="col-md-3 col-sm-3 col-xs-6">
+	                <strong>Nombre:</strong>
+	              </div>
+	              <div class="col-md-3 col-sm-3 col-xs-6">
+	                {{object.cliente.nombre}}
+	              </div>
+	              <div class="col-md-3 col-sm-3 col-xs-6">
+	                <strong>Apellido:</strong>
+	              </div>
+	              <div class="col-md-3 col-sm-3 col-xs-6">
+	                {{object.cliente.apellido}}
+	              </div>
+	            </div>
+	            <div class="row descipcion_elemento">
+	              <div class="col-md-3 col-sm-3 col-xs-6">
+	                <strong>Telefono:</strong>
+	              </div>
+	              <div class="col-md-3 col-sm-3 col-xs-6">
+	                {{object.cliente.telefono}}
+	              </div>
+	              <div class="col-md-3 col-sm-3 col-xs-6"></div>
+	              <div class="col-md-3 col-sm-3 col-xs-6"></div>
+	            </div>
+	          </div>
+	        </div>
+	      </div>
+	      <div class="divisor"></div>
+	      <div class="row descripcion">
+	        <div class="panel panel-default descripcion_contenido">
+	          <div class="panel-heading">
+	            <h3 class="panel-title">Domicilio</h3>
+	          </div>
+	          <div class="panel-body">
+	            <div class="row">
+	              <div class="col-md-3 col-sm-3 col-xs-6">
+	                <strong>Calle:</strong>
+	              </div>
+	              <div class="col-md-3 col-sm-3 col-xs-6">
+	                {{object.domicilio.calle}}
+	              </div>
+	              <div class="col-md-3 col-sm-3 col-xs-6">
+	                <strong>Número:</strong>
+	              </div>
+	              <div class="col-md-3 col-sm-3 col-xs-6">
+	                {{object.domicilio.numero}}
+	              </div>
+	            </div>
+	            {% if object.domicilio.piso > 0 %}
+	            <div class="row descipcion_elemento">
+	              <div class="col-md-3 col-sm-3 col-xs-6">
+	                <strong>Piso:</strong>
+	              </div>
+	              <div class="col-md-3 col-sm-3 col-xs-6">
+	                {{object.domicilio.piso}}
+	              </div>
+	              <div class="col-md-3 col-sm-3 col-xs-6">
+	                <strong>Departamento:</strong>
+	              </div>
+	              <div class="col-md-3 col-sm-3 col-xs-6">
+	                {{object.domicilio.departamento}}
+	              </div>
+	            </div>
+	            {% endif %}
+	            <div class="row descipcion_elemento">
+	              <div class="col-md-3 col-sm-3 col-xs-6">
+	                <strong>Localidad:</strong>
+	              </div>
+	              <div class="col-md-3 col-sm-3 col-xs-6">
+	                {{object.domicilio.localidad}}
+	              </div>
+	              <div class="col-md-3 col-sm-3 col-xs-6">
+	                <strong>Provincia:</strong>
+	              </div>
+	              <div class="col-md-3 col-sm-3 col-xs-6">
+	                {{object.domicilio.provincia}}
+	              </div>
+	            </div>
+	          </div>
+	        </div>
+	      </div>
+	      <div class="divisor"></div>
+	      <div class="row descripcion">
+          <div class="table-responsive col-md-12 col-sm-12 col-xs-12">
+            <table class="table table-bordered table-hover table-detalle">
+              <thead>
+                <tr class="active">
+                  <th>Cantidad</th>
+                  <th>Producto</th>
+                  <th>Precion Unitario</th>
+                  <th>Precio</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% if detalles %}
+                {% for detalle in detalles %}
+                <tr>
+                  <td>{{detalle.cantidad}}</td>
+                  <td>{{detalle.producto}}</td>
+                  <td>{{detalle.precio.precio}}</td>
+                  <td></td>
+                </tr>
+                {% endfor %}
+                {% else %}
+                  <tr><td colspan="4" class="text-center">No hay registros</td></tr>
+                {% endif %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="divisor"></div>
+        <div class="row last-descripcion">
+          <div class="col-md-3 col-md-offset-6 col-sm-3 col-sm-offset-6 col-xs-3 col-xs-offset-6 text-right">
+            <h5><strong>Total:</strong></h5>
+          </div>
+          <div class="col-md-3 col-sm-3 col-xs-3">
+            <div class="input-group">
+              <span class="input-group-addon">$</span>
+              {{form.total}}
+            </div>
+          </div>
+        </div>
 	    «ENDIF»
 		</div>
 	</div>
@@ -123,3 +291,53 @@ Formulario: «this.nombre.toFirstUpper()»
         </div>
     «ENDIF-»
 «ENDDEFINE-»
+
+«DEFINE bloqueModal FOR Clase»
+«IF this.Tipo.toString() == "Encabezado"-»
+<!-- Modal -->
+<div class="modal fade" id="modal-select-cliente" tabindex="-1" role="dialog" aria-labelledby="Seleccionar Cliente" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title">Seleccionar Cliente</h4>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="form-group">
+            <div class="col-md-3 col-sm-6 col-xs-12">
+              <label class="label-height">Nombre:</label>
+            </div>
+            <div class="col-md-3 col-sm-6 col-xs-12">
+              <input type="text" class="form-control" placeholder="Nombre">
+            </div>
+            <div class="col-md-3 col-sm-6 col-xs-12 bug-modal-label">
+              <label class="label-height">Apellido:</label>
+            </div>
+            <div class="col-md-3 col-sm-6 col-xs-12 bug-modal-element">
+              <input type="text" class="form-control" placeholder="Apellido">
+            </div>
+          </div>
+        </div>
+        <div class="row" style="margin-top:10px;">
+          <div class="col-md-3 col-md-offset-6 col-sm-6 col-xs-6">
+            <button type="button" class="btn btn-default btn-block">Limpiar Búsqueda</button>
+          </div>
+          <div class="col-md-3 col-sm-6 col-xs-6">
+            <button type="button" class="btn btn-info btn-block">Buscar</button>
+          </div>
+        </div>
+        <div class="divisor"></div>
+        <ul class="list-group listado-modal" id="listado_clientes">
+          
+        </ul>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-primary">Seleccionar</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+«ENDIF-»
+«ENDDEFINE»

@@ -13,6 +13,7 @@ $(function() {
     $("label").addClass("col-xs-3 col-sm-3 col-md-2 control-label");
     $(".form-group div select").addClass("form-control");
     $(".form-group li input").addClass("col-xs-12 col-sm-9 col-md-8");
+    fn_money();
 });
 
 
@@ -40,4 +41,10 @@ function hideMiniLoading() {
                 $(".spinner").remove();
             }, 2000);
     }
+}
+
+function fn_money(){
+  $(".money").each(function(index,item){
+    $(item).text("$ " + parseFloat($(item).text().replace(',', '.')).toFixed(2));
+  });
 }

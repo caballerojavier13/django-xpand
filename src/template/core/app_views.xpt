@@ -312,6 +312,7 @@ from .forms import «EXPAND django_global::nombreFormset FOREACH this.asociacion
     def get_context_data(self, **kwargs):
         context = super(«EXPAND django_global::nombreMinus FOR this»_editar, self).get_context_data(**kwargs)
         context['empresa'] = Empresa.objects.filter().first()
+        context['detalles'] = Detalle_«this.nombre_url.toLowerCase()».objects.filter(«this.nombre_url.toLowerCase()» = self.object)
         return context
 «ENDDEFINE-»
 

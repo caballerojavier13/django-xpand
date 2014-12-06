@@ -99,6 +99,20 @@ Detalle - «this.nombre.toFirstUpper()-»
 			«EXPAND asociacionTabla FOREACH this.asociaciones_contenidas.select(e|!e.esComposicion)»
 			«ENDIF-»
 		«ELSE-»
+			<div class="bootom-space">
+	            <button type="button" class="btn btn-default volver">Volver</button>
+	            <div class="btn-group pull-right" role="group">
+	              «IF this.editar»
+	                <a href="{% url 'gen:«EXPAND django_global::nombreMinus FOR this»_editar' object.pk %}"
+	                   class="btn btn-primary" title="Editar"><span class="glyphicon glyphicon-pencil"></span></a>
+	               «ENDIF»
+	               «IF this.eliminar»
+	                <button type="button" class="modal-eliminar btn btn-danger" data-toggle="modal" data-target="#modal-eliminar" title="Eliminar">
+		                <span class="glyphicon glyphicon-trash"></span>
+	                </button>
+	               «ENDIF»
+	            </div>
+	        </div>
     		<div class="row">
     		  <div class="col-md-6 col-sm-6 col-xs-6">
             <div class="row">
@@ -244,7 +258,7 @@ Detalle - «this.nombre.toFirstUpper()-»
             <h5><strong>Total:</strong></h5>
           </div>
           <div class="col-md-3 col-sm-3 col-xs-3">
-            <h5 id="total">$ 00.00</h5>
+            <h5 class="money">{{object.total}}</h5>
           </div>
         </div>
 		«ENDIF-»

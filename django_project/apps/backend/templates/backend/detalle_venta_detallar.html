@@ -26,6 +26,20 @@
 	        </ul>        
 	    </div>
 	    <div class="col-xs-10 border-left">
+			<div class="bootom-space">
+	            <button type="button" class="btn btn-default volver">Volver</button>
+	            <div class="btn-group pull-right" role="group">
+	              
+	                <a href="{% url 'gen:detalle_venta_editar' object.pk %}"
+	                   class="btn btn-primary" title="Editar"><span class="glyphicon glyphicon-pencil"></span></a>
+	               
+	               
+	                <button type="button" class="modal-eliminar btn btn-danger" data-toggle="modal" data-target="#modal-eliminar" title="Eliminar">
+		                <span class="glyphicon glyphicon-trash"></span>
+	                </button>
+	               
+	            </div>
+	        </div>
     		<div class="row">
     		  <div class="col-md-6 col-sm-6 col-xs-6">
             <div class="row">
@@ -171,7 +185,7 @@
             <h5><strong>Total:</strong></h5>
           </div>
           <div class="col-md-3 col-sm-3 col-xs-3">
-            <h5 id="total">$ 00.00</h5>
+            <h5 class="money">{{object.total}}</h5>
           </div>
         </div>
 		</div>

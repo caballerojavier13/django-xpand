@@ -489,6 +489,7 @@ class pedido_editar(UpdateView):
     def get_context_data(self, **kwargs):
         context = super(pedido_editar, self).get_context_data(**kwargs)
         context['empresa'] = Empresa.objects.filter().first()
+        context['detalles'] = Detalle_pedido.objects.filter(pedido = self.object)
         return context
     
      
@@ -601,6 +602,7 @@ class venta_editar(UpdateView):
     def get_context_data(self, **kwargs):
         context = super(venta_editar, self).get_context_data(**kwargs)
         context['empresa'] = Empresa.objects.filter().first()
+        context['detalles'] = Detalle_venta.objects.filter(venta = self.object)
         return context
     
      

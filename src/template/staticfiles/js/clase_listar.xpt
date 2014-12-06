@@ -42,7 +42,7 @@ function armarFila(index, instancia) {
     
     «IF this.atributos_clases.exists(e|e.to_string) -»
     // Atributos
-    fila += '<td>' + instancia.pk + '</td>' +
+    fila += '<td>' + (index + 1)+ '</td>' +
             «EXPAND atributoTabla FOREACH this.atributos_clases.select(e|e.to_string) SEPARATOR ' + '-»;
     «ELSE»
     // Atributos
