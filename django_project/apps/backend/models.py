@@ -84,6 +84,7 @@ class Pedido(Model):
     # Atributos
     fecha = models.DateField()
     total = models.FloatField()
+    descuento = models.FloatField()
     # Relaciones
     cliente = models.ForeignKey('Cliente', null=True, blank=True, on_delete=models.SET_NULL)
     domicilio = models.ForeignKey('Domicilio', null=True, blank=True, on_delete=models.SET_NULL)
@@ -93,7 +94,11 @@ class Pedido(Model):
 
 class Detalle_pedido(Model):
     # Atributos
+    cantidad = models.IntegerField()
     # Relaciones
+    producto = models.ForeignKey('Producto', null=True, blank=True, on_delete=models.SET_NULL)
+    pedido = models.ForeignKey('Pedido', null=True, blank=True, on_delete=models.SET_NULL)
+    precio = models.ForeignKey('Historico_precio', null=True, blank=True, on_delete=models.SET_NULL)
     # String Representación
     def __str__( self ):
     	return "Detalle de Pedido"
@@ -102,6 +107,7 @@ class Venta(Model):
     # Atributos
     fecha = models.DateField()
     total = models.FloatField()
+    descuento = models.FloatField()
     # Relaciones
     cliente = models.ForeignKey('Cliente', null=True, blank=True, on_delete=models.SET_NULL)
     domicilio = models.ForeignKey('Domicilio', null=True, blank=True, on_delete=models.SET_NULL)

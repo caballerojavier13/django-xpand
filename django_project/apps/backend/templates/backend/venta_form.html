@@ -58,7 +58,11 @@
           <div class="col-md-2 col-sm-2 col-xs-2"><span class="tipo-factura">X</span></div>
     		  <div class="col-md-4 col-sm-4 col-xs-4 text-center">
       			<h3 style="margin-top: 0;">Remito</h3>
+      			{% if object %}
       			<p>Nº 0001 - <span id="numero_factura">{{object.pk}}</span></p>
+      			{% else %}
+      			<p>Nº 0001 - XXXXXXXX</p>
+      			{% endif %}
 	            <div class"row">
 	              <div class="col-md-4 col-sm-12 col-xs-12">
 	                <h3 class="label_fecha"><strong>Fecha:</strong></h3>
@@ -193,15 +197,37 @@
                 </tr>
                 {% endfor %}
                 {% else %}
-                  <tr><td colspan="4" class="text-center">No hay registros</td></tr>
+                  {% if object %}
+                  	<tr><td colspan="4" class="text-center">No hay registros</td></tr>
+                  {% else %}
+                  	<tr>
+                  		<td colspan="4" class="text-center">
+                  			<div class="alert alert-info" role="alert">
+      							Debe Guardar para agregar detalles.
+    						</div>
+						</td>
+					</tr>
+                  {% endif %}
                 {% endif %}
               </tbody>
             </table>
           </div>
         </div>
+        {% if object %}
         <div class="divisor"></div>
         <div class="row last-descripcion">
           <div class="col-md-3 col-md-offset-6 col-sm-3 col-sm-offset-6 col-xs-3 col-xs-offset-6 text-right">
+            <h5><strong>Descuento:</strong></h5>
+          </div>
+          <div class="col-md-3 col-sm-3 col-xs-3">
+            <div class="input-group">
+              <span class="input-group-addon">$</span>
+              {{form.descuento}}
+            </div>
+          </div>
+          <br/>
+          <br/>
+           <div class="col-md-3 col-md-offset-6 col-sm-3 col-sm-offset-6 col-xs-3 col-xs-offset-6 text-right">
             <h5><strong>Total:</strong></h5>
           </div>
           <div class="col-md-3 col-sm-3 col-xs-3">
@@ -211,8 +237,14 @@
             </div>
           </div>
         </div>
+        {% else %}
+        <div style="display: none;">
+        	{{form.descuento}}
+        	{{form.total}}
+    	</div>
+        {% endif%}
         <div class="divisor"></div>
-        <div class="row last-descripcion">
+        <div class="row last-descripcion" style="margin-left: 0;">
           <button type="submit" class="btn btn-primary">Guardar</button>
 	      <button type="button" class="btn btn-default volver">Volver</button>
         </div>

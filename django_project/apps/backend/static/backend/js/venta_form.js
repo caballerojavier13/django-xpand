@@ -7,6 +7,12 @@ $(function(){
   precio_detalle();
   $("#id_total").prop("readonly", true);
   validarPisoDepartamento();
+  var descuento= $("#id_descuento").val();
+  if($.isNumeric( descuento )) {
+    $("#id_descuento").val(parseFloat(Math.abs(descuento)).toFixed(2));
+  }else{
+    $("#id_descuento").val("0.00");
+  }
 });
 
 $(function(){
@@ -72,6 +78,14 @@ $(function(){
   $("#btn-modal-new-direccion").on("click",function(){
   	$("#nuevo_domicilio").trigger("reset");
   	$("#modal-new-direccion").modal('show');
+  });
+  $("#id_descuento").on("change",function(){
+  	var valor = $(this).val();
+  	if($.isNumeric( valor )) {
+      $(this).val(parseFloat(Math.abs(valor)).toFixed(2));
+    }else{
+      $(this).val("0.00");
+    }
   });
 });
 

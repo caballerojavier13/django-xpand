@@ -617,7 +617,8 @@ def pedido_detallar_json(request, pk):
 def pedido_listar_json(request):
     var_fecha = request.GET.get('fecha', '')
     var_total = request.GET.get('total', '')
-    data = serializers.serialize('json', Pedido.objects.filter(fecha__icontains=var_fecha,total__icontains=var_total))
+    var_descuento = request.GET.get('descuento', '')
+    data = serializers.serialize('json', Pedido.objects.filter(fecha__icontains=var_fecha,total__icontains=var_total,descuento__icontains=var_descuento))
     return HttpResponse(data, content_type='application/json; charset=utf-8')
 
 
@@ -626,6 +627,7 @@ def pedido_crear_json(request):
       obj = Pedido()
       obj.fecha = request.POST.__getitem__("fecha")
       obj.total = request.POST.__getitem__("total")
+      obj.descuento = request.POST.__getitem__("descuento")
       obj.save()
       data = serializers.serialize('json',[obj])
     return HttpResponse(data, content_type='application/json; charset=utf-8')    
@@ -668,13 +670,15 @@ def detalle_pedido_detallar_json(request, pk):
 
 @login_required(login_url='/accounts/login')
 def detalle_pedido_listar_json(request):
-    data = serializers.serialize('json', Detalle_pedido.objects.filter())
+    var_cantidad = request.GET.get('cantidad', '')
+    data = serializers.serialize('json', Detalle_pedido.objects.filter(cantidad__icontains=var_cantidad))
     return HttpResponse(data, content_type='application/json; charset=utf-8')
 
 
 def detalle_pedido_crear_json(request):
     if request.method == 'POST':
       obj = Detalle_pedido()
+      obj.cantidad = request.POST.__getitem__("cantidad")
       obj.save()
       data = serializers.serialize('json',[obj])
     return HttpResponse(data, content_type='application/json; charset=utf-8')    
@@ -750,7 +754,8 @@ def venta_detallar_json(request, pk):
 def venta_listar_json(request):
     var_fecha = request.GET.get('fecha', '')
     var_total = request.GET.get('total', '')
-    data = serializers.serialize('json', Venta.objects.filter(fecha__icontains=var_fecha,total__icontains=var_total))
+    var_descuento = request.GET.get('descuento', '')
+    data = serializers.serialize('json', Venta.objects.filter(fecha__icontains=var_fecha,total__icontains=var_total,descuento__icontains=var_descuento))
     return HttpResponse(data, content_type='application/json; charset=utf-8')
 
 
@@ -759,6 +764,7 @@ def venta_crear_json(request):
       obj = Venta()
       obj.fecha = request.POST.__getitem__("fecha")
       obj.total = request.POST.__getitem__("total")
+      obj.descuento = request.POST.__getitem__("descuento")
       obj.save()
       data = serializers.serialize('json',[obj])
     return HttpResponse(data, content_type='application/json; charset=utf-8')    

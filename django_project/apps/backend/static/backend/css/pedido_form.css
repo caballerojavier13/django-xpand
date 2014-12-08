@@ -7,6 +7,10 @@
 #id_domicilio{
   display: none;
 }
+.alert {
+  display: block !important;
+  margin-bottom: 0px;
+}
 #use_domicilio_cliente{
   display: none;
 }

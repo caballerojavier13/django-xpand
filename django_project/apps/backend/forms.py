@@ -94,19 +94,23 @@ class pedido_form(forms.ModelForm):
         super(pedido_form, self).__init__(*args, **kwargs)
         self.fields['fecha'].label = "Fecha"
         self.fields['total'].label = "Total"
+        self.fields['descuento'].label = "Descuento"
         self.fields['fecha'].widget.attrs['class'] = "form-control datepicker"
         self.fields['total'].widget.attrs['class'] = "form-control"
+        self.fields['descuento'].widget.attrs['class'] = "form-control"
     class Meta:
         model = Pedido
-        fields = ['fecha', 'total','cliente', 'domicilio']
+        fields = ['fecha', 'total', 'descuento','cliente', 'domicilio']
 
 # Clase: Detalle_pedido
 class detalle_pedido_form(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(detalle_pedido_form, self).__init__(*args, **kwargs)
+        self.fields['cantidad'].label = "Cantidad"
+        self.fields['cantidad'].widget.attrs['class'] = "form-control"
     class Meta:
         model = Detalle_pedido
-        fields = []
+        fields = ['cantidad','producto', 'pedido', 'precio']
 
 # Clase: Venta
 class venta_form(forms.ModelForm):
@@ -114,11 +118,13 @@ class venta_form(forms.ModelForm):
         super(venta_form, self).__init__(*args, **kwargs)
         self.fields['fecha'].label = "Fecha"
         self.fields['total'].label = "Total"
+        self.fields['descuento'].label = "Descuento"
         self.fields['fecha'].widget.attrs['class'] = "form-control datepicker"
         self.fields['total'].widget.attrs['class'] = "form-control"
+        self.fields['descuento'].widget.attrs['class'] = "form-control"
     class Meta:
         model = Venta
-        fields = ['fecha', 'total','cliente', 'domicilio']
+        fields = ['fecha', 'total', 'descuento','cliente', 'domicilio']
 
 # Clase: Detalle_venta
 class detalle_venta_form(forms.ModelForm):
@@ -157,6 +163,7 @@ ClienteDomicilioFormset = modelformset_factory(Domicilio, extra=1, max_num=1)
 
 # Formsets generados por la clase: Pedido
 
+# Formsets generados por la clase: Detalle_pedido
 
 # Formsets generados por la clase: Venta
 
