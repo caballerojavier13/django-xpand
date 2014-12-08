@@ -1,12 +1,25 @@
 .lema{
   font-style: oblique;
 }
+#id_cliente{
+  display: none;
+}
+#id_domicilio{
+  display: none;
+}
+#use_domicilio_cliente{
+  display: none;
+}
+.panel-heading > .pull-right{
+  margin-top: -25px;
+}
 .listado-modal{
-  max-height: 300px;
+  height: 300px;
   overflow-y: auto;
 }
 .list-group-item{
-    padding:0;
+  padding:0;
+  cursor: pointer;
 }
 .tipo-factura{
   line-height: 50px;
@@ -52,8 +65,11 @@
   width: 95%;
   margin-left: 2.5%;
 }
-.descipcion_elemento{
+.descripcion_elemento{
   margin-top: 20px;
+}
+.panel-default>.panel-heading {
+  background-color: #CDCDCD !important;
 }
 
 @media (max-width: 992px) {

@@ -79,6 +79,12 @@ urlpatterns = patterns('',
     ),
 
 
+    url(
+        regex = r'^opciones/empresa/json/crear/$',
+        view  = views.empresa_crear_json,
+        name  = 'empresa_crear_json'
+    ),
+
 
 # Clase: Producto
 ## URLs genéricas
@@ -134,6 +140,12 @@ urlpatterns = patterns('',
     ),
 
 
+    url(
+        regex = r'^productos/producto/json/crear/$',
+        view  = views.producto_crear_json,
+        name  = 'producto_crear_json'
+    ),
+
 
 # Clase: Almacen_producto
 ## URLs genéricas
@@ -141,18 +153,24 @@ urlpatterns = patterns('',
 ## URLs JSON
 
     url(
-        regex = r'^/almacen_producto/json/(?P<pk>\d+)/$',
+        regex = r'^almacen_producto/json/(?P<pk>\d+)/$',
         view  = views.almacen_producto_detallar_json,
         name  = 'almacen_producto_detallar_json'
     ),
 
 
     url(
-        regex = r'^/almacen_producto/json/$',
+        regex = r'^almacen_producto/json/$',
         view  = views.almacen_producto_listar_json,
         name  = 'almacen_producto_listar_json'
     ),
 
+
+    url(
+        regex = r'^almacen_producto/json/crear/$',
+        view  = views.almacen_producto_crear_json,
+        name  = 'almacen_producto_crear_json'
+    ),
 
 
 # Clase: Almacen
@@ -209,6 +227,12 @@ urlpatterns = patterns('',
     ),
 
 
+    url(
+        regex = r'^almacen/almacen/json/crear/$',
+        view  = views.almacen_crear_json,
+        name  = 'almacen_crear_json'
+    ),
+
 
 # Clase: Domicilio
 ## URLs genéricas
@@ -216,18 +240,24 @@ urlpatterns = patterns('',
 ## URLs JSON
 
     url(
-        regex = r'^/domicilio/json/(?P<pk>\d+)/$',
+        regex = r'^domicilio/json/(?P<pk>\d+)/$',
         view  = views.domicilio_detallar_json,
         name  = 'domicilio_detallar_json'
     ),
 
 
     url(
-        regex = r'^/domicilio/json/$',
+        regex = r'^domicilio/json/$',
         view  = views.domicilio_listar_json,
         name  = 'domicilio_listar_json'
     ),
 
+
+    url(
+        regex = r'^domicilio/json/crear/$',
+        view  = views.domicilio_crear_json,
+        name  = 'domicilio_crear_json'
+    ),
 
 
 # Clase: Cliente
@@ -284,6 +314,12 @@ urlpatterns = patterns('',
     ),
 
 
+    url(
+        regex = r'^ventas/cliente/json/crear/$',
+        view  = views.cliente_crear_json,
+        name  = 'cliente_crear_json'
+    ),
+
 
 # Clase: Pedido
 ## URLs genéricas
@@ -339,6 +375,12 @@ urlpatterns = patterns('',
     ),
 
 
+    url(
+        regex = r'^ventas/pedido/json/crear/$',
+        view  = views.pedido_crear_json,
+        name  = 'pedido_crear_json'
+    ),
+
 
 # Clase: Detalle_pedido
 ## URLs genéricas
@@ -367,18 +409,24 @@ urlpatterns = patterns('',
 ## URLs JSON
 
     url(
-        regex = r'^/detalle_pedido/json/(?P<pk>\d+)/$',
+        regex = r'^detalle_pedido/json/(?P<pk>\d+)/$',
         view  = views.detalle_pedido_detallar_json,
         name  = 'detalle_pedido_detallar_json'
     ),
 
 
     url(
-        regex = r'^/detalle_pedido/json/$',
+        regex = r'^detalle_pedido/json/$',
         view  = views.detalle_pedido_listar_json,
         name  = 'detalle_pedido_listar_json'
     ),
 
+
+    url(
+        regex = r'^detalle_pedido/json/crear/$',
+        view  = views.detalle_pedido_crear_json,
+        name  = 'detalle_pedido_crear_json'
+    ),
 
 
 # Clase: Venta
@@ -435,6 +483,12 @@ urlpatterns = patterns('',
     ),
 
 
+    url(
+        regex = r'^ventas/venta/json/crear/$',
+        view  = views.venta_crear_json,
+        name  = 'venta_crear_json'
+    ),
+
 
 # Clase: Detalle_venta
 ## URLs genéricas
@@ -483,6 +537,12 @@ urlpatterns = patterns('',
     ),
 
 
+    url(
+        regex = r'^ventas/detalle_venta/json/crear/$',
+        view  = views.detalle_venta_crear_json,
+        name  = 'detalle_venta_crear_json'
+    ),
+
 
 # Clase: Historico_precio
 ## URLs genéricas
@@ -490,18 +550,24 @@ urlpatterns = patterns('',
 ## URLs JSON
 
     url(
-        regex = r'^/historico_precio/json/(?P<pk>\d+)/$',
+        regex = r'^historico_precio/json/(?P<pk>\d+)/$',
         view  = views.historico_precio_detallar_json,
         name  = 'historico_precio_detallar_json'
     ),
 
 
     url(
-        regex = r'^/historico_precio/json/$',
+        regex = r'^historico_precio/json/$',
         view  = views.historico_precio_listar_json,
         name  = 'historico_precio_listar_json'
     ),
 
+
+    url(
+        regex = r'^historico_precio/json/crear/$',
+        view  = views.historico_precio_crear_json,
+        name  = 'historico_precio_crear_json'
+    ),
 
 )
     

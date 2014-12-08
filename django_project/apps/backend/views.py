@@ -119,8 +119,26 @@ def empresa_detallar_json(request, pk):
 
 @login_required(login_url='/accounts/login')
 def empresa_listar_json(request):
-    data = serializers.serialize('json', Empresa.objects.all())
+    var_nombre = request.GET.get('nombre', '')
+    var_lema = request.GET.get('lema', '')
+    var_descripcion = request.GET.get('descripcion', '')
+    var_telefono = request.GET.get('telefono', '')
+    var_email = request.GET.get('email', '')
+    data = serializers.serialize('json', Empresa.objects.filter(nombre__icontains=var_nombre,lema__icontains=var_lema,descripcion__icontains=var_descripcion,telefono__icontains=var_telefono,email__icontains=var_email))
     return HttpResponse(data, content_type='application/json; charset=utf-8')
+
+
+def empresa_crear_json(request):
+    if request.method == 'POST':
+      obj = Empresa()
+      obj.nombre = request.POST.__getitem__("nombre")
+      obj.lema = request.POST.__getitem__("lema")
+      obj.descripcion = request.POST.__getitem__("descripcion")
+      obj.telefono = request.POST.__getitem__("telefono")
+      obj.email = request.POST.__getitem__("email")
+      obj.save()
+      data = serializers.serialize('json',[obj])
+    return HttpResponse(data, content_type='application/json; charset=utf-8')    
 
 
 # Clase: Producto
@@ -177,8 +195,20 @@ def producto_detallar_json(request, pk):
 
 @login_required(login_url='/accounts/login')
 def producto_listar_json(request):
-    data = serializers.serialize('json', Producto.objects.all())
+    var_nombre = request.GET.get('nombre', '')
+    var_descripcion = request.GET.get('descripcion', '')
+    data = serializers.serialize('json', Producto.objects.filter(nombre__icontains=var_nombre,descripcion__icontains=var_descripcion))
     return HttpResponse(data, content_type='application/json; charset=utf-8')
+
+
+def producto_crear_json(request):
+    if request.method == 'POST':
+      obj = Producto()
+      obj.nombre = request.POST.__getitem__("nombre")
+      obj.descripcion = request.POST.__getitem__("descripcion")
+      obj.save()
+      data = serializers.serialize('json',[obj])
+    return HttpResponse(data, content_type='application/json; charset=utf-8')    
 
 
 # Clase: Almacen_producto
@@ -194,8 +224,18 @@ def almacen_producto_detallar_json(request, pk):
 
 @login_required(login_url='/accounts/login')
 def almacen_producto_listar_json(request):
-    data = serializers.serialize('json', Almacen_producto.objects.all())
+    var_cantidad = request.GET.get('cantidad', '')
+    data = serializers.serialize('json', Almacen_producto.objects.filter(cantidad__icontains=var_cantidad))
     return HttpResponse(data, content_type='application/json; charset=utf-8')
+
+
+def almacen_producto_crear_json(request):
+    if request.method == 'POST':
+      obj = Almacen_producto()
+      obj.cantidad = request.POST.__getitem__("cantidad")
+      obj.save()
+      data = serializers.serialize('json',[obj])
+    return HttpResponse(data, content_type='application/json; charset=utf-8')    
 
 
 # Clase: Almacen
@@ -318,8 +358,18 @@ def almacen_detallar_json(request, pk):
 
 @login_required(login_url='/accounts/login')
 def almacen_listar_json(request):
-    data = serializers.serialize('json', Almacen.objects.all())
+    var_nombre = request.GET.get('nombre', '')
+    data = serializers.serialize('json', Almacen.objects.filter(nombre__icontains=var_nombre))
     return HttpResponse(data, content_type='application/json; charset=utf-8')
+
+
+def almacen_crear_json(request):
+    if request.method == 'POST':
+      obj = Almacen()
+      obj.nombre = request.POST.__getitem__("nombre")
+      obj.save()
+      data = serializers.serialize('json',[obj])
+    return HttpResponse(data, content_type='application/json; charset=utf-8')    
 
 
 # Clase: Domicilio
@@ -335,8 +385,28 @@ def domicilio_detallar_json(request, pk):
 
 @login_required(login_url='/accounts/login')
 def domicilio_listar_json(request):
-    data = serializers.serialize('json', Domicilio.objects.all())
+    var_calle = request.GET.get('calle', '')
+    var_numero = request.GET.get('numero', '')
+    var_piso = request.GET.get('piso', '')
+    var_departamento = request.GET.get('departamento', '')
+    var_localidad = request.GET.get('localidad', '')
+    var_provincia = request.GET.get('provincia', '')
+    data = serializers.serialize('json', Domicilio.objects.filter(calle__icontains=var_calle,numero__icontains=var_numero,piso__icontains=var_piso,departamento__icontains=var_departamento,localidad__icontains=var_localidad,provincia__icontains=var_provincia))
     return HttpResponse(data, content_type='application/json; charset=utf-8')
+
+
+def domicilio_crear_json(request):
+    if request.method == 'POST':
+      obj = Domicilio()
+      obj.calle = request.POST.__getitem__("calle")
+      obj.numero = request.POST.__getitem__("numero")
+      obj.piso = request.POST.__getitem__("piso")
+      obj.departamento = request.POST.__getitem__("departamento")
+      obj.localidad = request.POST.__getitem__("localidad")
+      obj.provincia = request.POST.__getitem__("provincia")
+      obj.save()
+      data = serializers.serialize('json',[obj])
+    return HttpResponse(data, content_type='application/json; charset=utf-8')    
 
 
 # Clase: Cliente
@@ -459,8 +529,22 @@ def cliente_detallar_json(request, pk):
 
 @login_required(login_url='/accounts/login')
 def cliente_listar_json(request):
-    data = serializers.serialize('json', Cliente.objects.all())
+    var_nombre = request.GET.get('nombre', '')
+    var_apellido = request.GET.get('apellido', '')
+    var_telefono = request.GET.get('telefono', '')
+    data = serializers.serialize('json', Cliente.objects.filter(nombre__icontains=var_nombre,apellido__icontains=var_apellido,telefono__icontains=var_telefono))
     return HttpResponse(data, content_type='application/json; charset=utf-8')
+
+
+def cliente_crear_json(request):
+    if request.method == 'POST':
+      obj = Cliente()
+      obj.nombre = request.POST.__getitem__("nombre")
+      obj.apellido = request.POST.__getitem__("apellido")
+      obj.telefono = request.POST.__getitem__("telefono")
+      obj.save()
+      data = serializers.serialize('json',[obj])
+    return HttpResponse(data, content_type='application/json; charset=utf-8')    
 
 
 # Clase: Pedido
@@ -531,8 +615,20 @@ def pedido_detallar_json(request, pk):
 
 @login_required(login_url='/accounts/login')
 def pedido_listar_json(request):
-    data = serializers.serialize('json', Pedido.objects.all())
+    var_fecha = request.GET.get('fecha', '')
+    var_total = request.GET.get('total', '')
+    data = serializers.serialize('json', Pedido.objects.filter(fecha__icontains=var_fecha,total__icontains=var_total))
     return HttpResponse(data, content_type='application/json; charset=utf-8')
+
+
+def pedido_crear_json(request):
+    if request.method == 'POST':
+      obj = Pedido()
+      obj.fecha = request.POST.__getitem__("fecha")
+      obj.total = request.POST.__getitem__("total")
+      obj.save()
+      data = serializers.serialize('json',[obj])
+    return HttpResponse(data, content_type='application/json; charset=utf-8')    
 
 
 # Clase: Detalle_pedido
@@ -572,8 +668,16 @@ def detalle_pedido_detallar_json(request, pk):
 
 @login_required(login_url='/accounts/login')
 def detalle_pedido_listar_json(request):
-    data = serializers.serialize('json', Detalle_pedido.objects.all())
+    data = serializers.serialize('json', Detalle_pedido.objects.filter())
     return HttpResponse(data, content_type='application/json; charset=utf-8')
+
+
+def detalle_pedido_crear_json(request):
+    if request.method == 'POST':
+      obj = Detalle_pedido()
+      obj.save()
+      data = serializers.serialize('json',[obj])
+    return HttpResponse(data, content_type='application/json; charset=utf-8')    
 
 
 # Clase: Venta
@@ -644,8 +748,20 @@ def venta_detallar_json(request, pk):
 
 @login_required(login_url='/accounts/login')
 def venta_listar_json(request):
-    data = serializers.serialize('json', Venta.objects.all())
+    var_fecha = request.GET.get('fecha', '')
+    var_total = request.GET.get('total', '')
+    data = serializers.serialize('json', Venta.objects.filter(fecha__icontains=var_fecha,total__icontains=var_total))
     return HttpResponse(data, content_type='application/json; charset=utf-8')
+
+
+def venta_crear_json(request):
+    if request.method == 'POST':
+      obj = Venta()
+      obj.fecha = request.POST.__getitem__("fecha")
+      obj.total = request.POST.__getitem__("total")
+      obj.save()
+      data = serializers.serialize('json',[obj])
+    return HttpResponse(data, content_type='application/json; charset=utf-8')    
 
 
 # Clase: Detalle_venta
@@ -695,8 +811,18 @@ def detalle_venta_detallar_json(request, pk):
 
 @login_required(login_url='/accounts/login')
 def detalle_venta_listar_json(request):
-    data = serializers.serialize('json', Detalle_venta.objects.all())
+    var_cantidad = request.GET.get('cantidad', '')
+    data = serializers.serialize('json', Detalle_venta.objects.filter(cantidad__icontains=var_cantidad))
     return HttpResponse(data, content_type='application/json; charset=utf-8')
+
+
+def detalle_venta_crear_json(request):
+    if request.method == 'POST':
+      obj = Detalle_venta()
+      obj.cantidad = request.POST.__getitem__("cantidad")
+      obj.save()
+      data = serializers.serialize('json',[obj])
+    return HttpResponse(data, content_type='application/json; charset=utf-8')    
 
 
 # Clase: Historico_precio
@@ -712,7 +838,19 @@ def historico_precio_detallar_json(request, pk):
 
 @login_required(login_url='/accounts/login')
 def historico_precio_listar_json(request):
-    data = serializers.serialize('json', Historico_precio.objects.all())
+    var_fecha = request.GET.get('fecha', '')
+    var_precio = request.GET.get('precio', '')
+    data = serializers.serialize('json', Historico_precio.objects.filter(fecha__icontains=var_fecha,precio__icontains=var_precio))
     return HttpResponse(data, content_type='application/json; charset=utf-8')
+
+
+def historico_precio_crear_json(request):
+    if request.method == 'POST':
+      obj = Historico_precio()
+      obj.fecha = request.POST.__getitem__("fecha")
+      obj.precio = request.POST.__getitem__("precio")
+      obj.save()
+      data = serializers.serialize('json',[obj])
+    return HttpResponse(data, content_type='application/json; charset=utf-8')    
 
     

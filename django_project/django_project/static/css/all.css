@@ -150,6 +150,7 @@ footer{
   animation: rotator 1.4s linear infinite;
   bottom: 50px;
   right: 50px;
+  z-index:100;
 }
 
 @-webkit-keyframes rotator {
@@ -362,4 +363,9 @@ footer{
   padding-left: 15px;
   cursor: pointer !important;
   background: white !important;
+}
+
+.spinner_modal{
+  position: relative;
+  float: left;
 }

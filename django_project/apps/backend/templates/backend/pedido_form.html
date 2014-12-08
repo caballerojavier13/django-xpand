@@ -34,8 +34,11 @@
 	    </div>
 	    <div class="col-xs-10 border-left">
 		
+	    	<form action='' method='POST' role='form'>
+	    	{% csrf_token %}
 	    	<div class="bootom-space">
-	            <button type="button" class="btn btn-default volver">Volver</button>
+	            <button type="submit" class="btn btn-primary">Guardar</button>
+		        <button type="button" class="btn btn-default volver">Volver</button>
 	        </div>
     		<div class="row" style="margin-bottom: 15px;">
     		  <div class="col-md-6 col-sm-6 col-xs-6">
@@ -67,12 +70,13 @@
     		  </div>
 		  </div>
 		  <div class="divisor"></div>
+	  	  {{form.cliente}}
 	      <div class="row descripcion">
 	        <div class="panel panel-default descripcion_contenido">
 	          <div class="panel-heading">
 	            <h3 class="panel-title">Cliente</h3>
-	            <div class="btn-group pull-right" role="group" style="top: -25px">
-	                <button type="button" class="modal-select-cliente btn btn-default" data-toggle="modal" data-target="#modal-select-cliente" title="Seleccionar Cliente">
+	            <div class="btn-group pull-right" role="group">
+	                <button type="button" id="btn_show_modal_clientes" class="btn btn-default" data-toggle="modal" title="Seleccionar Cliente">
 		                <span class="glyphicon glyphicon-search"></span> Seleccionar
 	                </button>
 	            </div>
@@ -83,21 +87,21 @@
 	                <strong>Nombre:</strong>
 	              </div>
 	              <div class="col-md-3 col-sm-3 col-xs-6">
-	                {{object.cliente.nombre}}
+	                <span id="cliente_nombre">{{object.cliente.nombre}}</span>
 	              </div>
 	              <div class="col-md-3 col-sm-3 col-xs-6">
 	                <strong>Apellido:</strong>
 	              </div>
 	              <div class="col-md-3 col-sm-3 col-xs-6">
-	                {{object.cliente.apellido}}
+	                <span id="cliente_apellido">{{object.cliente.apellido}}</span>
 	              </div>
 	            </div>
-	            <div class="row descipcion_elemento">
+	            <div class="row descripcion_elemento">
 	              <div class="col-md-3 col-sm-3 col-xs-6">
 	                <strong>Telefono:</strong>
 	              </div>
 	              <div class="col-md-3 col-sm-3 col-xs-6">
-	                {{object.cliente.telefono}}
+	                <span id="cliente_telefono">{{object.cliente.telefono}}</span>
 	              </div>
 	              <div class="col-md-3 col-sm-3 col-xs-6"></div>
 	              <div class="col-md-3 col-sm-3 col-xs-6"></div>
@@ -106,10 +110,19 @@
 	        </div>
 	      </div>
 	      <div class="divisor"></div>
+	      {{form.domicilio}}
 	      <div class="row descripcion">
 	        <div class="panel panel-default descripcion_contenido">
 	          <div class="panel-heading">
 	            <h3 class="panel-title">Domicilio</h3>
+	            <div class="pull-right" role="group">
+	            	<button type="button"  class="btn btn-default" id="use_domicilio_cliente"  title="Domicilio Cliente">
+		                Usar Domicilio Cliente
+	                </button>
+	                <button type="button"  class="btn btn-default" title="Nuevo Domicilio" id="btn-modal-new-direccion">
+		                <span class="glyphicon glyphicon-plus"></span> Nuevo Domicilio
+	                </button>
+	            </div>
 	          </div>
 	          <div class="panel-body">
 	            <div class="row">
@@ -117,43 +130,41 @@
 	                <strong>Calle:</strong>
 	              </div>
 	              <div class="col-md-3 col-sm-3 col-xs-6">
-	                {{object.domicilio.calle}}
+	                <span id="domicilio_calle">{{object.domicilio.calle}}</span>
 	              </div>
 	              <div class="col-md-3 col-sm-3 col-xs-6">
 	                <strong>Número:</strong>
 	              </div>
 	              <div class="col-md-3 col-sm-3 col-xs-6">
-	                {{object.domicilio.numero}}
+	                <span id="domicilio_numero">{{object.domicilio.numero}}</span>
 	              </div>
 	            </div>
-	            {% if object.domicilio.piso > 0 %}
-	            <div class="row descipcion_elemento">
+	            <div class="row descripcion_elemento" id="row_domicilio_piso_departamento">
 	              <div class="col-md-3 col-sm-3 col-xs-6">
 	                <strong>Piso:</strong>
 	              </div>
 	              <div class="col-md-3 col-sm-3 col-xs-6">
-	                {{object.domicilio.piso}}
+	                <span id="domicilio_piso">{{object.domicilio.piso}}</span>
 	              </div>
 	              <div class="col-md-3 col-sm-3 col-xs-6">
 	                <strong>Departamento:</strong>
 	              </div>
 	              <div class="col-md-3 col-sm-3 col-xs-6">
-	                {{object.domicilio.departamento}}
+	                <span id="domicilio_departamento">{{object.domicilio.departamento}}</span>
 	              </div>
 	            </div>
-	            {% endif %}
-	            <div class="row descipcion_elemento">
+	            <div class="row descripcion_elemento">
 	              <div class="col-md-3 col-sm-3 col-xs-6">
 	                <strong>Localidad:</strong>
 	              </div>
 	              <div class="col-md-3 col-sm-3 col-xs-6">
-	                {{object.domicilio.localidad}}
+	                <span id="domicilio_localidad">{{object.domicilio.localidad}}</span>
 	              </div>
 	              <div class="col-md-3 col-sm-3 col-xs-6">
 	                <strong>Provincia:</strong>
 	              </div>
 	              <div class="col-md-3 col-sm-3 col-xs-6">
-	                {{object.domicilio.provincia}}
+	                <span id="domicilio_provincia">{{object.domicilio.provincia}}</span>
 	              </div>
 	            </div>
 	          </div>
@@ -200,6 +211,12 @@
             </div>
           </div>
         </div>
+        <div class="divisor"></div>
+        <div class="row last-descripcion">
+          <button type="submit" class="btn btn-primary">Guardar</button>
+	      <button type="button" class="btn btn-default volver">Volver</button>
+        </div>
+        </form>
 	    
 		</div>
 	</div>
@@ -221,22 +238,22 @@
               <label class="label-height">Nombre:</label>
             </div>
             <div class="col-md-3 col-sm-6 col-xs-12">
-              <input type="text" class="form-control" placeholder="Nombre">
+              <input type="text" id="buscar_cliente_nombre" class="form-control" placeholder="Nombre">
             </div>
             <div class="col-md-3 col-sm-6 col-xs-12 bug-modal-label">
               <label class="label-height">Apellido:</label>
             </div>
             <div class="col-md-3 col-sm-6 col-xs-12 bug-modal-element">
-              <input type="text" class="form-control" placeholder="Apellido">
+              <input type="text" id="buscar_cliente_apellido" class="form-control" placeholder="Apellido">
             </div>
           </div>
         </div>
         <div class="row" style="margin-top:10px;">
           <div class="col-md-3 col-md-offset-6 col-sm-6 col-xs-6">
-            <button type="button" class="btn btn-default btn-block">Limpiar Búsqueda</button>
+            <button type="button" class="btn btn-default btn-block" id="find_all_clientes">Limpiar Búsqueda</button>
           </div>
           <div class="col-md-3 col-sm-6 col-xs-6">
-            <button type="button" class="btn btn-info btn-block">Buscar</button>
+            <button type="button" id="find_clientes" class="btn btn-info btn-block">Buscar</button>
           </div>
         </div>
         <div class="divisor"></div>
@@ -245,12 +262,71 @@
         </ul>
       </div>
       <div class="modal-footer">
+      	<svg class="spinner_modal" style="display:none;" width="34px" height="34px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg"><circle class="path" fill="none" stroke-width="3" stroke-linecap="round" cx="33" cy="33" r="30"></circle></svg>
         <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-        <button type="button" class="btn btn-primary">Seleccionar</button>
+        <button type="button" class="btn btn-primary" id="seleccionar_cliente_modal" >Seleccionar</button>
       </div>
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
+
+
+<div class="modal fade" id="modal-new-direccion">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title">Nuevo Domicilio</h4>
+      </div>
+      <form class="form-horizontal" id="nuevo_domicilio" role="form" action="" method="POST">
+      {% csrf_token %} 
+      <div class="modal-body">
+		  <div class="row">
+		    <strong><span class="control-label col-md-3 col-sm-3 ">Calle:</span></strong>
+		    <div class="col-md-8 col-sm-8 col-xs-12">
+		      <input type="text" class="form-control" name="calle" placeholder="Calle" required>
+		    </div>
+		  </div>
+		  <div class="row" style="margin-top: 10px;">
+		    <strong><span class="control-label col-md-3 col-sm-3 ">Número:</span></strong>
+		    <div class="col-md-8 col-sm-8 col-xs-12">
+		      <input type="number" step="1" min="0" class="form-control" name="numero" placeholder="Número" required>
+		    </div>
+		  </div>
+		  <div class="row" style="margin-top: 10px;">
+		    <strong><span class="control-label col-md-3 col-sm-3 ">Piso:</span></strong>
+		    <div class="col-md-8 col-sm-8 col-xs-12">
+		      <input type="number" step="1" min="0" class="form-control" name="piso" placeholder="Piso" required>
+		    </div>
+		  </div>
+		  <div class="row" style="margin-top: 10px;">
+		    <strong><span class="control-label col-md-3 col-sm-3 ">Departamento:</span></strong>
+		    <div class="col-md-8 col-sm-8 col-xs-12">
+		      <input type="number" step="1" min="0" class="form-control" name="departamento" placeholder="Departamento" required>
+		    </div>
+		  </div>
+		  <div class="row" style="margin-top: 10px;">
+		    <strong><span class="control-label col-md-3 col-sm-3 ">Localidad:</span></strong>
+		    <div class="col-md-8 col-sm-8 col-xs-12">
+		      <input type="text" class="form-control" name="localidad" placeholder="Localidad" required>
+		    </div>
+		  </div>
+		  <div class="row" style="margin-top: 10px;">
+		    <strong><span class="control-label col-md-3 col-sm-3 ">Provincia:</span></strong>
+		    <div class="col-md-8 col-sm-8 col-xs-12">
+		      <input type="text" class="form-control" name="provincia" placeholder="Provincia" required>
+		    </div>
+		  </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+        <button type="submit" class="btn btn-primary" id="guardar_nuevo_domicilio">Guardar</button>
+      </div>
+      </form>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
 {% endblock modals %}
 
     
